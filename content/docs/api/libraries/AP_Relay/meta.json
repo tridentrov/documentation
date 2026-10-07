@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "AP_Relay",
+    "AP_Relay_config",
+    "AP_Relay_Params"
+  ],
+  "defaultOpen": true
+}

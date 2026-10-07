@@ -1,0 +1,266 @@
+---
+title: "MAVLink uAvionix dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# uAvionix dialect
+
+MAVLink dialect **uAvionix**.
+
+## Enumerations
+
+### `UAVIONIX_ADSB_OUT_DYNAMIC_STATE`
+
+State flags for ADS-B transponder dynamic report
+
+- `UAVIONIX_ADSB_OUT_DYNAMIC_STATE_INTENT_CHANGE` = `1` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_STATE_AUTOPILOT_ENABLED` = `2` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_STATE_NICBARO_CROSSCHECKED` = `4` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_STATE_ON_GROUND` = `8` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_STATE_IDENT` = `16` — 
+
+### `UAVIONIX_ADSB_OUT_RF_SELECT`
+
+Transceiver RF control flags for ADS-B transponder dynamic reports
+
+- `UAVIONIX_ADSB_OUT_RF_SELECT_RX_ENABLED` = `1` — 
+- `UAVIONIX_ADSB_OUT_RF_SELECT_TX_ENABLED` = `2` — 
+
+### `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX`
+
+Status for ADS-B transponder dynamic input
+
+- `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX_NONE_0` = `0` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX_NONE_1` = `1` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX_2D` = `2` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX_3D` = `3` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX_DGPS` = `4` — 
+- `UAVIONIX_ADSB_OUT_DYNAMIC_GPS_FIX_RTK` = `5` — 
+
+### `UAVIONIX_ADSB_RF_HEALTH`
+
+Status flags for ADS-B transponder dynamic output
+
+- `UAVIONIX_ADSB_RF_HEALTH_OK` = `1` — 
+- `UAVIONIX_ADSB_RF_HEALTH_FAIL_TX` = `2` — 
+- `UAVIONIX_ADSB_RF_HEALTH_FAIL_RX` = `16` — 
+
+### `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE`
+
+Definitions for aircraft size
+
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_NO_DATA` = `0` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L15M_W23M` = `1` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L25M_W28P5M` = `2` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L25_34M` = `3` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L35_33M` = `4` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L35_38M` = `5` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L45_39P5M` = `6` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L45_45M` = `7` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L55_45M` = `8` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L55_52M` = `9` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L65_59P5M` = `10` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L65_67M` = `11` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L75_W72P5M` = `12` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L75_W80M` = `13` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L85_W80M` = `14` — 
+- `UAVIONIX_ADSB_OUT_CFG_AIRCRAFT_SIZE_L85_W90M` = `15` — 
+
+### `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT`
+
+GPS lataral offset encoding
+
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_NO_DATA` = `0` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_LEFT_2M` = `1` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_LEFT_4M` = `2` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_LEFT_6M` = `3` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_RIGHT_0M` = `4` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_RIGHT_2M` = `5` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_RIGHT_4M` = `6` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LAT_RIGHT_6M` = `7` — 
+
+### `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LON`
+
+GPS longitudinal offset encoding
+
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LON_NO_DATA` = `0` — 
+- `UAVIONIX_ADSB_OUT_CFG_GPS_OFFSET_LON_APPLIED_BY_SENSOR` = `1` — 
+
+### `UAVIONIX_ADSB_EMERGENCY_STATUS`
+
+Emergency status encoding
+
+- `UAVIONIX_ADSB_OUT_NO_EMERGENCY` = `0` — 
+- `UAVIONIX_ADSB_OUT_GENERAL_EMERGENCY` = `1` — 
+- `UAVIONIX_ADSB_OUT_LIFEGUARD_EMERGENCY` = `2` — 
+- `UAVIONIX_ADSB_OUT_MINIMUM_FUEL_EMERGENCY` = `3` — 
+- `UAVIONIX_ADSB_OUT_NO_COMM_EMERGENCY` = `4` — 
+- `UAVIONIX_ADSB_OUT_UNLAWFUL_INTERFERANCE_EMERGENCY` = `5` — 
+- `UAVIONIX_ADSB_OUT_DOWNED_AIRCRAFT_EMERGENCY` = `6` — 
+- `UAVIONIX_ADSB_OUT_RESERVED` = `7` — 
+
+### `UAVIONIX_ADSB_OUT_CONTROL_STATE`
+
+State flags for ADS-B transponder dynamic report
+
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_EXTERNAL_BARO_CROSSCHECKED` = `1` — 
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_ON_GROUND` = `4` — 
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_IDENT_BUTTON_ACTIVE` = `8` — 
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_MODE_A_ENABLED` = `16` — 
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_MODE_C_ENABLED` = `32` — 
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_MODE_S_ENABLED` = `64` — 
+- `UAVIONIX_ADSB_OUT_CONTROL_STATE_1090ES_TX_ENABLED` = `128` — 
+
+### `UAVIONIX_ADSB_XBIT`
+
+State flags for X-Bit and reserved fields.
+
+- `UAVIONIX_ADSB_XBIT_ENABLED` = `128` — 
+
+### `UAVIONIX_ADSB_OUT_STATUS_STATE`
+
+State flags for ADS-B transponder status report
+
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_ON_GROUND` = `1` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_INTERROGATED_SINCE_LAST` = `2` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_XBIT_ENABLED` = `4` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_IDENT_ACTIVE` = `8` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_MODE_A_ENABLED` = `16` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_MODE_C_ENABLED` = `32` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_MODE_S_ENABLED` = `64` — 
+- `UAVIONIX_ADSB_OUT_STATUS_STATE_1090ES_TX_ENABLED` = `128` — 
+
+### `UAVIONIX_ADSB_OUT_STATUS_NIC_NACP`
+
+State flags for ADS-B transponder status report
+
+- `UAVIONIX_ADSB_NIC_CR_20_NM` = `1` — 
+- `UAVIONIX_ADSB_NIC_CR_8_NM` = `2` — 
+- `UAVIONIX_ADSB_NIC_CR_4_NM` = `3` — 
+- `UAVIONIX_ADSB_NIC_CR_2_NM` = `4` — 
+- `UAVIONIX_ADSB_NIC_CR_1_NM` = `5` — 
+- `UAVIONIX_ADSB_NIC_CR_0_3_NM` = `6` — 
+- `UAVIONIX_ADSB_NIC_CR_0_2_NM` = `7` — 
+- `UAVIONIX_ADSB_NIC_CR_0_1_NM` = `8` — 
+- `UAVIONIX_ADSB_NIC_CR_75_M` = `9` — 
+- `UAVIONIX_ADSB_NIC_CR_25_M` = `10` — 
+- `UAVIONIX_ADSB_NIC_CR_7_5_M` = `11` — 
+- `UAVIONIX_ADSB_NACP_EPU_10_NM` = `16` — 
+- `UAVIONIX_ADSB_NACP_EPU_4_NM` = `32` — 
+- `UAVIONIX_ADSB_NACP_EPU_2_NM` = `48` — 
+- `UAVIONIX_ADSB_NACP_EPU_1_NM` = `64` — 
+- `UAVIONIX_ADSB_NACP_EPU_0_5_NM` = `80` — 
+- `UAVIONIX_ADSB_NACP_EPU_0_3_NM` = `96` — 
+- `UAVIONIX_ADSB_NACP_EPU_0_1_NM` = `112` — 
+- `UAVIONIX_ADSB_NACP_EPU_0_05_NM` = `128` — 
+- `UAVIONIX_ADSB_NACP_EPU_30_M` = `144` — 
+- `UAVIONIX_ADSB_NACP_EPU_10_M` = `160` — 
+- `UAVIONIX_ADSB_NACP_EPU_3_M` = `176` — 
+
+### `UAVIONIX_ADSB_OUT_STATUS_FAULT`
+
+State flags for ADS-B transponder fault report
+
+- `UAVIONIX_ADSB_OUT_STATUS_FAULT_STATUS_MESSAGE_UNAVAIL` = `8` — 
+- `UAVIONIX_ADSB_OUT_STATUS_FAULT_GPS_NO_POS` = `16` — 
+- `UAVIONIX_ADSB_OUT_STATUS_FAULT_GPS_UNAVAIL` = `32` — 
+- `UAVIONIX_ADSB_OUT_STATUS_FAULT_TX_SYSTEM_FAIL` = `64` — 
+- `UAVIONIX_ADSB_OUT_STATUS_FAULT_MAINT_REQ` = `128` — 
+
+## Messages
+
+### UAVIONIX_ADSB_OUT_CFG (ID 10001)
+
+Static data to configure the ADS-B transponder (send within 10 sec of a POR and every 10 sec thereafter)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `ICAO` | `uint32_t` | Vehicle address (24 bit) |
+| `callsign` | `char[9]` | Vehicle identifier (8 characters, null terminated, valid characters are A-Z, 0-9, " " only) |
+| `emitterType` | `uint8_t` | Transmitting vehicle type. See ADSB_EMITTER_TYPE enum |
+| `aircraftSize` | `uint8_t` | Aircraft length and width encoding (table 2-35 of DO-282B) |
+| `gpsOffsetLat` | `uint8_t` | GPS antenna lateral offset (table 2-36 of DO-282B) |
+| `gpsOffsetLon` | `uint8_t` | GPS antenna longitudinal offset from nose [if non-zero, take position (in meters) divide by 2 and add one] (table 2-37 DO-282B) |
+| `stallSpeed` | `uint16_t` | Aircraft stall speed in cm/s |
+| `rfSelect` | `uint8_t` | ADS-B transponder receiver and transmit enable flags |
+
+### UAVIONIX_ADSB_OUT_DYNAMIC (ID 10002)
+
+Dynamic data used to generate ADS-B out transponder data (send at 5Hz)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `utcTime` | `uint32_t` | UTC time in seconds since GPS epoch (Jan 6, 1980). If unknown set to UINT32_MAX |
+| `gpsLat` | `int32_t` | Latitude WGS84 (deg * 1E7). If unknown set to INT32_MAX |
+| `gpsLon` | `int32_t` | Longitude WGS84 (deg * 1E7). If unknown set to INT32_MAX |
+| `gpsAlt` | `int32_t` | Altitude (WGS84). UP +ve. If unknown set to INT32_MAX |
+| `gpsFix` | `uint8_t` | 0-1: no fix, 2: 2D fix, 3: 3D fix, 4: DGPS, 5: RTK |
+| `numSats` | `uint8_t` | Number of satellites visible. If unknown set to UINT8_MAX |
+| `baroAltMSL` | `int32_t` | Barometric pressure altitude (MSL) relative to a standard atmosphere of 1013.2 mBar and NOT bar corrected altitude (m * 1E-3). (up +ve). If unknown set to INT32_MAX |
+| `accuracyHor` | `uint32_t` | Horizontal accuracy in mm (m * 1E-3). If unknown set to UINT32_MAX |
+| `accuracyVert` | `uint16_t` | Vertical accuracy in cm. If unknown set to UINT16_MAX |
+| `accuracyVel` | `uint16_t` | Velocity accuracy in mm/s (m * 1E-3). If unknown set to UINT16_MAX |
+| `velVert` | `int16_t` | GPS vertical speed in cm/s. If unknown set to INT16_MAX |
+| `velNS` | `int16_t` | North-South velocity over ground in cm/s North +ve. If unknown set to INT16_MAX |
+| `VelEW` | `int16_t` | East-West velocity over ground in cm/s East +ve. If unknown set to INT16_MAX |
+| `emergencyStatus` | `uint8_t` | Emergency status |
+| `state` | `uint16_t` | ADS-B transponder dynamic input state flags |
+| `squawk` | `uint16_t` | Mode A code (typically 1200 [0x04B0] for VFR) |
+
+### UAVIONIX_ADSB_TRANSCEIVER_HEALTH_REPORT (ID 10003)
+
+Transceiver heartbeat with health report (updated every 10s)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `rfHealth` | `uint8_t` | ADS-B transponder messages |
+
+### UAVIONIX_ADSB_OUT_CFG_REGISTRATION (ID 10004)
+
+Aircraft Registration.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `registration` | `char[9]` | Aircraft Registration (ASCII string A-Z, 0-9 only), e.g. "N8644B ". Trailing spaces (0x20) only. This is null-terminated. |
+
+### UAVIONIX_ADSB_OUT_CFG_FLIGHTID (ID 10005)
+
+Flight Identification for ADSB-Out vehicles.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `flight_id` | `char[9]` | Flight Identification: 8 ASCII characters, '0' through '9', 'A' through 'Z' or space. Spaces (0x20) used as a trailing pad character, or when call sign is unavailable. Reflects Control message setting. This is null-terminated. |
+
+### UAVIONIX_ADSB_GET (ID 10006)
+
+Request messages.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `ReqMessageId` | `uint32_t` | Message ID to request. Supports any message in this 10000-10099 range |
+
+### UAVIONIX_ADSB_OUT_CONTROL (ID 10007)
+
+Control message with all data sent in UCP control message.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `state` | `uint8_t` | ADS-B transponder control state flags |
+| `baroAltMSL` | `int32_t` | Barometric pressure altitude (MSL) relative to a standard atmosphere of 1013.2 mBar and NOT bar corrected altitude (m * 1E-3). (up +ve). If unknown set to INT32_MAX |
+| `squawk` | `uint16_t` | Mode A code (typically 1200 [0x04B0] for VFR) |
+| `emergencyStatus` | `uint8_t` | Emergency status |
+| `flight_id` | `char[8]` | Flight Identification: 8 ASCII characters, '0' through '9', 'A' through 'Z' or space. Spaces (0x20) used as a trailing pad character, or when call sign is unavailable. |
+| `x_bit` | `uint8_t` | X-Bit enable (military transponders only) |
+
+### UAVIONIX_ADSB_OUT_STATUS (ID 10008)
+
+Status message with information from UCP Heartbeat and Status messages.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `state` | `uint8_t` | ADS-B transponder status state flags |
+| `squawk` | `uint16_t` | Mode A code (typically 1200 [0x04B0] for VFR) |
+| `NIC_NACp` | `uint8_t` | Integrity and Accuracy of traffic reported as a 4-bit value for each field (NACp 7:4, NIC 3:0) and encoded by Containment Radius (HPL) and Estimated Position Uncertainty (HFOM), respectively |
+| `boardTemp` | `uint8_t` | Board temperature in C |
+| `fault` | `uint8_t` | ADS-B transponder fault flags |
+| `flight_id` | `char[8]` | Flight Identification: 8 ASCII characters, '0' through '9', 'A' through 'Z' or space. Spaces (0x20) used as a trailing pad character, or when call sign is unavailable. |

@@ -1,0 +1,22 @@
+{
+  "pages": [
+    "BattMon_ANX",
+    "CircuitStatus",
+    "EFI_DLA",
+    "EFI_DLA64",
+    "EFI_Halo6000",
+    "EFI_HFE",
+    "EFI_NMEA2k",
+    "EFI_SkyPower",
+    "Generator_SVFFI",
+    "Hobbywing_DataLink",
+    "INF_Inject",
+    "LTE_modem",
+    "mount-djirs2-driver",
+    "TOFSense-M",
+    "torqeedo-torqlink",
+    "UltraMotion",
+    "VSPeak_flow_meter"
+  ],
+  "defaultOpen": true
+}

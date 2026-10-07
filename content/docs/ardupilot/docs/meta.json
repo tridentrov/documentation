@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "build-apmrover2",
+    "build-arducopter",
+    "build-arduplane",
+    "build-ardusub",
+    "build-libs",
+    "config",
+    "README",
+    "setup"
+  ],
+  "defaultOpen": true
+}

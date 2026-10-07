@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "---API namespaces---",
+    "ArduSub",
+    "libraries"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index",
+  "title": "API reference",
+  "description": "Generated ArduPilot API reference"
+}

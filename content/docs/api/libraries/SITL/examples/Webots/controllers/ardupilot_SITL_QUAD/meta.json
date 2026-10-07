@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "ardupilot_SITL_QUAD",
+    "sensors",
+    "sockets"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "AP_GyroFFT",
+    "CMSIS_5"
+  ],
+  "defaultOpen": true
+}

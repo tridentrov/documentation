@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "ap_version",
+    "byteswap",
+    "endian",
+    "fenv",
+    "string",
+    "sys"
+  ],
+  "defaultOpen": true
+}

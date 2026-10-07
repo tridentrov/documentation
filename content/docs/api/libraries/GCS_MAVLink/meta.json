@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "ap_message",
+    "GCS",
+    "GCS_config",
+    "GCS_Dummy",
+    "GCS_FTP",
+    "GCS_MAVLink",
+    "MAVLink_routing",
+    "MissionItemProtocol",
+    "MissionItemProtocol_Fence",
+    "MissionItemProtocol_Rally",
+    "MissionItemProtocol_Waypoints"
+  ],
+  "defaultOpen": true
+}

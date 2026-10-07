@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "AP_CheckFirmware",
+    "AP_CheckFirmwareDefine",
+    "monocypher"
+  ],
+  "defaultOpen": true
+}

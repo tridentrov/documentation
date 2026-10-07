@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AC_HELI_PID",
+    "AC_P",
+    "AC_P_1D",
+    "AC_P_2D",
+    "AC_PI",
+    "AC_PI_2D",
+    "AC_PID",
+    "AC_PID_2D",
+    "AC_PID_Basic",
+    "AP_PIDInfo"
+  ],
+  "defaultOpen": true
+}

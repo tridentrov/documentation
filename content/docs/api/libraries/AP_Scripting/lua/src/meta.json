@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "lapi",
+    "lauxlib",
+    "lcode",
+    "lctype",
+    "ldebug",
+    "ldo",
+    "lfunc",
+    "lgc",
+    "llex",
+    "llimits",
+    "lmem",
+    "lobject",
+    "lopcodes",
+    "lparser",
+    "lprefix",
+    "lstate",
+    "lstring",
+    "ltable",
+    "ltm",
+    "lua",
+    "luaconf",
+    "lualib",
+    "lundump",
+    "lvm",
+    "lzio"
+  ],
+  "defaultOpen": true
+}

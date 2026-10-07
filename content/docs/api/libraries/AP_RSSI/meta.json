@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "AP_RSSI",
+    "AP_RSSI_config"
+  ],
+  "defaultOpen": true
+}

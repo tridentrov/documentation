@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "ardupilot_SITL_QUAD",
+    "ardupilot_SITL_ROVER",
+    "ardupilot_SITL_TRICOPTER"
+  ],
+  "defaultOpen": true
+}

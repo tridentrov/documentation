@@ -1,0 +1,102 @@
+---
+title: "Support Proxy"
+description: "ArduPilot developer documentation"
+---
+
+=====================
+# Partner Support Proxy
+
+
+This page tells you how to take advantage of the ArduPilot MAVLink
+support proxy at [support.ardupilot.org](https://support.ardupilot.org). You have likely been directed here
+by an ArduPilot support engineer who is wanting you to use the proxy
+to allow the support engineer to connect to your vehicle to assist
+you.
+
+## About the Support Proxy
+
+
+The ArduPilot partner support proxy allows users vehicles running
+ArduPilot to connect to a support engineer. Key features:
+
+ - uses MAVLink2 signing to maintain security
+ - does not need a public IP address for either user or support engineer
+
+## Connecting to the Support Proxy
+
+
+Your support engineer will have given you a number which you should
+use when connecting. It will be a 5 or 6 digit number. In the diagrams
+below we will use the example number '10001'. Please replace that with
+the number you have been told to use.
+
+To get started, select the Support Proxy option under Setup-&gt;Advanced
+in MissionPlanner:
+
+![MissionPlanner_start_support1](/docs/dev/images/MissionPlanner_start_support1.jpg)
+If you don't see this option then you have an old version of
+MissionPlanner and should update to the latest release.
+
+Next enter the 5 or 6 digit ID that your support engineer have you and press connect:
+
+![MissionPlanner_start_support2](/docs/dev/images/MissionPlanner_start_support2.jpg)
+at this point you are streaming your mavlink data to the proxy
+server. The support person will be able to connect and help you. You
+can click the Stop button to stop forwarding your link.
+
+<Callout type="info">
+Please close MissionPlanner completely when you have finished with
+your support session to ensure the port is released.
+</Callout>
+
+## Connecting with QGroundControl
+
+
+To forward your connection to the support engineer from QGroundControl
+you need to use this configuration setting:
+
+![QGroundControl_mavlink_mirror](/docs/dev/images/QGroundControl_mavlink_mirror.jpg)
+You need to put support.ardupilot.org:XXXXX where XXXXX is the support
+port number your support engineer has given you.
+
+<Callout type="info">
+Please remember to untick the "Enable MAVLink forwarding" option
+when your support session is completed!
+</Callout>
+
+![QGroundControl_mavlink_mirror2](/docs/dev/images/QGroundControl_mavlink_mirror2.jpg)
+## Connecting With MavProxy
+
+
+If you use mavproxy instead of MissionPlanner then you should add connect like this:
+
+```text
+mavproxy.py --console --map --out support.ardupilot.org:10001
+```
+
+or instead you can do “output add support.ardupilot.org:10001” from an already connected session.
+
+## CAN Management
+
+
+Note that as CAN packets can be forwarded over MAVLink you can
+configure DroneCAN devices remotely via the proxy. Use the
+MAVLink-CAN1 or MAVLink-CAN2 buttons in Setup-&gt;Optional
+Hardware-&gt;DroneCAN to start looking at the remote CAN bus.
+
+## The Support Proxy Dashboard
+
+
+The proxy has a web dashboard at [support.ardupilot.org/dashboard](https://support.ardupilot.org/dashboard). As an ArduPilot
+*user* you do not normally need it. It is used by support engineers
+(and the partner organisation that gave you your connection number)
+to manage the connection: changing the MAVLink2 signing pass phrase,
+seeing who is currently connected, and optionally recording the
+telemetry of a support session for later analysis. If you have been
+given the pass phrase for your connection you can log in there with
+your connection number and pass phrase.
+
+## Connecting as a Support Engineer
+
+
+- [Connection](/docs/dev/Connection)

@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "AnalogIn",
+    "AP_HAL_QURT",
+    "AP_HAL_QURT_Main",
+    "AP_HAL_QURT_Namespace",
+    "AP_HAL_QURT_Private",
+    "ap_host",
+    "DeviceBus",
+    "HAL_QURT_Class",
+    "I2CDevice",
+    "interface",
+    "RCInput",
+    "RCOutput",
+    "replace",
+    "Scheduler",
+    "Semaphores",
+    "SPIDevice",
+    "Storage",
+    "Thread",
+    "UARTDriver",
+    "Util"
+  ],
+  "defaultOpen": true
+}

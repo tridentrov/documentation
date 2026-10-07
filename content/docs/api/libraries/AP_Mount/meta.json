@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "AP_Mount",
+    "AP_Mount_Alexmos",
+    "AP_Mount_Backend",
+    "AP_Mount_Backend_Serial",
+    "AP_Mount_CADDX",
+    "AP_Mount_config",
+    "AP_Mount_MAVLink",
+    "AP_Mount_Params",
+    "AP_Mount_Scripting",
+    "AP_Mount_Servo",
+    "AP_Mount_Siyi",
+    "AP_Mount_SoloGimbal",
+    "AP_Mount_SToRM32",
+    "AP_Mount_SToRM32_serial",
+    "AP_Mount_Topotek",
+    "AP_Mount_Viewpro",
+    "AP_Mount_Xacti",
+    "AP_Mount_XFRobot",
+    "LogStructure",
+    "SoloGimbal",
+    "SoloGimbal_Parameters",
+    "SoloGimbalEKF"
+  ],
+  "defaultOpen": true
+}

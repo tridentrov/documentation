@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_Torqeedo",
+    "AP_Torqeedo_Backend",
+    "AP_Torqeedo_config",
+    "AP_Torqeedo_Params",
+    "AP_Torqeedo_TQBus"
+  ],
+  "defaultOpen": true
+}

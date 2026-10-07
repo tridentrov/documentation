@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "AP_DAC",
+    "AP_DAC_Backend",
+    "AP_DAC_config",
+    "AP_DAC_MCP40D1x",
+    "AP_DAC_Params",
+    "AP_DAC_TIx3204"
+  ],
+  "defaultOpen": true
+}

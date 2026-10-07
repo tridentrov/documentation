@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "import": "python3 scripts/import_docs.py",
+    "verify:docs": "python3 scripts/import_docs.py --verify",
+    "verify:migration": "python3 scripts/verify_migration.py",
     "dev": "next dev",
     "start": "next start",
     "types:check": "next typegen && tsc --noEmit"

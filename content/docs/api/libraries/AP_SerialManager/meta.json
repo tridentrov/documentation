@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "AP_SerialManager",
+    "AP_SerialManager_config"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_Winch",
+    "AP_Winch_Backend",
+    "AP_Winch_config",
+    "AP_Winch_Daiwa",
+    "AP_Winch_PWM"
+  ],
+  "defaultOpen": true
+}

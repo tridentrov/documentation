@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "AP_RPM",
+    "AP_RPM_config",
+    "AP_RPM_Params",
+    "LogStructure",
+    "RPM_Backend",
+    "RPM_DroneCAN",
+    "RPM_EFI",
+    "RPM_ESC_Telem",
+    "RPM_Generator",
+    "RPM_HarmonicNotch",
+    "RPM_Pin",
+    "RPM_SITL"
+  ],
+  "defaultOpen": true
+}

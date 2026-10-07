@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "arming",
+    "waypoints",
+    "geofence",
+    "rally",
+    "parameters",
+    "flightModes",
+    "calibration",
+    "system"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index"
+}

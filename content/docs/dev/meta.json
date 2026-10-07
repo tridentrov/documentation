@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "docs"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index",
+  "title": "Developer documentation",
+  "description": "ArduPilot developer documentation"
+}

@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "download_and_installation",
+    "quickstart",
+    "starting",
+    "forwarding",
+    "mavinit",
+    "logfiles",
+    "settings",
+    "examples",
+    "faq",
+    "multi",
+    "cheatsheet"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index"
+}

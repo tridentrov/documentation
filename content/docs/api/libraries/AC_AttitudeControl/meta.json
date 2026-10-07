@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AC_AttitudeControl",
+    "AC_AttitudeControl_Heli",
+    "AC_AttitudeControl_Multi",
+    "AC_AttitudeControl_Multi_6DoF",
+    "AC_AttitudeControl_Sub",
+    "AC_AttitudeControl_TS",
+    "AC_CommandModel",
+    "AC_PosControl",
+    "AC_WeatherVane",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "AP_OSD",
+    "AP_OSD_Backend",
+    "AP_OSD_config",
+    "AP_OSD_MAX7456",
+    "AP_OSD_MSP",
+    "AP_OSD_MSP_DisplayPort",
+    "AP_OSD_SITL"
+  ],
+  "defaultOpen": true
+}

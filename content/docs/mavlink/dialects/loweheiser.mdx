@@ -1,0 +1,46 @@
+---
+title: "MAVLink loweheiser dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# loweheiser dialect
+
+MAVLink dialect **loweheiser**.
+
+## Enumerations
+
+### `MAV_CMD`
+
+- `MAV_CMD_LOWEHEISER_SET_STATE` = `10151` — Set Loweheiser desired states
+
+## Messages
+
+### LOWEHEISER_GOV_EFI (ID 10151)
+
+Composite EFI and Governor data from Loweheiser equipment. This message is created by the EFI unit based on its own data and data received from a governor attached to that EFI unit.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `volt_batt` | `float` | Generator Battery voltage. |
+| `curr_batt` | `float` | Generator Battery current. |
+| `curr_gen` | `float` | Current being produced by generator. |
+| `curr_rot` | `float` | Load current being consumed by the UAV (sum of curr_gen and curr_batt) |
+| `fuel_level` | `float` | Generator fuel remaining in litres. |
+| `throttle` | `float` | Throttle Output. |
+| `runtime` | `uint32_t` | Seconds this generator has run since it was rebooted. |
+| `until_maintenance` | `int32_t` | Seconds until this generator requires maintenance. A negative value indicates maintenance is past due. |
+| `rectifier_temp` | `float` | The Temperature of the rectifier. |
+| `generator_temp` | `float` | The temperature of the mechanical motor, fuel cell core or generator. |
+| `efi_batt` | `float` | EFI Supply Voltage. |
+| `efi_rpm` | `float` | Motor RPM. |
+| `efi_pw` | `float` | Injector pulse-width in milliseconds. |
+| `efi_fuel_flow` | `float` | Fuel flow rate in litres/hour. |
+| `efi_fuel_consumed` | `float` | Fuel consumed. |
+| `efi_baro` | `float` | Atmospheric pressure. |
+| `efi_mat` | `float` | Manifold Air Temperature. |
+| `efi_clt` | `float` | Cylinder Head Temperature. |
+| `efi_tps` | `float` | Throttle Position. |
+| `efi_exhaust_gas_temperature` | `float` | Exhaust gas temperature. |
+| `efi_index` | `uint8_t` | EFI index. |
+| `generator_status` | `uint16_t` | Generator status. |
+| `efi_status` | `uint16_t` | EFI status. |

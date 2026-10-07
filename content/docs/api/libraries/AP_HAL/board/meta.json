@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "chibios",
+    "empty",
+    "esp32",
+    "linux",
+    "qurt",
+    "sitl"
+  ],
+  "defaultOpen": true
+}

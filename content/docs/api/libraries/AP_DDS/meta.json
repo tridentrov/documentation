@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "AP_DDS_Client",
+    "AP_DDS_config",
+    "AP_DDS_External_Odom",
+    "AP_DDS_ExternalControl",
+    "AP_DDS_Frames",
+    "AP_DDS_Service_Table",
+    "AP_DDS_Topic_Table",
+    "AP_DDS_Type_Conversions"
+  ],
+  "defaultOpen": true
+}

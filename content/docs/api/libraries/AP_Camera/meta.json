@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "AP_Camera",
+    "AP_Camera_Backend",
+    "AP_Camera_config",
+    "AP_Camera_MAVLink",
+    "AP_Camera_MAVLinkCamV2",
+    "AP_Camera_Mount",
+    "AP_Camera_Params",
+    "AP_Camera_Relay",
+    "AP_Camera_Scripting",
+    "AP_Camera_Servo",
+    "AP_Camera_shareddefs",
+    "AP_Camera_SoloGimbal",
+    "AP_RunCam",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

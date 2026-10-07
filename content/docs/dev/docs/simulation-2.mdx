@@ -1,0 +1,75 @@
+---
+title: "Simulation 2"
+description: "ArduPilot developer documentation"
+---
+
+==========
+# Simulation
+
+
+![simulation-landingpage](/docs/dev/images/simulation-landingpage.jpg)
+Simulation allows for the safe testing of experimental code and settings. Crashing virtual vehicles is a lot cheaper than crashing real ones!
+
+# Overview
+
+
+Simulation is implemented by using a Flight Dynamics Model (FDM) of the vehicle to simulate the physics involved with vehicle movement. It receives inputs from a SITL (Software in the Loop) program running the ArduPilot firmware (which are the firmware's servo/motor outputs) and outputs vehicle status,position, velocities, etc. that result from those inputs back to the firmware simulation. Just as sensors would in the real world case.
+
+Pilot control is implemented either by joystick, dedicated simulation controller box(like Interlink), or by MAVLink commands from a Ground Control Station program (GCS), like MAVProxy or Mission Planner.
+
+This is illustrated below:
+
+![SITL](/docs/dev/images/SITL.png)
+ArduPilot provides a native firmware simulator + FDM program (all launched by sim_vehicle.py), often simply referred to as ``SITL``, which is usually used with its developer GCS, MAVProxy. ArduPilot's firmware simulator and FDM can also be used by Mission Planner for SITL simulations.
+
+In addition, the ArduPilot firmware simulator element can also be interfaced to other FDM/Graphics programs that are normally used as stand-alone flight/vehicle simulators in order to get more realistic physics models and/or high definition vehicle graphics, such as RealFlight or X-Plane.
+
+<Callout type="info">
+For code developers, we recommend starting with ArduPilot's native [Software In The Loop (SITL)](/docs/dev/docs/sitl-simulator-software-in-the-loop) because the setup is easiest, it does not require a flight controller, and all vehicle types are supported. For non-developers, using Mission Planners integrated simulator does not require setting up a code building environment, for those only wishing to explore simulated behavior of vehicles using existing code.
+</Callout>
+
+The most commonly used simulators are:
+
+-  [SITL (Software In The Loop)](/docs/dev/docs/sitl-simulator-software-in-the-loop) is the simulator most commonly used by developers. It is a simple simulator that is built within all SITL builds of ArduPilot. It is used by the [autotester](/docs/dev/docs/the-ardupilot-autotest-framework) and other simulators below are actually built on top of SITL
+-  [Mission Planner](https://ardupilot.org/planner/docs/mission-planner-simulation.html) can be used in Windows to simulate with Mission Planner as GCS.
+-  [Gazebo](/docs/dev/docs/sitl-with-gazebo) is the official DARPA virtual robotics simulator
+-  [XPlane-10](/docs/dev/docs/sitl-with-xplane) a commercial flight simulator with a rich 3D interface   
+-  [XPlane-10 Soaring](/docs/dev/docs/soaring-sitl-with-xplane) soaring on XPlane-10
+-  [RealFlight](/docs/dev/docs/sitl-with-realflight) a commercial flight simulator with a rich 3D interface and ability to design custom vehicles
+-  [Replay](/docs/dev/docs/testing-with-replay) has no graphical interface but allows re-running master from a dataflash log
+-  [JSBSim](/docs/dev/docs/sitl-with-jsbsim) is a sophisticated open-source plane and multicopter simulator with no graphical interface. It can be used with a wide variety of airframes.
+-  [PteroSim](/docs/dev/docs/sitl-with-pterosim) is a UAV simulator built on Unreal Engine, providing 6-DOF flight dynamics and simulated sensors
+-  [Silent Wings Soaring](/docs/dev/docs/soaring-sitl-with-silentwings) 
+-  [MATLAB and Simulink](/docs/dev/docs/sitl-with-MATLAB) are numerical computing environments used for developing algorithms and plotting data developed by [MathWorks](https://www.mathworks.com/).
+-  [JSON interface](/docs/dev/docs/sitl-with-JSON) The JSON interface is a generic interface protocol designed to be easy to implement for those developing physics backend. There are Python and MATLAB examples.
+-  [Webots](/docs/dev/docs/sitl-with-webots) is a cross-platform robotics simulator that is quick to set up and get running. It currently has examples for multicopter and rover vehicles.
+-  [Renode](/docs/dev/docs/renode-emulation) is not a vehicle simulator but an MCU emulator: it runs unmodified ArduPilot STM32 firmware on an emulated flight controller, which allows board bring-up, driver and bootloader work to be done without the physical board.
+
+
+Less often used simulators include:
+
+-  [Last Letter](/docs/dev/docs/using-last_letter-as-an-external-sitl-simulator) is a simpler simulator (fixed wing only) with lower CPU requirements than most other simulators.
+-  [CRRCSim](/docs/dev/docs/simulation-2sitl-simulator-software-in-the-loopusing-using-the-crrcsim-simulator) is a less commonly used simulator for fixed wing and helicopters.
+
+List of simulators (so they can appear in the menu):
+
+- [SITL](/docs/dev/SITL)
+- [Mission](/docs/dev/Mission)
+- [Gazebo](/docs/dev/Gazebo)
+- [XPlane 10](/docs/dev/XPlane-10)
+- [XPlane 10](/docs/dev/XPlane-10)
+- [RealFlight](/docs/dev/RealFlight)
+- [Replay](/docs/dev/Replay)
+- [JSBSim](/docs/dev/JSBSim)
+- [PteroSim](/docs/dev/PteroSim)
+- [Silent](/docs/dev/Silent)
+- [Last](/docs/dev/Last)
+- [CRRCSim](/docs/dev/CRRCSim)
+- [HITL](/docs/dev/HITL)
+- [Autotest](/docs/dev/Autotest)
+- [Autotest](/docs/dev/Autotest)
+- [Unit](/docs/dev/Unit)
+- [Webots](/docs/dev/Webots)
+- [MATLAB](/docs/dev/MATLAB)
+- [JSON](/docs/dev/JSON)
+- [Renode](/docs/dev/Renode)

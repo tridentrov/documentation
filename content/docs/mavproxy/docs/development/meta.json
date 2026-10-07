@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "mavdevenvlinux",
+    "mavdevenvwindows",
+    "mavcustmod"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index"
+}

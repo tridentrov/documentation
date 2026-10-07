@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "AP_PiccoloCAN",
+    "AP_PiccoloCAN_config",
+    "AP_PiccoloCAN_Cortex",
+    "AP_PiccoloCAN_Device",
+    "AP_PiccoloCAN_ECU",
+    "AP_PiccoloCAN_ESC",
+    "AP_PiccoloCAN_Servo",
+    "piccolo_protocol"
+  ],
+  "defaultOpen": true
+}

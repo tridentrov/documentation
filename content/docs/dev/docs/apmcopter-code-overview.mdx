@@ -1,0 +1,26 @@
+---
+title: "Apmcopter Code Overview"
+description: "ArduPilot developer documentation"
+---
+
+======================
+# Code Overview (Copter)
+
+
+The [code](https://github.com/ArduPilot/ardupilot) is made up
+of [the main Copter code](https://github.com/ArduPilot/ardupilot/tree/master/ArduCopter) which
+resides in its own directory, and [the libraries](https://github.com/ArduPilot/ardupilot/tree/master/libraries) which
+are shared with Plane and Rover.
+
+Below is a highlevel view of the ardupilot architecture.
+
+![ArduPilot_HighLevelArchecture](/docs/dev/images/ArduPilot_HighLevelArchecture.png)
+Below is a more zoomed in view (as compared to the above diagram) of the architecture.
+
+![copter-architecture](/docs/dev/images/copter-architecture.png)
+The image below shows the architecture of **manual modes** (i.e. Stabilize, Acro, Drift)
+
+![AC_CodeOverview_ManualFlightMode](/docs/dev/images/AC_CodeOverview_ManualFlightMode.png)
+The image below shows the architecture of **autonomous modes** (i.e. RTL, Guided, Auto)
+
+![AC_CodeOverview_AutoFlightModes](/docs/dev/images/AC_CodeOverview_AutoFlightModes.png)

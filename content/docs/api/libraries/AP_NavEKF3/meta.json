@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "AP_NavEKF3",
+    "AP_NavEKF3_core",
+    "AP_NavEKF3_feature",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

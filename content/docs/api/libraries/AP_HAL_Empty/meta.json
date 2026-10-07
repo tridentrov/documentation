@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "AnalogIn",
+    "AP_HAL_Empty",
+    "AP_HAL_Empty_Namespace",
+    "AP_HAL_Empty_Private",
+    "DSP",
+    "Flash",
+    "GPIO",
+    "HAL_Empty_Class",
+    "I2CDevice",
+    "OpticalFlow",
+    "RCInput",
+    "RCOutput",
+    "Scheduler",
+    "Semaphores",
+    "SPIDevice",
+    "Storage",
+    "UARTDriver",
+    "Util",
+    "WSPIDevice"
+  ],
+  "defaultOpen": true
+}

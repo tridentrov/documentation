@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "AP_EFI",
+    "AP_EFI_Backend",
+    "AP_EFI_config",
+    "AP_EFI_Currawong_ECU",
+    "AP_EFI_DroneCAN",
+    "AP_EFI_Loweheiser",
+    "AP_EFI_MAV",
+    "AP_EFI_NWPMU",
+    "AP_EFI_Scripting",
+    "AP_EFI_Serial_Hirth",
+    "AP_EFI_Serial_Lutan",
+    "AP_EFI_Serial_MS",
+    "AP_EFI_State",
+    "AP_EFI_ThrottleLinearisation"
+  ],
+  "defaultOpen": true
+}

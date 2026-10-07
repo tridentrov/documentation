@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "AP_SmartAudio",
+    "AP_Tramp",
+    "AP_VideoTX",
+    "AP_VideoTX_config"
+  ],
+  "defaultOpen": true
+}

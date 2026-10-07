@@ -1,0 +1,332 @@
+---
+title: "MAVLink ASLUAV dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# ASLUAV dialect
+
+MAVLink dialect **ASLUAV**.
+
+## Enumerations
+
+### `MAV_CMD`
+
+- `MAV_CMD_RESET_MPPT` = `40001` — Mission command to reset Maximum Power Point Tracker (MPPT)
+- `MAV_CMD_PAYLOAD_CONTROL` = `40002` — Mission command to perform a power cycle on payload
+
+### `GSM_LINK_TYPE`
+
+- `GSM_LINK_TYPE_NONE` = `0` — no service
+- `GSM_LINK_TYPE_UNKNOWN` = `1` — link type unknown
+- `GSM_LINK_TYPE_2G` = `2` — 2G (GSM/GRPS/EDGE) link
+- `GSM_LINK_TYPE_3G` = `3` — 3G link (WCDMA/HSDPA/HSPA)
+- `GSM_LINK_TYPE_4G` = `4` — 4G link (LTE)
+
+### `GSM_MODEM_TYPE`
+
+- `GSM_MODEM_TYPE_UNKNOWN` = `0` — not specified
+- `GSM_MODEM_TYPE_HUAWEI_E3372` = `1` — HUAWEI LTE USB Stick E3372
+
+## Messages
+
+### COMMAND_INT_STAMPED (ID 223)
+
+Message encoding a command with parameters as scaled integers and additional metadata. Scaling depends on the actual command value.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `utc_time` | `uint32_t` | UTC time, seconds elapsed since 01.01.1970 |
+| `vehicle_timestamp` | `uint64_t` | Microseconds elapsed since vehicle boot |
+| `target_system` | `uint8_t` | System ID |
+| `target_component` | `uint8_t` | Component ID |
+| `frame` | `uint8_t` | The coordinate system of the COMMAND, as defined by MAV_FRAME enum |
+| `command` | `uint16_t` | The scheduled action for the mission item, as defined by MAV_CMD enum |
+| `current` | `uint8_t` | false:0, true:1 |
+| `autocontinue` | `uint8_t` | autocontinue to next wp |
+| `param1` | `float` | PARAM1, see MAV_CMD enum |
+| `param2` | `float` | PARAM2, see MAV_CMD enum |
+| `param3` | `float` | PARAM3, see MAV_CMD enum |
+| `param4` | `float` | PARAM4, see MAV_CMD enum |
+| `x` | `int32_t` | PARAM5 / local: x position in meters * 1e4, global: latitude in degrees * 10^7 |
+| `y` | `int32_t` | PARAM6 / local: y position in meters * 1e4, global: longitude in degrees * 10^7 |
+| `z` | `float` | PARAM7 / z position: global: altitude in meters (MSL, WGS84, AGL or relative to home - depending on frame). |
+
+### COMMAND_LONG_STAMPED (ID 224)
+
+Send a command with up to seven parameters to the MAV and additional metadata
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `utc_time` | `uint32_t` | UTC time, seconds elapsed since 01.01.1970 |
+| `vehicle_timestamp` | `uint64_t` | Microseconds elapsed since vehicle boot |
+| `target_system` | `uint8_t` | System which should execute the command |
+| `target_component` | `uint8_t` | Component which should execute the command, 0 for all components |
+| `command` | `uint16_t` | Command ID, as defined by MAV_CMD enum. |
+| `confirmation` | `uint8_t` | 0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command) |
+| `param1` | `float` | Parameter 1, as defined by MAV_CMD enum. |
+| `param2` | `float` | Parameter 2, as defined by MAV_CMD enum. |
+| `param3` | `float` | Parameter 3, as defined by MAV_CMD enum. |
+| `param4` | `float` | Parameter 4, as defined by MAV_CMD enum. |
+| `param5` | `float` | Parameter 5, as defined by MAV_CMD enum. |
+| `param6` | `float` | Parameter 6, as defined by MAV_CMD enum. |
+| `param7` | `float` | Parameter 7, as defined by MAV_CMD enum. |
+
+### SENS_POWER (ID 8002)
+
+Voltage and current sensor data
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `adc121_vspb_volt` | `float` | Power board voltage sensor reading |
+| `adc121_cspb_amp` | `float` | Power board current sensor reading |
+| `adc121_cs1_amp` | `float` | Board current sensor 1 reading |
+| `adc121_cs2_amp` | `float` | Board current sensor 2 reading |
+
+### SENS_MPPT (ID 8003)
+
+Maximum Power Point Tracker (MPPT) sensor data for solar module power performance tracking
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `mppt_timestamp` | `uint64_t` | MPPT last timestamp |
+| `mppt1_volt` | `float` | MPPT1 voltage |
+| `mppt1_amp` | `float` | MPPT1 current |
+| `mppt1_pwm` | `uint16_t` | MPPT1 pwm |
+| `mppt1_status` | `uint8_t` | MPPT1 status |
+| `mppt2_volt` | `float` | MPPT2 voltage |
+| `mppt2_amp` | `float` | MPPT2 current |
+| `mppt2_pwm` | `uint16_t` | MPPT2 pwm |
+| `mppt2_status` | `uint8_t` | MPPT2 status |
+| `mppt3_volt` | `float` | MPPT3 voltage |
+| `mppt3_amp` | `float` | MPPT3 current |
+| `mppt3_pwm` | `uint16_t` | MPPT3 pwm |
+| `mppt3_status` | `uint8_t` | MPPT3 status |
+
+### ASLCTRL_DATA (ID 8004)
+
+ASL-fixed-wing controller data
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp |
+| `aslctrl_mode` | `uint8_t` | ASLCTRL control-mode (manual, stabilized, auto, etc...) |
+| `h` | `float` | See sourcecode for a description of these values... |
+| `hRef` | `float` |  |
+| `hRef_t` | `float` |  |
+| `PitchAngle` | `float` | Pitch angle |
+| `PitchAngleRef` | `float` | Pitch angle reference |
+| `q` | `float` |  |
+| `qRef` | `float` |  |
+| `uElev` | `float` |  |
+| `uThrot` | `float` |  |
+| `uThrot2` | `float` |  |
+| `nZ` | `float` |  |
+| `AirspeedRef` | `float` | Airspeed reference |
+| `SpoilersEngaged` | `uint8_t` |  |
+| `YawAngle` | `float` | Yaw angle |
+| `YawAngleRef` | `float` | Yaw angle reference |
+| `RollAngle` | `float` | Roll angle |
+| `RollAngleRef` | `float` | Roll angle reference |
+| `p` | `float` |  |
+| `pRef` | `float` |  |
+| `r` | `float` |  |
+| `rRef` | `float` |  |
+| `uAil` | `float` |  |
+| `uRud` | `float` |  |
+
+### ASLCTRL_DEBUG (ID 8005)
+
+ASL-fixed-wing controller debug data
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `i32_1` | `uint32_t` | Debug data |
+| `i8_1` | `uint8_t` | Debug data |
+| `i8_2` | `uint8_t` | Debug data |
+| `f_1` | `float` | Debug data |
+| `f_2` | `float` | Debug data |
+| `f_3` | `float` | Debug data |
+| `f_4` | `float` | Debug data |
+| `f_5` | `float` | Debug data |
+| `f_6` | `float` | Debug data |
+| `f_7` | `float` | Debug data |
+| `f_8` | `float` | Debug data |
+
+### ASLUAV_STATUS (ID 8006)
+
+Extended state information for ASLUAVs
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `LED_status` | `uint8_t` | Status of the position-indicator LEDs |
+| `SATCOM_status` | `uint8_t` | Status of the IRIDIUM satellite communication system |
+| `Servo_status` | `uint8_t[8]` | Status vector for up to 8 servos |
+| `Motor_rpm` | `float` | Motor RPM |
+
+### EKF_EXT (ID 8007)
+
+Extended EKF state estimates for ASLUAVs
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Time since system start |
+| `Windspeed` | `float` | Magnitude of wind velocity (in lateral inertial plane) |
+| `WindDir` | `float` | Wind heading angle from North |
+| `WindZ` | `float` | Z (Down) component of inertial wind velocity |
+| `Airspeed` | `float` | Magnitude of air velocity |
+| `beta` | `float` | Sideslip angle |
+| `alpha` | `float` | Angle of attack |
+
+### ASL_OBCTRL (ID 8008)
+
+Off-board controls/commands for ASLUAVs
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Time since system start |
+| `uElev` | `float` | Elevator command [~] |
+| `uThrot` | `float` | Throttle command [~] |
+| `uThrot2` | `float` | Throttle 2 command [~] |
+| `uAilL` | `float` | Left aileron command [~] |
+| `uAilR` | `float` | Right aileron command [~] |
+| `uRud` | `float` | Rudder command [~] |
+| `obctrl_status` | `uint8_t` | Off-board computer status |
+
+### SENS_ATMOS (ID 8009)
+
+Atmospheric sensors (temperature, humidity, ...)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Time since system boot |
+| `TempAmbient` | `float` | Ambient temperature |
+| `Humidity` | `float` | Relative humidity |
+
+### SENS_BATMON (ID 8010)
+
+Battery pack monitoring data for Li-Ion batteries
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `batmon_timestamp` | `uint64_t` | Time since system start |
+| `temperature` | `float` | Battery pack temperature |
+| `voltage` | `uint16_t` | Battery pack voltage |
+| `current` | `int16_t` | Battery pack current |
+| `SoC` | `uint8_t` | Battery pack state-of-charge |
+| `batterystatus` | `uint16_t` | Battery monitor status report bits in Hex |
+| `serialnumber` | `uint16_t` | Battery monitor serial number in Hex |
+| `safetystatus` | `uint32_t` | Battery monitor safetystatus report bits in Hex |
+| `operationstatus` | `uint32_t` | Battery monitor operation status report bits in Hex |
+| `cellvoltage1` | `uint16_t` | Battery pack cell 1 voltage |
+| `cellvoltage2` | `uint16_t` | Battery pack cell 2 voltage |
+| `cellvoltage3` | `uint16_t` | Battery pack cell 3 voltage |
+| `cellvoltage4` | `uint16_t` | Battery pack cell 4 voltage |
+| `cellvoltage5` | `uint16_t` | Battery pack cell 5 voltage |
+| `cellvoltage6` | `uint16_t` | Battery pack cell 6 voltage |
+
+### FW_SOARING_DATA (ID 8011)
+
+Fixed-wing soaring (i.e. thermal seeking) data
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp |
+| `timestampModeChanged` | `uint64_t` | Timestamp since last mode change |
+| `xW` | `float` | Thermal core updraft strength |
+| `xR` | `float` | Thermal radius |
+| `xLat` | `float` | Thermal center latitude |
+| `xLon` | `float` | Thermal center longitude |
+| `VarW` | `float` | Variance W |
+| `VarR` | `float` | Variance R |
+| `VarLat` | `float` | Variance Lat |
+| `VarLon` | `float` | Variance Lon |
+| `LoiterRadius` | `float` | Suggested loiter radius |
+| `LoiterDirection` | `float` | Suggested loiter direction |
+| `DistToSoarPoint` | `float` | Distance to soar point |
+| `vSinkExp` | `float` | Expected sink rate at current airspeed, roll and throttle |
+| `z1_LocalUpdraftSpeed` | `float` | Measurement / updraft speed at current/local airplane position |
+| `z2_DeltaRoll` | `float` | Measurement / roll angle tracking error |
+| `z1_exp` | `float` | Expected measurement 1 |
+| `z2_exp` | `float` | Expected measurement 2 |
+| `ThermalGSNorth` | `float` | Thermal drift (from estimator prediction step only) |
+| `ThermalGSEast` | `float` | Thermal drift (from estimator prediction step only) |
+| `TSE_dot` | `float` | Total specific energy change (filtered) |
+| `DebugVar1` | `float` | Debug variable 1 |
+| `DebugVar2` | `float` | Debug variable 2 |
+| `ControlMode` | `uint8_t` | Control Mode [-] |
+| `valid` | `uint8_t` | Data valid [-] |
+
+### SENSORPOD_STATUS (ID 8012)
+
+Monitoring of sensorpod status
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp in linuxtime (since 1.1.1970) |
+| `visensor_rate_1` | `uint8_t` | Rate of ROS topic 1 |
+| `visensor_rate_2` | `uint8_t` | Rate of ROS topic 2 |
+| `visensor_rate_3` | `uint8_t` | Rate of ROS topic 3 |
+| `visensor_rate_4` | `uint8_t` | Rate of ROS topic 4 |
+| `recording_nodes_count` | `uint8_t` | Number of recording nodes |
+| `cpu_temp` | `uint8_t` | Temperature of sensorpod CPU in |
+| `free_space` | `uint16_t` | Free space available in recordings directory in [Gb] * 1e2 |
+
+### SENS_POWER_BOARD (ID 8013)
+
+Monitoring of power board status
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp |
+| `pwr_brd_status` | `uint8_t` | Power board status register |
+| `pwr_brd_led_status` | `uint8_t` | Power board leds status |
+| `pwr_brd_system_volt` | `float` | Power board system voltage |
+| `pwr_brd_servo_volt` | `float` | Power board servo voltage |
+| `pwr_brd_digital_volt` | `float` | Power board digital voltage |
+| `pwr_brd_mot_l_amp` | `float` | Power board left motor current sensor |
+| `pwr_brd_mot_r_amp` | `float` | Power board right motor current sensor |
+| `pwr_brd_analog_amp` | `float` | Power board analog current sensor |
+| `pwr_brd_digital_amp` | `float` | Power board digital current sensor |
+| `pwr_brd_ext_amp` | `float` | Power board extension current sensor |
+| `pwr_brd_aux_amp` | `float` | Power board aux current sensor |
+
+### GSM_LINK_STATUS (ID 8014)
+
+Status of GSM modem (connected to onboard computer)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp (of OBC) |
+| `gsm_modem_type` | `uint8_t` | GSM modem used |
+| `gsm_link_type` | `uint8_t` | GSM link type |
+| `rssi` | `uint8_t` | RSSI as reported by modem (unconverted) |
+| `rsrp_rscp` | `uint8_t` | RSRP (LTE) or RSCP (WCDMA) as reported by modem (unconverted) |
+| `sinr_ecio` | `uint8_t` | SINR (LTE) or ECIO (WCDMA) as reported by modem (unconverted) |
+| `rsrq` | `uint8_t` | RSRQ (LTE only) as reported by modem (unconverted) |
+
+### SATCOM_LINK_STATUS (ID 8015)
+
+Status of the SatCom link
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp |
+| `last_heartbeat` | `uint64_t` | Timestamp of the last successful sbd session |
+| `failed_sessions` | `uint16_t` | Number of failed sessions |
+| `successful_sessions` | `uint16_t` | Number of successful sessions |
+| `signal_quality` | `uint8_t` | Signal quality |
+| `ring_pending` | `uint8_t` | Ring call pending |
+| `tx_session_pending` | `uint8_t` | Transmission session pending |
+| `rx_session_pending` | `uint8_t` | Receiving session pending |
+
+### SENSOR_AIRFLOW_ANGLES (ID 8016)
+
+Calibrated airflow angle measurements
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `timestamp` | `uint64_t` | Timestamp |
+| `angleofattack` | `float` | Angle of attack |
+| `angleofattack_valid` | `uint8_t` | Angle of attack measurement valid |
+| `sideslip` | `float` | Sideslip angle |
+| `sideslip_valid` | `uint8_t` | Sideslip angle measurement valid |

@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "AP_ExternalAHRS",
+    "AP_ExternalAHRS_Aeron_plx",
+    "AP_ExternalAHRS_backend",
+    "AP_ExternalAHRS_config",
+    "AP_ExternalAHRS_GSOF",
+    "AP_ExternalAHRS_InertialLabs",
+    "AP_ExternalAHRS_MicroStrain5",
+    "AP_ExternalAHRS_MicroStrain7",
+    "AP_ExternalAHRS_SBG",
+    "AP_ExternalAHRS_SBG_structs",
+    "AP_ExternalAHRS_SensAItion",
+    "AP_ExternalAHRS_SensAItion_Parser",
+    "AP_ExternalAHRS_VectorNav",
+    "MicroStrain_common"
+  ],
+  "defaultOpen": true
+}

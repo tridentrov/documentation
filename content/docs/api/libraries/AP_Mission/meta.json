@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "AP_Mission",
+    "AP_Mission_ChangeDetector",
+    "AP_Mission_config",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

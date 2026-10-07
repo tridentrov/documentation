@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "sitl",
+    "SITL_arm_linux_gnueabihf",
+    "sitl_periph",
+    "sitl_periph_battery_tag",
+    "sitl_periph_battmon",
+    "sitl_periph_gps",
+    "sitl_periph_PPP",
+    "sitl_periph_universal",
+    "SITL_x86_64_linux_gnu",
+    "wasm"
+  ],
+  "defaultOpen": true
+}

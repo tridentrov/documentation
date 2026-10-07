@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "sagetech_mxs",
+    "sg",
+    "sgUtil",
+    "target"
+  ],
+  "defaultOpen": true
+}

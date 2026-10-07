@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "BetterStream",
+    "DataRateLimit",
+    "dsm",
+    "ftoa_engine",
+    "functor",
+    "getopt_cpp",
+    "OwnPtr",
+    "packetise",
+    "print_vprintf",
+    "RCOutput_Tap",
+    "replace",
+    "RingBuffer",
+    "Socket",
+    "Socket_native",
+    "sparse-endian",
+    "xtoa_fast"
+  ],
+  "defaultOpen": true
+}

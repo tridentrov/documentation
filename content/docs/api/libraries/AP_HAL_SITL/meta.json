@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "AnalogIn",
+    "AP_HAL_SITL",
+    "AP_HAL_SITL_Namespace",
+    "AP_HAL_SITL_Private",
+    "CAN_Multicast",
+    "CAN_SocketCAN",
+    "CAN_Transport",
+    "CANSocketIface",
+    "DSP",
+    "GPIO",
+    "HAL_SITL_Class",
+    "I2CDevice",
+    "RCInput",
+    "RCOutput",
+    "Scheduler",
+    "Semaphores",
+    "SITL_Multicast",
+    "SITL_Periph_State",
+    "SITL_State",
+    "SITL_State_common",
+    "SPIDevice",
+    "Storage",
+    "ToneAlarm_SF",
+    "UARTDriver",
+    "Util"
+  ],
+  "defaultOpen": true
+}

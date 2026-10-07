@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_FixedWing",
+    "AP_Vehicle",
+    "AP_Vehicle_config",
+    "AP_Vehicle_Type",
+    "ModeReason"
+  ],
+  "defaultOpen": true
+}

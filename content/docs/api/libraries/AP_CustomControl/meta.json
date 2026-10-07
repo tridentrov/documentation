@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_CustomControl",
+    "AP_CustomControl_Backend",
+    "AP_CustomControl_config",
+    "AP_CustomControl_Empty",
+    "AP_CustomControl_PID"
+  ],
+  "defaultOpen": true
+}

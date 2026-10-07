@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "AP_Beacon",
+    "AP_Beacon_Backend",
+    "AP_Beacon_config",
+    "AP_Beacon_Marvelmind",
+    "AP_Beacon_Nooploop",
+    "AP_Beacon_Pozyx",
+    "AP_Beacon_SITL",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

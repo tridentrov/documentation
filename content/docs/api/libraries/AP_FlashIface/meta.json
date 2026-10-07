@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "AP_FlashIface",
+    "AP_FlashIface_Abstract",
+    "AP_FlashIface_JEDEC"
+  ],
+  "defaultOpen": true
+}

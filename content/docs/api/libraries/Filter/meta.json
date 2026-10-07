@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "AP_Filter",
+    "AP_Filter_config",
+    "AverageFilter",
+    "Butter",
+    "DerivativeFilter",
+    "Filter",
+    "FilterClass",
+    "FilterWithBuffer",
+    "HarmonicNotchFilter",
+    "LowPassFilter",
+    "LowPassFilter2p",
+    "ModeFilter",
+    "NotchFilter",
+    "SlewLimiter"
+  ],
+  "defaultOpen": true
+}

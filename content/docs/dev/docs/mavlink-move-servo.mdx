@@ -1,0 +1,178 @@
+---
+title: "Mavlink Move Servo"
+description: "ArduPilot developer documentation"
+---
+
+============
+# Move a Servo
+
+
+This page explains how MAVLink can be used by a ground station or companion computer to move a servo.  The [user wiki pages for servos is here](https://ardupilot.org/copter/docs/common-servo-landingpage.html).
+
+## Set the Servo position with MAV_CMD_DO_SET_SERVO
+
+
+The servo's position can be set by sending a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) with the command, param1 and param2 fields set as specified for the [MAV_CMD_DO_SET_SERVO](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_SET_SERVO) command.
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_component&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Component ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;command&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;MAV_CMD_DO_SET_SERVO=183&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;confirmation&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param1&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Servo instance number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;PWM (normally between 1000 and 2000)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param3&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param4&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param5&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param6&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param7&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+<Callout type="info">
+"ServoRelayEvent: Channel x is already in use" will be displayed if you try to move a servo that is configured for use as a control surface or for some other feature.  Check the [SERVOx_FUNCTION](https://ardupilot.org/copter/docs/SERVO1_FUNCTION.html) parameter value and ensure it is 0 ("Disabled"), 1 ("RCPassThru"), 22 ("SprayerPump"), 23 ("SprayerSpinner"), or between 51 ("RCIN1") and 66 ("RCIN16")
+</Callout>
+
+**Example**
+
+The example commands below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter:
+
+- module load message
+- module load graph
+- graph SERVO_OUTPUT_RAW.servo8_raw
+
++------------------------------------------------------+-----------------------------+
+ Example MAVProxy/SITL Command                         Description                 
++======================================================+=============================+
+ ``message COMMAND_LONG 0 0 183 0 8 1200 0 0 0 0 0``   Move servo output 8 to 1200 
++------------------------------------------------------+-----------------------------+
+
+## Cycle the Servo position with MAV_CMD_DO_REPEAT_SERVO
+
+
+The servo's position can be set to cycle (i.e. toggle) between a PWM value and [SERVOx_TRIM](https://ardupilot.org/copter/docs/SERVO1_TRIM.html) by sending a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) with fields set as specified for the [MAV_CMD_DO_REPEAT_SERVO](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_REPEAT_SERVO) command.
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_component&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Component ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;command&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;MAV_CMD_DO_REPEAT_SERVO=184&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;confirmation&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param1&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Servo instance number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;PWM (normally between 1000 and 2000)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param3&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Cycle count&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param4&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Cycle time (in milliseconds)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param5&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param6&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param7&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+The example commands below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter:
+
+- module load message
+- module load graph
+- graph SERVO_OUTPUT_RAW.servo8_raw
+
++--------------------------------------------------------+-----------------------------------------------------------+
+ Example MAVProxy/SITL Command                           Description                                               
++========================================================+===========================================================+
+ ``message COMMAND_LONG 0 0 184 0 8 1200 3 1000 0 0 0``  Cycle servo output 8 between 1200 and 1500 3 times at 1hz 
++--------------------------------------------------------+-----------------------------------------------------------+

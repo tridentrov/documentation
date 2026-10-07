@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "CortexDefines",
+    "CortexPackets",
+    "CortexProtocol",
+    "ECUDefines",
+    "ECUPackets",
+    "ECUProtocol",
+    "ECUSettings",
+    "ESCCommands",
+    "ESCDefines",
+    "ESCPackets",
+    "ESCVelocityProtocol",
+    "fielddecode",
+    "fieldencode",
+    "scaleddecode",
+    "scaledencode",
+    "ServoCommands",
+    "ServoDefines",
+    "ServoPackets",
+    "ServoProtocol"
+  ],
+  "defaultOpen": true
+}

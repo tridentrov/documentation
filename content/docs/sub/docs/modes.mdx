@@ -1,0 +1,82 @@
+---
+title: "Modes"
+description: "ArduSub vehicle documentation"
+---
+
+=========
+# Sub Modes
+
+Sub has the following modes:
+
+legend for requirements: P - needs Position(GPS,etc.), D - needs Depth sensor, R - needs Rangefinder
+
+=============   =================================================  =========
+Mode            Description                                        Requires
+=============   =================================================  =========
+MANUAL          Pilot control with no stabilization                 \-
+ACRO            Body-frame rate control, manual depth control       \-
+STABILIZE       Manual angle control, manual depth control          \-
+ALT_HOLD        Stabilize with automatic depth control              D
+AUTO            Automatic mission command list execution            P/D
+GUIDED          Swim to location or velocity/direction using GCS    P/D
+CIRCLE          Circle swim with depth control                      P/D
+SURFACE         Return to surface, pilot directional control        \-
+POSHOLD         Loiter with depth control and pilot overrides       P/D
+MOTOR_DETECT    Automatically determine motor rotation and adjust   \-
+SURFTRAK        Hold distance above seafloor while stabilizing      R
+=============   =================================================  =========
+
+See [Pilot Control](/docs/sub/docs/pilot-control) for more details on modes.
+
+# Mode Specific Parameters
+
+
+## ACRO Mode
+
+* [ACRO_RP_P](/docs/sub/ACRO_RP_P)
+* [ACRO_YAW_P](/docs/sub/ACRO_YAW_P)
+* [ACRO_BAL_ROLL](/docs/sub/ACRO_BAL_ROLL)
+* [ACRO_BAL_PITCH](/docs/sub/ACRO_BAL_PITCH)
+* [ACRO_TRAINER](/docs/sub/ACRO_TRAINER)
+* [ACRO_EXPO](/docs/sub/ACRO_EXPO)
+
+## Stabilization Related
+
+* [ATC_ANGLE_MAX](/docs/sub/ATC_ANGLE_MAX)
+* [JS_GAIN_DEFAULT](/docs/sub/JS_GAIN_DEFAULT)
+
+## ALT_HOLD Mode
+
+* [SURFACE_MAX_THR](/docs/sub/SURFACE_MAX_THR)
+
+## Depth Control Related
+
+* [SURFACE_DEPTH](/docs/sub/SURFACE_DEPTH)
+* [PILOT_SPD_UP](/docs/sub/PILOT_SPD_UP)
+* [PILOT_SPD_DN](/docs/sub/PILOT_SPD_DN)
+* [PILOT_SPEED](/docs/sub/PILOT_SPEED)
+
+## Auto/Guided Waypoint Navigation Related
+
+* [WP_SPD](/docs/sub/WP_SPD)
+* [WP_RADIUS_M](/docs/sub/WP_RADIUS_M)
+* [WP_SPD_UP](/docs/sub/WP_SPD_UP)
+* [WP_SPD_DN](/docs/sub/WP_SPD_DN)
+* [WP_ACC](/docs/sub/WP_ACC)
+* [WP_ACC_Z](/docs/sub/WP_ACC_Z)
+* [WP_RFND_USE](/docs/sub/WP_RFND_USE)
+* [WP_YAW_BEHAVIOR](/docs/sub/WP_YAW_BEHAVIOR)
+
+## CIRCLE Mode
+
+* [CIRCLE_RADIUS_M](/docs/sub/CIRCLE_RADIUS_M)
+* [CIRCLE_RATE](/docs/sub/CIRCLE_RATE)
+* [CIRCLE_OPTIONS](/docs/sub/CIRCLE_OPTIONS)
+
+## Mode Selection
+
+By default modes are controlled via MAVLink command from the GCS or companion computer, or by Joystick Buttons. But RC control can be enabled by setting:
+
+* [RC_PROTOCOLS](/docs/sub/RC_PROTOCOLS)  not equal to zero ("1" is usually used)
+* [FLTMODE_CH](/docs/sub/FLTMODE_CH)   to the RC channel which will control swim mode selection
+* ``FLTMODE1 - FLTMODE6`` to desired Swim Mode

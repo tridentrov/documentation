@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "AP_Scripting",
+    "AP_Scripting_CANSensor",
+    "AP_Scripting_config",
+    "AP_Scripting_CRSFMenu",
+    "AP_Scripting_helpers",
+    "AP_Scripting_SerialAccess",
+    "AP_Scripting_SerialDevice",
+    "generator",
+    "lua",
+    "lua_bindings",
+    "lua_boxed_numerics",
+    "lua_common_defs",
+    "lua_scripts"
+  ],
+  "defaultOpen": true
+}

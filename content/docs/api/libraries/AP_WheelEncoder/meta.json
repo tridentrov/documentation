@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_WheelEncoder",
+    "AP_WheelRateControl",
+    "WheelEncoder_Backend",
+    "WheelEncoder_Quadrature",
+    "WheelEncoder_SITL_Quadrature"
+  ],
+  "defaultOpen": true
+}

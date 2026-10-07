@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "hwdef",
+    "profile",
+    "README",
+    "README.s3.debug.howto",
+    "utils"
+  ],
+  "defaultOpen": true
+}

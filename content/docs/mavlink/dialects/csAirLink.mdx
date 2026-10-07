@@ -1,0 +1,34 @@
+---
+title: "MAVLink csAirLink dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# csAirLink dialect
+
+MAVLink dialect **csAirLink**.
+
+## Enumerations
+
+### `AIRLINK_AUTH_RESPONSE_TYPE`
+
+- `AIRLINK_ERROR_LOGIN_OR_PASS` = `0` — Login or password error
+- `AIRLINK_AUTH_OK` = `1` — Auth successful
+
+## Messages
+
+### AIRLINK_AUTH (ID 52000)
+
+Authorization package
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `login` | `char[50]` | Login |
+| `password` | `char[50]` | Password |
+
+### AIRLINK_AUTH_RESPONSE (ID 52001)
+
+Response to the authorization request
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `resp_type` | `uint8_t` | Response type |

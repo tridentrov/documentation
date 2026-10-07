@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AC_Circle",
+    "AC_Loiter",
+    "AC_WPNav",
+    "AC_WPNav_config",
+    "AC_WPNav_OA"
+  ],
+  "defaultOpen": true
+}

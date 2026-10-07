@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "ardupilot_SITL_TRICOPTER",
+    "sensors",
+    "sockets"
+  ],
+  "defaultOpen": true
+}

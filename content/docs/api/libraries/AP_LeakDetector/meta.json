@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "AP_LeakDetector",
+    "AP_LeakDetector_Analog",
+    "AP_LeakDetector_Backend",
+    "AP_LeakDetector_Digital"
+  ],
+  "defaultOpen": true
+}

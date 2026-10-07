@@ -1,0 +1,47 @@
+---
+title: "Mavlink Mavftp"
+description: "ArduPilot developer documentation"
+---
+
+======
+# MAVFTP
+
+
+MAVFTP supports common FTP operations including uploading, downloading, removing and creating files on the [autopilot file system](/docs/dev/docs/filesystems)
+
+The [official mavlink.io documentation is here](https://mavlink.io/en/services/ftp.html) and contains the detailed sequence of messages that should be passed between the GCS/companion computer and autopilot
+
+Common uses for using MAVFTP include:
+
+- [Uploading firmware to the autopilot](/docs/dev/common-install-sdcard)
+- [Uploading Lua scripts](https://ardupilot.org/copter/docs/common-lua-scripts.html)
+- Fast download of parameters, [onboard logs](https://ardupilot.org/copter/docs/common-logs.html), mission command files and [rally points](https://ardupilot.org/copter/docs/common-rally-points.html) and [terrain data](https://ardupilot.org/copter/docs/terrain-following.html)
+
+# Directory Listings With Times
+
+
+In addition to the plain ``ListDirectory`` operation (opcode 3), ArduPilot 4.8 and later support ``ListDirectoryWithTime`` (opcode 16). Each entry is returned as ``&lt;type&gt;&lt;name&gt;\t&lt;size&gt;\t&lt;mtime&gt;``, where ``mtime`` is the modification time in seconds since the UNIX epoch:
+
+- directories are returned with a size of 0 and their modification time
+- an unknown time is sent as 0. This includes files written to a FAT filesystem while the autopilot had no clock source, which carry the 1980 FAT epoch
+- an entry whose name contains a tab character is sent as a bare ``S`` (skip) entry
+
+# Log Directory (@MAV_LOG)
+
+
+ArduPilot 4.8 and later provide the flight-stack-independent ``@MAV_LOG`` directory defined by the MAVFTP specification. Some ground stations, including QGroundControl, look here first for onboard logs. ``@MAV_LOG`` is an alias for the directory ArduPilot writes its logs to (normally ``APM/LOGS``, or the custom log directory if one is configured), so ``@MAV_LOG/00000001.BIN`` and ``APM/LOGS/00000001.BIN`` are the same file. Files can be listed, read, written, renamed and deleted through either path. Renaming a file between ``@MAV_LOG`` and a different virtual filesystem, such as ``@SYS``, fails with ``EXDEV``.
+
+``@MAV_LOG`` is only present on autopilots that log to a filesystem (normally an SD card). It is not available on boards whose local filesystem is LittleFS, and it can be removed from a [custom build](https://ardupilot.org/copter/docs/common-custom-firmware.html) with the ``FILESYSTEM_MAVLOG`` build option.
+
+<Callout type="info">
+ArduPilot's MAVFTP does not confine requests to a root directory, so ``@MAV_LOG/..`` reaches the rest of the filesystem, as plain paths already do.
+</Callout>
+
+# Reference Implementation
+
+
+[pymavlink](https://github.com/ArduPilot/pymavlink) includes a known-working MAVFTP client, [mavftp.py](https://github.com/ArduPilot/pymavlink/blob/master/mavftp.py) (with its opcode definitions in [mavftp_op.py](https://github.com/ArduPilot/pymavlink/blob/master/mavftp_op.py)), usable both as a Python library and as a standalone command-line tool. It is a good reference for testing a new GCS/companion computer implementation against, or for scripting bulk MAVFTP transfers directly.
+
+<Callout type="warn">
+Implementing only the request/reply sequence described in the MAVLink specification above will work, but will be slow. pymavlink's implementation gets much better throughput by pipelining requests rather than waiting for each reply before sending the next request: reads use ``OP_BurstReadFile`` to stream multiple chunks per request rather than one chunk per ``OP_ReadFile``/reply round-trip, and writes keep a backlog of several in-flight, unacknowledged chunks (a small sliding window, similar in spirit to TCP) instead of sending one ``OP_WriteFile`` and waiting for its ack before sending the next. A GCS/companion computer implementation aiming for good performance should do the same rather than implementing a strict one-request-then-wait-for-reply loop.
+</Callout>

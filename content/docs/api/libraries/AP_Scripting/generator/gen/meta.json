@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "generated_cpp_deps",
+    "generated_cpp_loader",
+    "generated_h_deps"
+  ],
+  "defaultOpen": true
+}

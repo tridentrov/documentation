@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_Soaring",
+    "AP_Soaring_config",
+    "ExtendedKalmanFilter",
+    "SpeedToFly",
+    "Variometer"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "AP_GeodesicGrid",
+    "AP_Math",
+    "chirp",
+    "control",
+    "crc",
+    "definitions",
+    "div1000",
+    "ftype",
+    "location",
+    "matrix3",
+    "matrixN",
+    "polyfit",
+    "polygon",
+    "quaternion",
+    "rotations",
+    "SCurve",
+    "spline5",
+    "SplineCurve",
+    "tests",
+    "vector2",
+    "vector3",
+    "vectorN"
+  ],
+  "defaultOpen": true
+}

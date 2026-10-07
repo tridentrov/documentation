@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "docs"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index",
+  "title": "MAVProxy",
+  "description": "MAVProxy ground-control documentation"
+}

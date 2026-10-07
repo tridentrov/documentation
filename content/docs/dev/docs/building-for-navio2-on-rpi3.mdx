@@ -1,0 +1,443 @@
+---
+title: "Building For Navio2 On Rpi3"
+description: "ArduPilot developer documentation"
+---
+
+===========================
+# Building for NAVIO2 on RPi3
+
+
+# Overview
+
+
+These instructions clarify how to build ArduPilot for the Navio2 board
+on the Navio2's RPi3 board itself using Waf build system. These instructions assume the RPi3
+has already been setup according to the manufacturer's (i.e. Emlid's)
+instructions
+[here](http://docs.emlid.com/navio2/Navio-APM/configuring-raspberry-pi/).
+
+Alternatively you can follow Emlid's instructions on how to build from
+source found
+[here](http://docs.emlid.com/navio2/Navio-APM/building-from-sources/).
+
+## Setup
+
+
+Use an ssh terminal program such as [Putty](http://www.putty.org/) to
+log into the Navio2 board's RPI3.
+
+===============================================
+# Setting up the Build Environment (Linux/Ubuntu)
+
+
+This article shows how to setup your build environment on Linux/Ubuntu machines.
+
+
+# Setup on Ubuntu
+
+
+## Get git
+
+
+==============
+# Installing Git
+
+
+.. inclusion-marker-do-not-remove
+
+Git is a free and open source distributed version control system that is used to manage ArduPilot codebase.
+Git is available on all major OS platforms, and a variety of tools exist to make it easier to get started.
+
+## Git command line
+
+
+##### Ubuntu
+
+
+Linux/Ubuntu users can install with apt :
+
+ - ``sudo apt-get update``
+ - ``sudo apt-get install git``
+ - ``sudo apt-get install gitk git-gui``
+
+<div className="video"><iframe src="https://www.youtube-nocookie.com/embed/G1Kc-1aF8HI" title="YouTube video" loading="lazy" allowFullScreen /></div>
+
+
+##### Windows and other Systems
+
+
+ - download and install from [git-scm.com's download page](http://git-scm.com/downloads)
+
+## Recommended GUI Tools
+
+
+The git command line, gitk and git-gui tools are the basics that all users should have installed and are available from a few places.
+
+A comprehensive list of GUI tools are listed [here on git-scm.com](https://git-scm.com/downloads/guis) but here are a few of the developer favourites:
+
+- [GitHub Desktop](https://desktop.github.com/) for Windows and Mac is an easy to use tool with good GitHub integration but has fewer features than other clients.
+- [Sourcetree for Windows and Mac OSX](https://www.sourcetreeapp.com/) is a full featured tool with a nice interface with many features including allowing individual lines from a file to be included in a new commit (simpler tools only allow the entire file to be included)
+- [GitKraken](https://www.gitkraken.com/) is a a full featured tool for Windows, Mac and Linux
+
+.. Alternative for Windows user
+
+## GitHub Desktop
+
+
+- Go to the [desktop.github.com](https://desktop.github.com/) and push the "Download for Windows" or "Download for macOS" buttons in the middle of the page
+      
+![CloningTheRepository_Windows_DownloadGithub](/docs/dev/images/CloningTheRepository_Windows_DownloadGithub.png)
+- Save the **GitHubSetup.exe** somewhere on your machine and then run it and follow the instructions to install GitHub client
+- On GitHub client click the right arrow button to view a list of recent commits or right-mouse-button click on the ardupilot/ardupilot repository and "open in explorer".
+
+![CloningTheRepository_Windows_OpenGithub](/docs/dev/images/CloningTheRepository_Windows_OpenGithub.png)
+- Ensure your github settings are set to leave line endings untouched.
+
+   -  The "Git Shell (or Bash)" terminal was also installed when you
+      installed Git.  Click on your new "Git Shell (or Bash)" Icon and
+      type in the following in the Git "MINGW32" Terminal window:
+
+```text
+git config --global core.autocrlf false
+```
+
+-  You can now also open the file in your favourite editor such as [NotePad++](http://notepad-plus-plus.org/), [Sublime Text](http://www.sublimetext.com/) or [acme](http://acme.cat-v.org/).
+
+    :start-after: inclusion-marker-do-not-remove
+    :end-before: Alternative for Windows user
+
+## Clone ArduPilot repository
+
+==================
+# Clone a repository
+
+
+![git-fork-clone](/docs/dev/images/git-fork-clone.png)
+.. inclusion-marker-do-not-remove
+
+"Cloning" is git's term for making a local copy of a remote repository (i.e. one held on the GitHub servers).
+
+Developers should clone the main [ArduPilot repository](https://github.com/ArduPilot/ardupilot) (if they simply want to download and compile the latest code) or their own [fork](/docs/dev/docs/git-fork) (if they want to make changes to the source code and potentially submit changes back).
+
+Instructions for commonly used tools are below but whichever tool is used, the URL for the source repo will be required.  This can be found on the right side of the screen on each Github repository home page but in general the URL is:
+
+- ``https://github.com/ArduPilot/ardupilot.git`` for the main ardupilot repo
+- ``https://github.com/your-github-account/ardupilot`` for your [fork](/docs/dev/docs/git-fork) of the ardupilot repo
+
+![APM-Git-Github-Clone](/docs/dev/images/APM-Git-Github-Clone.jpg)
+# Cloning with the command line
+
+
+-  open a terminal and navigate to the directory where you would like the clone to be stored
+-  clone your fork:
+
+```text
+git clone --recurse-submodules https://github.com/your-github-userid/ardupilot
+cd ardupilot
+```
+
+<div className="video"><iframe src="https://www.youtube-nocookie.com/embed/kAli2y2-n-M" title="YouTube video" loading="lazy" allowFullScreen /></div>
+
+   or the main project repo:
+
+```text
+git clone --recurse-submodules https://github.com/ArduPilot/ardupilot
+cd ardupilot
+```
+
+# Cloning with the GitHub GUI (Windows or MAC)
+
+
+- ensure you have installed the [GitHub for Desktop](/docs/dev/docs/git-install)
+- open the [ArduPilot repo](https://github.com/ArduPilot/ardupilot) in your favorite web browser
+- click on the green "Clone or download" button and select "Open in Desktop" and follow the instructions
+
+![CloningTheRepository_Windows1](/docs/dev/images/CloningTheRepository_Windows1.png)
+
+    :start-after: inclusion-marker-do-not-remove
+    :end-before: Cloning with the GitHub GUI (Windows or MAC)
+
+
+<Callout type="info">
+In case some firewalls do not allow ssh access which can cause the above submodule updates to fail, in this instance, you can tell git to unilaterally use https through the following command:
+::
+
+     git config --global url."https://".insteadOf git://
+
+to use https protocols instead of the default git:// prefix.
+</Callout>
+
+## Install some required packages
+
+
+If you are on a debian based system (such as Ubuntu or Mint), we provide [a script](https://github.com/ArduPilot/ardupilot/blob/master/Tools/environment_install/install-prereqs-ubuntu.sh) that will do it for you. 
+This script does NOT support building on operating systems that have reached end of Standard Support such as Ubuntu 20.04 LTS (Focal Fossa).
+
+From the cloned ardupilot directory :
+
+```text
+Tools/environment_install/install-prereqs-ubuntu.sh -y
+```
+
+Reload the path (log-out and log-in to make it permanent):
+
+```text
+. ~/.profile
+```
+
+<Callout type="warn">
+if you update your Linux distribution to a later version, then you will need to repeat this step to assure that all the packages needed will be re-installed for this Linux version
+</Callout>
+
+## Build the code for an autopilot or peripheral board
+
+
+Now you should be able to build with waf as described in [BUILD.md](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md). For example, for a Copter build for the MatekH743 board:
+
+```text
+./waf configure --board MatekH743
+./waf copter
+
+The first configure command should be called only once or when you want to change a
+configuration option. One configuration often used is the `--board` option to
+switch from one board to another one. For example we could switch to
+SkyViper GPS drone and build again:
+```
+
+```text
+./waf configure --board skyviper-v2450
+./waf copter
+```
+
+<Callout type="info">
+the - -help option will list many build options as well as a list of features that can be enabled or disabled, just as in the [Custom Firmware Build Server](https://custom.ardupilot.org/)
+</Callout>
+
+<Callout type="info">
+At this point you have already installed the MAVProxy Ground Control Station (MAVProxy GCS) and are also ready to do Software In the Loop (SITL) simulations of the vehicle code. See [sitl-simulator-software-in-the-loop](/docs/dev/docs/sitl-simulator-software-in-the-loop)  and [setting-up-sitl-on-linux](/docs/dev/docs/setting-up-sitl-on-linux). You are ready to not only build the code but run your build in the ArduPilot SITL simulator.
+</Callout>
+
+<div className="video"><iframe src="https://www.youtube-nocookie.com/embed/4B8BVskH0vc" title="YouTube video" loading="lazy" allowFullScreen /></div>
+
+# Cleaning
+
+
+If there have been updates to some git submodules you may need to do a full clean build. To do that use:
+
+```text
+./waf clean
+```
+
+That will remove the build artifacts so you can do a [build](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md) from scratch
+
+--------------------
+
+# Setup for other Distributions Using the STM Toolchain
+
+
+## Add some directories to your search path (Facultative)
+
+
+<Callout type="info">
+ONLY if you didn't run the install-prereqs script from the previous step.
+</Callout>
+
+Add the following lines to the end of your ".bashrc" in your home
+directory (notice the . on the start of that filename. Also, this is a
+hidden file, so if you're using a file manager, make sure to turn on
+"show hidden files").
+
+```text
+export PATH=$PATH:$HOME/ardupilot/Tools/autotest
+export PATH=/usr/lib/ccache:$PATH
+```
+
+Then reload your PATH by using the "dot" command in a terminal
+
+```text
+. ~/.bashrc
+```
+
+<Callout type="warn">
+Do not use this if you have already use the ``install-prereqs-ubuntu.sh`` script !
+</Callout>
+
+To build for an autopilot target on Linux you need the
+following tools and git repositories:
+
+-  The gcc-arm cross-compiler from [here](https://firmware.ardupilot.org/Tools/STM32-tools/)
+   (ArduPilot is only built and tested on these specific versions of gcc-arm; if installed
+   with ``apt-get`` gcc-arm will not produce a working binary in many cases)
+-  gnu make, gawk and associated standard Linux build tools
+-  On a 64 bit system you will also need to have installed libc6-i386.
+
+Also, it's worth mentioning here that you want to ensure that the
+modemmanager package is not installed and the modem-manager process is
+not running.
+
+## Compiler
+
+
+You need the specific gcc-arm cross-compiler linked above. You need to unpack it where you want, for now let's call this location TARGET_DIR:
+
+```text
+cd TARGET_DIR
+tar -xjvf gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+and then add the bin directory from the tarball to your $PATH by editing
+the $HOME/.bashrc file and adding a line like this to the end. TARGET_DIR is the location chosen previously where you unpacked the toolchain:
+
+``export PATH=$PATH:TARGET_DIR/gcc-arm-none-eabi-10-2020-q4-major/bin``
+
+<Callout type="info">
+Versions of ArduPilot before 4.1 must use the following compiler, gcc-arm-none-eabi-6-2017-q2, which can be found [here](https://firmware.ardupilot.org/Tools/STM32-tools/).
+</Callout>
+
+## Permissions
+
+
+You need to make your user a member of the dialout group:
+
+```text
+sudo usermod -a -G dialout $USER
+```
+
+You will need to log out and then log back in for the group change to take effect.
+
+Now you should be able to build with waf as described in [BUILD.md](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md).
+
+# ccache for faster builds
+
+
+Installing *ccache* will speed up your builds a lot. Once you install it
+(for example with "sudo apt-get install ccache") you should link the
+compiler into /usr/lib/ccache like this:
+
+```text
+cd /usr/lib/ccache
+sudo ln -s /usr/bin/ccache arm-none-eabi-g++
+sudo ln -s /usr/bin/ccache arm-none-eabi-gcc
+```
+
+Then add /usr/lib/ccache to the front of your $PATH
+
+---------
+
+# Setup using Docker
+
+
+<Callout type="info">
+This is not recommended except for special cases where an isolated build environment is required. Using this setup below will prevent the use of graphical elements in SITL unless custom options are added.
+</Callout>
+
+## Clone ArduPilot repository
+
+
+==================
+# Clone a repository
+
+
+![git-fork-clone](/docs/dev/images/git-fork-clone.png)
+.. inclusion-marker-do-not-remove
+
+"Cloning" is git's term for making a local copy of a remote repository (i.e. one held on the GitHub servers).
+
+Developers should clone the main [ArduPilot repository](https://github.com/ArduPilot/ardupilot) (if they simply want to download and compile the latest code) or their own [fork](/docs/dev/docs/git-fork) (if they want to make changes to the source code and potentially submit changes back).
+
+Instructions for commonly used tools are below but whichever tool is used, the URL for the source repo will be required.  This can be found on the right side of the screen on each Github repository home page but in general the URL is:
+
+- ``https://github.com/ArduPilot/ardupilot.git`` for the main ardupilot repo
+- ``https://github.com/your-github-account/ardupilot`` for your [fork](/docs/dev/docs/git-fork) of the ardupilot repo
+
+![APM-Git-Github-Clone](/docs/dev/images/APM-Git-Github-Clone.jpg)
+# Cloning with the command line
+
+
+-  open a terminal and navigate to the directory where you would like the clone to be stored
+-  clone your fork:
+
+```text
+git clone --recurse-submodules https://github.com/your-github-userid/ardupilot
+cd ardupilot
+```
+
+<div className="video"><iframe src="https://www.youtube-nocookie.com/embed/kAli2y2-n-M" title="YouTube video" loading="lazy" allowFullScreen /></div>
+
+   or the main project repo:
+
+```text
+git clone --recurse-submodules https://github.com/ArduPilot/ardupilot
+cd ardupilot
+```
+
+# Cloning with the GitHub GUI (Windows or MAC)
+
+
+- ensure you have installed the [GitHub for Desktop](/docs/dev/docs/git-install)
+- open the [ArduPilot repo](https://github.com/ArduPilot/ardupilot) in your favorite web browser
+- click on the green "Clone or download" button and select "Open in Desktop" and follow the instructions
+
+![CloningTheRepository_Windows1](/docs/dev/images/CloningTheRepository_Windows1.png)
+
+    :start-after: inclusion-marker-do-not-remove
+    :end-before: Cloning with the GitHub GUI (Windows or MAC)
+
+## How to Build the Docker Image
+
+
+Build the docker image and tag it with the name ardupilot:
+
+```text
+docker build . -t ardupilot --build-arg USER_UID=$(id -u) --build-arg USER_GID=$(id -g)
+```
+
+## Run ArduPilot Container
+
+The following command runs the docker container, linking your current directory with
+the Ardupilot source, and launches an interactive shell inside the container. From here
+you can build Ardupilot:
+
+```text
+docker run --rm -it -v "$(pwd):/ardupilot" -u "$(id -u):$(id -g)" ardupilot:latest bash
+```
+
+    :start-after: Setup on Ubuntu
+    :end-before: Setup for other Distributions
+
+<Callout type="info">
+Waf should always be called from the ardupilot's root directory.
+</Callout>
+
+To keep access to Waf convenient, use the following alias from the root ardupilot directory:
+
+```text
+alias waf="$PWD/modules/waf/waf-light"
+```
+
+## Configure
+
+
+Choose the board to be used:
+
+```text
+waf configure --board=navio2
+```
+
+## Build
+
+
+Now you can build arducopter. For copter use the following command:
+
+```text
+waf --targets bin/arducopter
+```
+
+To build a helicopter, specify "arducopter-heli".
+The following frame types are specified in the "Frame Type" item of the Mission Planner menu "INITIAL SETUP".
+
+```text
+Quad Hexa Octa Octa-Quad Y6  Heli Tri
+```
+
+In the end of compilation binary file with the name arducopter will be placed in ``ardupilot/build/navio2/bin/ directory``.

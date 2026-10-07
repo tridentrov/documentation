@@ -1,0 +1,102 @@
+---
+title: "Ardupilot Mavlink Command Package Format"
+description: "ArduPilot developer documentation"
+---
+
+========================================
+# ArduPilot Mission Command Package Format
+
+
+ArduPilot's Mission command list is stored in eeprom with each command requiring 14 bytes arranged as follows:
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Byte #&lt;/th&gt;
+&lt;th&gt;Address&lt;/th&gt;
+&lt;th&gt;Data type&lt;/th&gt;
+&lt;th&gt;Function&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0x00&lt;/td&gt;
+&lt;td&gt;byte&lt;/td&gt;
+&lt;td&gt;Command ID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0x01&lt;/td&gt;
+&lt;td&gt;byte&lt;/td&gt;
+&lt;td&gt;Options&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;0x02&lt;/td&gt;
+&lt;td&gt;byte&lt;/td&gt;
+&lt;td&gt;Parameter 1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;long&lt;/td&gt;
+&lt;td&gt;Parameter 2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;0x04&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;0x05&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;0x06&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;0x07&lt;/td&gt;
+&lt;td&gt;long&lt;/td&gt;
+&lt;td&gt;Parameter 3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;0x08&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;0x09&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;0x0A&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;0x0B&lt;/td&gt;
+&lt;td&gt;long&lt;/td&gt;
+&lt;td&gt;Parameter 4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;12&lt;/td&gt;
+&lt;td&gt;0x0C&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;13&lt;/td&gt;
+&lt;td&gt;0x0D&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;14&lt;/td&gt;
+&lt;td&gt;0x0E&lt;/td&gt;
+&lt;td&gt;..&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;

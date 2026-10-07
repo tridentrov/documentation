@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "AP_Airspeed",
+    "AP_Airspeed_analog",
+    "AP_Airspeed_ASP5033",
+    "AP_Airspeed_AUAV",
+    "AP_Airspeed_Backend",
+    "AP_Airspeed_config",
+    "AP_Airspeed_DLVR",
+    "AP_Airspeed_DroneCAN",
+    "AP_Airspeed_External",
+    "AP_Airspeed_MS4525",
+    "AP_Airspeed_MS5525",
+    "AP_Airspeed_MSP",
+    "AP_Airspeed_NMEA",
+    "AP_Airspeed_Scripting",
+    "AP_Airspeed_SDP3X",
+    "AP_Airspeed_SITL"
+  ],
+  "defaultOpen": true
+}

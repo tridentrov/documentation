@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "AP_Proximity",
+    "AP_Proximity_AirSimSITL",
+    "AP_Proximity_Backend",
+    "AP_Proximity_Backend_Serial",
+    "AP_Proximity_Boundary_3D",
+    "AP_Proximity_config",
+    "AP_Proximity_Cygbot_D1",
+    "AP_Proximity_DroneCAN",
+    "AP_Proximity_LD06",
+    "AP_Proximity_LightWareSF40C",
+    "AP_Proximity_LightWareSF45B",
+    "AP_Proximity_MAV",
+    "AP_Proximity_MR72_CAN",
+    "AP_Proximity_Params",
+    "AP_Proximity_RangeFinder",
+    "AP_Proximity_RPLidarA2",
+    "AP_Proximity_Scripting",
+    "AP_Proximity_SITL",
+    "AP_Proximity_TeraRangerTower",
+    "AP_Proximity_TeraRangerTowerEvo",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

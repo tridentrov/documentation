@@ -1,0 +1,38 @@
+---
+title: "Sitl With Webots"
+description: "ArduPilot developer documentation"
+---
+
+================
+# SITL with Webots
+
+
+[Webots](https://cyberbotics.com/) is a multi-platform robotics simulator 
+that has been in development since 1998 and is designed for professional use. 
+ArduPilot has both Multirotor and Rover examples and supports the creation 
+of new vehicles and worlds. As of writing, there is no 
+fixed-wing support as it will require a custom 
+[physics plugin](https://cyberbotics.com/doc/reference/physics-plugin) to simulate lift.
+
+Currently, there are two ArduPilot Webots robot controller implementations: 
+a python-based controller and a C-based controller. 
+
+- [Webots](/docs/dev/Webots)
+- [Webots](/docs/dev/Webots)
+-------------
+## Webots Python
+
+The Webots python controller is the newer implementation of the two options 
+and supports the newest Webots versions (2023a and onwards).
+It was designed to run without compilation on all operating systems while 
+providing an easy way to create custom vehicles and worlds.
+
+![webots-python-screenshot](/docs/dev/images/webots-python-screenshot.png)
+-------------
+## Webots C
+
+The Webots C controller was the first Webots implementation in ArduPilot 
+and supports Webots 2021b. This implementation also includes wind simulation 
+through a custom physics plugin.
+
+![webots-c-screenshot](/docs/dev/images/webots-c-screenshot.png)

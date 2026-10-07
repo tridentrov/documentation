@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_Canard_iface",
+    "AP_DroneCAN",
+    "AP_DroneCAN_DNA_Server",
+    "AP_DroneCAN_serial",
+    "canard"
+  ],
+  "defaultOpen": true
+}

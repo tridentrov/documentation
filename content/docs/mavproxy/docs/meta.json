@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "---MAVProxy guides---",
+    "getting_started",
+    "uav_configuration",
+    "modules",
+    "analysis",
+    "development"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "AP_Filesystem",
+    "AP_Filesystem_backend",
+    "AP_Filesystem_config",
+    "AP_Filesystem_ESP32",
+    "AP_Filesystem_FATFS",
+    "AP_Filesystem_FlashMemory_LittleFS",
+    "AP_Filesystem_Mission",
+    "AP_Filesystem_Param",
+    "AP_Filesystem_posix",
+    "AP_Filesystem_ROMFS",
+    "AP_Filesystem_Sys",
+    "posix_compat"
+  ],
+  "defaultOpen": true
+}

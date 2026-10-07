@@ -1,0 +1,176 @@
+---
+title: "MAVLink marsh dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# marsh dialect
+
+MAVLink dialect **marsh**.
+
+## Enumerations
+
+### `MARSH_TYPE`
+
+Component types for different nodes of the simulator network (flight model, controls, visualisation etc.). Components will always receive messages from the Manager relevant for their type. Only the first component in a network with a given system ID and type will have its messages forwarded by the Manager, all other ones will only be treated as output (will be shadowed). This enum is an extension of MAV_TYPE documented at https://mavlink.io/en/messages/minimal.html#MAV_TYPE
+
+- `MARSH_TYPE_MANAGER` = `100` — The simulation manager responsible for routing packets between different nodes. Typically MARSH Manager, see https://marsh-sim.github.io/manager.html
+- `MARSH_TYPE_FLIGHT_MODEL` = `101` — Component simulating flight dynamics of the aircraft.
+- `MARSH_TYPE_CONTROLS` = `102` — Component providing pilot control inputs.
+- `MARSH_TYPE_VISUALISATION` = `103` — Component showing the visual situation to the pilot.
+- `MARSH_TYPE_INSTRUMENTS` = `104` — Component implementing pilot instrument panel.
+- `MARSH_TYPE_MOTION_PLATFORM` = `105` — Component that moves the entire cockpit for motion cueing.
+- `MARSH_TYPE_GSEAT` = `106` — Component for in-seat motion cueing.
+- `MARSH_TYPE_EYE_TRACKER` = `107` — Component providing gaze data of pilot eyes.
+- `MARSH_TYPE_CONTROL_LOADING` = `108` — Component measuring and actuating forces on pilot control inputs.
+- `MARSH_TYPE_VIBRATION_SOURCE` = `109` — Component providing vibrations for system identification, road rumble, gusts, etc.
+- `MARSH_TYPE_PILOT_TARGET` = `110` — Component providing target for the pilot to follow like controls positions, aircraft state, ILS path etc.
+- `MARSH_TYPE_EXPERIMENT_DIRECTOR` = `111` — Principal component controlling the main scenario of a given test, (unlike lower level MARSH_TYPE_PILOT_TARGET or MARSH_TYPE_MANAGER for overall communication).
+
+### `MARSH_MODE_FLAGS`
+
+These values are MARSH-specific modes intended to be sent in custom_mode field of HEARTBEAT message. Prefer defining values in the most significant byte (between 2^24 and 2^31) to leave the lower three bytes to contain a message id
+
+- `MARSH_MODE_SINGLE_MESSAGE` = `0x1000000` — Request Manager to only send one specific message, advised for very resource limited nodes or with control flow limitations like Simulink. That message id should be in the lower three bytes of the mode, which can be done by adding it to the flags.
+- `MARSH_MODE_ALL_MESSAGES` = `0x2000000` — Request Manager to send every message going out to any of the clients.
+
+### `CONTROL_AXIS`
+
+Specific axis of pilot control inputs, with order corresponding to x, y, z, r fields in MANUAL_CONTROL message.
+
+- `CONTROL_AXIS_ROLL` = `0` — Roll axis, with positive values corresponding to stick right movement, causing the vehicle to roll right. For helicopters this is lateral cyclic.
+- `CONTROL_AXIS_PITCH` = `1` — Pitch axis, with positive values corresponding to stick forward movement, causing the vehicle to move nose down. For helicopters this is longitudinal cyclic.
+- `CONTROL_AXIS_THRUST` = `2` — Main thrust, with positive values corresponding to going faster and higher. For helicopters this is collective.
+- `CONTROL_AXIS_YAW` = `3` — Yaw axis, with positive values corresponding to pushing right pedal, causing the vehicle to face right direction. For helicopters this is tail collective.
+
+### `MARSH_MANUAL_SETPOINT_MODE`
+
+Usage of MANUAL_SETPOINT message, sent in mode_switch field.
+
+- `MARSH_MANUAL_SETPOINT_MODE_TARGET` = `0` — Values for target inceptors positions that the pilot should follow.
+- `MARSH_MANUAL_SETPOINT_MODE_TRIM` = `1` — Values for inceptors trim positions, the exact meaning depends on the flight model.
+
+### `MOTION_PLATFORM_MODE`
+
+Mode of a motion platform system.
+
+- `MOTION_PLATFORM_MODE_UNKNOWN` = `0` — Mode information is unsupported on this device.
+- `MOTION_PLATFORM_MODE_UNINITIALIZED` = `1` — Mode is currently not available, but may be in different condition.
+- `MOTION_PLATFORM_MODE_OFF` = `2` — Platform actuators are turned off, but control system is responsive.
+- `MOTION_PLATFORM_MODE_SETTLED` = `3` — Platform is in the lowest position and/or locked, appropriate for personnel entry.
+- `MOTION_PLATFORM_MODE_NEUTRAL` = `4` — Platform is in a neutral reference position, not accepting movement commands.
+- `MOTION_PLATFORM_MODE_FROZEN` = `5` — Platform is stopped in any position, not accepting movement commands.
+- `MOTION_PLATFORM_MODE_ENGAGED` = `6` — Platform is in any position, accepting movement commands.
+
+### `MOTION_PLATFORM_HEALTH`
+
+General error state of a motion platform system.
+
+- `MOTION_PLATFORM_HEALTH_OK` = `0` — System is operating correctly.
+- `MOTION_PLATFORM_HEALTH_WARNING` = `1` — There is at least one warning present, but operation can be continued.
+- `MOTION_PLATFORM_HEALTH_ERROR` = `2` — There is a failure or misconfiguration that requires operator's attention for correct operation.
+- `MOTION_PLATFORM_HEALTH_CRITICAL` = `3` — There is a major failure that requires immediate operator action to maintain safety.
+
+## Messages
+
+### CONTROL_LOADING_AXIS (ID 52501)
+
+Send data about a control axis from a control loading system. This is the primary message for logging data from MARSH_TYPE_CONTROL_LOADING.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `axis` | `uint8_t` | Control axis on which the measurements were taken. |
+| `position` | `float` | Axis position |
+| `velocity` | `float` | Axis velocity |
+| `force` | `float` | Force applied in the pilot in the direction of movement axis (not gripping force), measured at the position of pilot's third finger (ring). Unit N (Newton), currently not part of mavschema.xsd |
+
+### MOTION_PLATFORM_STATE (ID 52502)
+
+State report for motion platform used for moving the cockpit with the pilot for motion cueing. This is the primary message for MARSH_TYPE_MOTION_PLATFORM.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `health` | `uint8_t` | Generic system health (error and warning) status. |
+| `mode` | `uint8_t` | Generic system operating mode. |
+| `x` | `float` | X axis (surge) position, positive forward. |
+| `y` | `float` | Y axis (sway) position, positive right. |
+| `z` | `float` | Z axis (heave) position, positive down. |
+| `roll` | `float` | Roll position, positive right. |
+| `pitch` | `float` | Pitch position, positive nose up. |
+| `yaw` | `float` | Yaw position, positive right. |
+| `vel_x` | `float` | X axis (surge) velocity, positive forward. |
+| `vel_y` | `float` | Y axis (sway) velocity, positive right. |
+| `vel_z` | `float` | Z axis (heave) velocity, positive down. |
+| `vel_roll` | `float` | Roll velocity, positive right. |
+| `vel_pitch` | `float` | Pitch velocity, positive nose up. |
+| `vel_yaw` | `float` | Yaw velocity, positive right. |
+| `acc_x` | `float` | X axis (surge) acceleration, positive forward. |
+| `acc_y` | `float` | Y axis (sway) acceleration, positive right. |
+| `acc_z` | `float` | Z axis (heave) acceleration, positive down. |
+| `acc_roll` | `float` | Roll acceleration, positive right. Unit rad/s/s, currently not part of mavschema.xsd |
+| `acc_pitch` | `float` | Pitch acceleration, positive nose up. Unit rad/s/s, currently not part of mavschema.xsd |
+| `acc_yaw` | `float` | Yaw acceleration, positive right. Unit rad/s/s, currently not part of mavschema.xsd |
+
+### REXROTH_MOTION_PLATFORM (ID 52503)
+
+State report specific for eMotion Motion System by Bosch Rexroth B.V. Values applicable to motion platforms in general are sent in MOTION_PLATFORM_STATE with the same timestamp. Actuators are numbered in a clockwise direction when looking from above, starting from the front right. Actuator position is 0 when actuator is in mid-stroke.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `frame_count` | `uint32_t` | Number of message as sent by the Motion System. |
+| `motion_status` | `uint32_t` | Motion Status variable as sent by the system. |
+| `error_code` | `uint8_t` | Error code extracted from motion status. |
+| `actuator1` | `float` | Current actuator 1 position. |
+| `actuator2` | `float` | Current actuator 2 position. |
+| `actuator3` | `float` | Current actuator 3 position. |
+| `actuator4` | `float` | Current actuator 4 position. |
+| `actuator5` | `float` | Current actuator 5 position. |
+| `actuator6` | `float` | Current actuator 6 position. |
+| `platform_setpoint_x` | `float` | X axis (surge) platform setpoint, positive forward. |
+| `platform_setpoint_y` | `float` | Y axis (sway) platform setpoint, positive right. |
+| `platform_setpoint_z` | `float` | Z axis (heave) platform setpoint, positive down. |
+| `platform_setpoint_roll` | `float` | Roll platform setpoint, positive right. |
+| `platform_setpoint_pitch` | `float` | Pitch platform setpoint, positive nose up. |
+| `platform_setpoint_yaw` | `float` | Yaw platform setpoint, positive right. |
+| `effect_setpoint_x` | `float` | X axis (surge) special effect setpoint, positive forward. |
+| `effect_setpoint_y` | `float` | Y axis (sway) special effect setpoint, positive right. |
+| `effect_setpoint_z` | `float` | Z axis (heave) special effect setpoint, positive down. |
+| `effect_setpoint_roll` | `float` | Roll special effect setpoint, positive right. |
+| `effect_setpoint_pitch` | `float` | Pitch special effect setpoint, positive nose up. |
+| `effect_setpoint_yaw` | `float` | Yaw special effect setpoint, positive right. |
+
+### MOTION_CUE_EXTRA (ID 52504)
+
+These values are an extra cue that should be added to accelerations and rotations etc. resulting from aircraft state, with the resulting cue being the sum of the latest aircraft and extra values. An example use case would be a cockpit shaker.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `vel_roll` | `float` | Roll velocity, positive right. |
+| `vel_pitch` | `float` | Pitch velocity, positive nose up. |
+| `vel_yaw` | `float` | Yaw velocity, positive right. |
+| `acc_x` | `float` | X axis (surge) acceleration, positive forward. |
+| `acc_y` | `float` | Y axis (sway) acceleration, positive right. |
+| `acc_z` | `float` | Z axis (heave) acceleration, positive down. |
+
+### EYE_TRACKING_DATA (ID 52505)
+
+Data for tracking of pilot eye gaze. This is the primary message for MARSH_TYPE_EYE_TRACKER.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_usec` | `uint64_t` | Timestamp (time since system boot). |
+| `sensor_id` | `uint8_t` | Sensor ID, used for identifying the device and/or person tracked. Set to zero if unknown/unused. |
+| `gaze_origin_x` | `float` | X axis of gaze origin point, NaN if unknown. The reference system depends on specific application. |
+| `gaze_origin_y` | `float` | Y axis of gaze origin point, NaN if unknown. The reference system depends on specific application. |
+| `gaze_origin_z` | `float` | Z axis of gaze origin point, NaN if unknown. The reference system depends on specific application. |
+| `gaze_direction_x` | `float` | X axis of gaze direction vector, expected to be normalized to unit magnitude, NaN if unknown. The reference system should match origin point. |
+| `gaze_direction_y` | `float` | Y axis of gaze direction vector, expected to be normalized to unit magnitude, NaN if unknown. The reference system should match origin point. |
+| `gaze_direction_z` | `float` | Z axis of gaze direction vector, expected to be normalized to unit magnitude, NaN if unknown. The reference system should match origin point. |
+| `video_gaze_x` | `float` | Gaze focal point on video feed x value (normalized 0..1, 0 is left, 1 is right), NaN if unknown |
+| `video_gaze_y` | `float` | Gaze focal point on video feed y value (normalized 0..1, 0 is top, 1 is bottom), NaN if unknown |
+| `surface_id` | `uint8_t` | Identifier of surface for 2D gaze point, or an identified region when surface point is invalid. Set to zero if unknown/unused. |
+| `surface_gaze_x` | `float` | Gaze focal point on surface x value (normalized 0..1, 0 is left, 1 is right), NaN if unknown |
+| `surface_gaze_y` | `float` | Gaze focal point on surface y value (normalized 0..1, 0 is top, 1 is bottom), NaN if unknown |

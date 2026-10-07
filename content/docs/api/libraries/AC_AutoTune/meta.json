@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AC_AutoTune",
+    "AC_AutoTune_config",
+    "AC_AutoTune_FreqResp",
+    "AC_AutoTune_Heli",
+    "AC_AutoTune_Multi"
+  ],
+  "defaultOpen": true
+}

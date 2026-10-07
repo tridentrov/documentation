@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "AP_CRSF_Telem",
+    "AP_GHST_Telem",
+    "AP_RCTelemetry",
+    "AP_RCTelemetry_config",
+    "AP_Spektrum_Telem",
+    "spektrumTelemetrySensors"
+  ],
+  "defaultOpen": true
+}

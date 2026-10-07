@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AC_CustomControl",
+    "AC_CustomControl_Backend",
+    "AC_CustomControl_config",
+    "AC_CustomControl_Empty",
+    "AC_CustomControl_PID"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,90 @@
+---
+title: "MAVLink standard dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# standard dialect
+
+MAVLink dialect **standard**.
+
+## Enumerations
+
+### `MAV_BOOL`
+
+Enum used to indicate true or false (also: success or failure, enabled or disabled, active or inactive).
+
+- `MAV_BOOL_FALSE` = `0` — False.
+- `MAV_BOOL_TRUE` = `1` — True.
+
+### `MAV_PROTOCOL_CAPABILITY`
+
+Bitmask of (optional) autopilot capabilities (64 bit). If a bit is set, the autopilot supports this capability.
+
+- `MAV_PROTOCOL_CAPABILITY_MISSION_FLOAT` = `1` — Autopilot supports the MISSION_ITEM float message type. Note that MISSION_ITEM is deprecated, and autopilots should use MISSION_ITEM_INT instead.
+- `MAV_PROTOCOL_CAPABILITY_PARAM_FLOAT` = `2` — Autopilot supports the new param float message type.
+- `MAV_PROTOCOL_CAPABILITY_MISSION_INT` = `4` — Autopilot supports MISSION_ITEM_INT scaled integer message type. Note that this flag must always be set if missions are supported, because missions must always use MISSION_ITEM_INT (rather than MISSION_ITEM, which is deprecated).
+- `MAV_PROTOCOL_CAPABILITY_COMMAND_INT` = `8` — Autopilot supports COMMAND_INT scaled integer message type.
+- `MAV_PROTOCOL_CAPABILITY_PARAM_ENCODE_BYTEWISE` = `16` — Parameter protocol uses byte-wise encoding of parameter values into param_value (float) fields: https://mavlink.io/en/services/parameter.html#parameter-encoding. Note that either this flag or MAV_PROTOCOL_CAPABILITY_PARAM_ENCODE_C_CAST should be set if the parameter protocol is supported.
+- `MAV_PROTOCOL_CAPABILITY_FTP` = `32` — Autopilot supports the File Transfer Protocol v1: https://mavlink.io/en/services/ftp.html.
+- `MAV_PROTOCOL_CAPABILITY_SET_ATTITUDE_TARGET` = `64` — Autopilot supports the SET_ATTITUDE_TARGET message (for commanding attitude from an offboard controller).
+- `MAV_PROTOCOL_CAPABILITY_SET_POSITION_TARGET_LOCAL_NED` = `128` — Autopilot supports the SET_POSITION_TARGET_LOCAL_NED message (for commanding position and velocity targets in local NED frame).
+- `MAV_PROTOCOL_CAPABILITY_SET_POSITION_TARGET_GLOBAL_INT` = `256` — Autopilot supports the SET_POSITION_TARGET_GLOBAL_INT message (for commanding position and velocity targets in global scaled integers).
+- `MAV_PROTOCOL_CAPABILITY_TERRAIN` = `512` — Autopilot supports terrain protocol / data handling.
+- `MAV_PROTOCOL_CAPABILITY_RESERVED3` = `1024` — Reserved for future use.
+- `MAV_PROTOCOL_CAPABILITY_FLIGHT_TERMINATION` = `2048` — Autopilot supports the MAV_CMD_DO_FLIGHTTERMINATION command (flight termination).
+- `MAV_PROTOCOL_CAPABILITY_COMPASS_CALIBRATION` = `4096` — Autopilot supports onboard compass calibration.
+- `MAV_PROTOCOL_CAPABILITY_MAVLINK2` = `8192` — Autopilot supports MAVLink version 2.
+- `MAV_PROTOCOL_CAPABILITY_MISSION_FENCE` = `16384` — Autopilot supports mission fence protocol.
+- `MAV_PROTOCOL_CAPABILITY_MISSION_RALLY` = `32768` — Autopilot supports mission rally point protocol.
+- `MAV_PROTOCOL_CAPABILITY_RESERVED2` = `65536` — Reserved for future use.
+- `MAV_PROTOCOL_CAPABILITY_PARAM_ENCODE_C_CAST` = `131072` — Parameter protocol uses C-cast of parameter values to set the param_value (float) fields: https://mavlink.io/en/services/parameter.html#parameter-encoding. Note that either this flag or MAV_PROTOCOL_CAPABILITY_PARAM_ENCODE_BYTEWISE should be set if the parameter protocol is supported.
+- `MAV_PROTOCOL_CAPABILITY_COMPONENT_IMPLEMENTS_GIMBAL_MANAGER` = `262144` — This component implements/is a gimbal manager. This means the GIMBAL_MANAGER_INFORMATION, and other messages can be requested.
+- `MAV_PROTOCOL_CAPABILITY_COMPONENT_ACCEPTS_GCS_CONTROL` = `524288` — Component supports locking control to a particular GCS independent of its system (via MAV_CMD_REQUEST_OPERATOR_CONTROL).
+- `MAV_PROTOCOL_CAPABILITY_GRIPPER` = `1048576` — Autopilot has a connected gripper. MAVLink Grippers would set MAV_TYPE_GRIPPER instead.
+
+### `FIRMWARE_VERSION_TYPE`
+
+These values define the type of firmware release. These values indicate the first version or release of this type. For example the first alpha release would be 64, the second would be 65.
+
+- `FIRMWARE_VERSION_TYPE_DEV` = `0` — development release
+- `FIRMWARE_VERSION_TYPE_ALPHA` = `64` — alpha release
+- `FIRMWARE_VERSION_TYPE_BETA` = `128` — beta release
+- `FIRMWARE_VERSION_TYPE_RC` = `192` — release candidate
+- `FIRMWARE_VERSION_TYPE_OFFICIAL` = `255` — official stable release
+
+## Messages
+
+### GLOBAL_POSITION_INT (ID 33)
+
+The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It is designed as scaled integer message since the resolution of float is not sufficient.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `lat` | `int32_t` | Latitude, expressed |
+| `lon` | `int32_t` | Longitude, expressed |
+| `alt` | `int32_t` | Altitude (MSL). Note that virtually all GPS modules provide both WGS84 and MSL. |
+| `relative_alt` | `int32_t` | Altitude above home |
+| `vx` | `int16_t` | Ground X Speed (Latitude, positive north) |
+| `vy` | `int16_t` | Ground Y Speed (Longitude, positive east) |
+| `vz` | `int16_t` | Ground Z Speed (Altitude, positive down) |
+| `hdg` | `uint16_t` | Vehicle heading (yaw angle), 0.0..359.99 degrees. If unknown, set to: UINT16_MAX |
+
+### AUTOPILOT_VERSION (ID 148)
+
+Version and capability of autopilot software. This should be emitted in response to a request with MAV_CMD_REQUEST_MESSAGE.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `capabilities` | `uint64_t` | Bitmap of capabilities |
+| `flight_sw_version` | `uint32_t` | Firmware version number. The field must be encoded as 4 bytes, where each byte (shown from MSB to LSB) is part of a semantic version: (major) (minor) (patch) (FIRMWARE_VERSION_TYPE). |
+| `middleware_sw_version` | `uint32_t` | Middleware version number |
+| `os_sw_version` | `uint32_t` | Operating system version number |
+| `board_version` | `uint32_t` | HW / board version (last 8 bits should be silicon ID, if any). The first 16 bits of this field specify a board type from an enumeration stored at https://github.com/PX4/PX4-Bootloader/blob/master/board_types.txt and with extensive additions at https://github.com/ArduPilot/ardupilot/blob/master/Tools/AP_Bootloader/board_types.txt |
+| `flight_custom_version` | `uint8_t[8]` | Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases. |
+| `middleware_custom_version` | `uint8_t[8]` | Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases. |
+| `os_custom_version` | `uint8_t[8]` | Custom version field, commonly the first 8 bytes of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases. |
+| `vendor_id` | `uint16_t` | ID of the board vendor |
+| `product_id` | `uint16_t` | ID of the product |
+| `uid` | `uint64_t` | UID if provided by hardware (see uid2) |
+| `uid2` | `uint8_t[18]` | UID if provided by hardware (supersedes the uid field. If this is non-zero, use this field, otherwise use uid) |

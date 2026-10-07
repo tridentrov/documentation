@@ -1,0 +1,84 @@
+---
+title: "Ros Object Avoidance"
+description: "ArduPilot developer documentation"
+---
+
+========================
+# ROS for Object Avoidance
+
+
+![ros-object-avoidance](/docs/dev/images/ros-object-avoidance.png)
+This page describes how to setup [ROS's base local planner](http://wiki.ros.org/base_local_planner) to provide velocity commands to ArduPilot to steer a rover around obstacles.  This assumes all the previous setup including [Cartographer](/docs/dev/docs/ros-cartographer-slam) and [rviz](/docs/dev/docs/ros-rviz) have already been completed.
+
+These instructions were tested on a [Nvidia TX2](/docs/dev/docs/companion-computer-nvidia-tx2) running an [APSync image](/docs/dev/docs/apsync-intro) with ROS installed as described [here](/docs/dev/docs/ros-install).
+
+Some of the information on this page was found on these wiki pages:
+
+- [Officinerobotiche's robot wandering demo](https://github.com/officinerobotiche/ros_robot_wandering_demo)
+- [Husarion Doc's Path Planning](https://husarion.com/tutorials/ros-tutorials/7-path-planning/#7-path-planning-launching-path-planning-node)
+
+<Callout type="info">
+these pages are a work-in-progress
+</Callout>
+
+## Companion Computer Setup
+
+
+- ssh onto the companion computer.  If using APsync the following should work (password is "apsync")
+
+```text
+ssh apsync@apsync.local
+```
+
+- Configure mavros to send velocity targets to ArduPilot by modifying mavros's node.launch file with your favourite editor (like gedit shown below)
+
+```text
+roscd mavros   <-- this assumes mavros has been installed with rosdep
+cd launch
+sudo gedit node.launch
+```
+
+- After ``&lt;rosparam command="load" file="$(arg config_yaml)" /&gt;`` add a line like below
+
+```text
+<remap from="/mavros/setpoint_velocity/cmd_vel_unstamped" to="/cmd_vel" />
+```
+
+- Install ros-kinetic-navigation package
+
+```text
+sudo apt-get install ros-kinetic-navigation
+```
+
+- Download [ArduPilot/companion/Common/ROS/ap_navigation.zip](https://github.com/ArduPilot/companion/tree/master/Common/ROS) to the catkin_ws/src directory
+
+```text
+cd ~/catkin_ws/src
+wget https://github.com/ArduPilot/companion/raw/master/Common/ROS/ap_navigation.zip
+unzip ap_navigation.zip
+```
+
+- Rebuild all packages including ap_navigation
+
+```text
+cd ~/catkin_ws
+source devel/setup.bash
+catkin build
+```
+
+## Start ap_navigation
+
+
+- restart all packages (roscore, rplidar, mavros and cartographer) and then start ap_navigation package
+
+```text
+cd ~/catkin_ws
+source devel/setup.bash
+roslaunch ap_navigation ap_nav.launch
+```
+
+## Sending Position Targets
+
+
+- Arm the vehicle and switch to Guided mode
+- Use [rviz](/docs/dev/docs/ros-rviz)'s "2D Nav Goal" button to set a position target.  If all goes well a green line will appearing showing the route the vehicle will take to the target (see top image)

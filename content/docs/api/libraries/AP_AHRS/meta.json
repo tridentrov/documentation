@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AP_AHRS",
+    "AP_AHRS_Backend",
+    "AP_AHRS_config",
+    "AP_AHRS_DCM",
+    "AP_AHRS_External",
+    "AP_AHRS_NavEKF2",
+    "AP_AHRS_NavEKF3",
+    "AP_AHRS_SIM",
+    "AP_AHRS_View",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

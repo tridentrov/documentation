@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "board",
+    "bouncebuffer",
+    "chconf",
+    "ffconf",
+    "flash",
+    "halconf",
+    "hrt",
+    "mcuconf",
+    "poll",
+    "ppm",
+    "spi_hook",
+    "stdio",
+    "stm32_util",
+    "stm32f1_mcuconf",
+    "stm32f3_mcuconf",
+    "stm32f47_mcuconf",
+    "stm32g4_mcuconf",
+    "stm32h7_A3_mcuconf",
+    "stm32h7_mcuconf",
+    "stm32h7_type2_mcuconf",
+    "stm32l4+_mcuconf",
+    "stm32l4_mcuconf",
+    "sysperf",
+    "usbcfg",
+    "watchdog"
+  ],
+  "defaultOpen": true
+}

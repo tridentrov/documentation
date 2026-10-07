@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "AC_CustomControl",
+    "AP_ADSB",
+    "AP_Camera",
+    "AP_CANManager",
+    "AP_CustomControl",
+    "AP_DDS",
+    "AP_Declination",
+    "AP_DroneCAN",
+    "AP_FETtecOneWire",
+    "AP_Filesystem",
+    "AP_GSOF",
+    "AP_GyroFFT",
+    "AP_HAL_ChibiOS",
+    "AP_HAL_ESP32",
+    "AP_HAL_QURT",
+    "AP_HAL_SITL",
+    "AP_Logger",
+    "AP_Math",
+    "AP_OSD",
+    "AP_PiccoloCAN",
+    "AP_Scripting",
+    "AP_WindVane",
+    "SITL"
+  ],
+  "defaultOpen": true
+}

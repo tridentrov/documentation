@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "EvaluateBatteryModel",
+    "EvaluateMotorModel",
+    "JSON",
+    "Webots"
+  ],
+  "defaultOpen": true
+}

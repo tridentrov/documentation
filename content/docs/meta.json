@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "---User guides---",
+    "sub",
+    "mavproxy",
+    "---Development---",
+    "dev",
+    "---Protocols---",
+    "mavlink",
+    "---Project documentation---",
+    "ardupilot",
+    "---API reference---",
+    "api"
+  ],
+  "pagesIndex": "index",
+  "description": "Unified ArduPilot documentation"
+}

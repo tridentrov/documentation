@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "AP_MSP",
+    "AP_MSP_config",
+    "AP_MSP_Telem_Backend",
+    "AP_MSP_Telem_DisplayPort",
+    "AP_MSP_Telem_DJI",
+    "AP_MSP_Telem_Generic",
+    "msp",
+    "msp_osd",
+    "msp_protocol",
+    "msp_sbuf",
+    "msp_sensors",
+    "msp_version"
+  ],
+  "defaultOpen": true
+}

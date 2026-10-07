@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "AP_CAN",
+    "AP_CANDriver",
+    "AP_CANManager",
+    "AP_CANManager_config",
+    "AP_CANSensor",
+    "AP_MAVLinkCAN",
+    "AP_SLCANIface",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

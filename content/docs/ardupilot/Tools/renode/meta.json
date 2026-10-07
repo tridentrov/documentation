@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "h743_port",
+    "README",
+    "renode_drivers",
+    "tests",
+    "THIRD_PARTY_NOTICES"
+  ],
+  "defaultOpen": true
+}

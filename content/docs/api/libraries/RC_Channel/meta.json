@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "RC_Channel",
+    "RC_Channel_config",
+    "RC_Channels_VarInfo"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,47 @@
+---
+title: "MAVLink stemstudios dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# stemstudios dialect
+
+MAVLink dialect **stemstudios**.
+
+## Enumerations
+
+### `LED_CONFIG_MODE`
+
+How to configure LEDs. We can: - Set all LEDs to the first color in our colors array. - Set up to 8 consecutive LEDs, starting from a given index, to colors provided in an array. - Set the LED colors to change according to the flight mode. - Turn all LEDs off (clear).
+
+- `LED_CONFIG_MODE_ALL` = `0` — Set all LEDs in the target strip to the first color in our colors array.
+- `LED_CONFIG_MODE_INDEX` = `1` — Set up to 8 consecutive LEDs, starting from the given index, to the colors provided in the colors array.
+- `LED_CONFIG_MODE_FOLLOW_FLIGHT_MODE` = `2` — Set all LEDs in target strip to change color according to the flight mode.
+- `LED_CONFIG_MODE_CLEAR` = `3` — Set all LEDs in the target strip to black (turn off).
+
+## Messages
+
+### LED_STRIP_CONFIG (ID 52600)
+
+Set the colors on an LED strip. The mode field determines how the colors are set. We can: - Set all LEDs to the first color in our colors array. - Set up to 8 consecutive LEDs, starting from a given index, to colors provided in an array. - Set the LED colors to change according to the flight mode. - Turn all LEDs off (clear). Which LED strip to configure is specified by the id field. The colors field is an array of up to 8 colors, each represented as a 32-bit integer in the format 0xWWRRGGBB where WW is white, RR is the intensity of the red color channel, GG is green, and BB is blue.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID (Normally 134 for an LED Strip Controller). |
+| `mode` | `uint8_t` | How to configure LEDs. |
+| `index` | `uint8_t` | Set LEDs starting from this index. |
+| `length` | `uint8_t` | The number of LEDs to set (up to 8). |
+| `id` | `uint8_t` | Which strip to configure. UINT8_MAX for all strips. |
+| `colors` | `uint32_t[8]` | Array of 32-bit color values (0xWWRRGGBB). |
+
+### LED_STRIP_STATE (ID 52601)
+
+Current LED State. Can be emitted by LED Strip Controller.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `length` | `uint8_t` | How many LEDs are being reported in this message. |
+| `index` | `uint8_t` | Index of first LED being reported. |
+| `id` | `uint8_t` | Which strip is being reported. |
+| `following_flight_mode` | `uint8_t` | Are the LED colors changing according to the flight mode (1) or not (0). |
+| `colors` | `uint32_t[8]` | Array of 32-bit color values (0xWWRRGGBB). |

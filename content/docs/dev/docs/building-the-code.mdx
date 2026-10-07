@@ -1,0 +1,72 @@
+---
+title: "Building The Code"
+description: "ArduPilot developer documentation"
+---
+
+=================
+# Building the code
+
+
+The linked articles below explain how to setup your build environment on Linux/Ubuntu, MacOS or Windows and then build ArduPilot with [waf](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md).
+
+<Callout type="info">
+it is possible to use the [Custom code build server](https://custom.ardupilot.org) to generate code with selectable feature sets without creating a code development environment, but code change proposals will require it.
+</Callout>
+
+The instructions below assume that you have already [installed git](/docs/dev/docs/git-install), [forked](/docs/dev/docs/git-fork) and [cloned](/docs/dev/docs/git-clone) the ArduPilot repo.
+
+## Setting up the Build Environment
+
+
+- [Setup the Build Environment on Linux/Ubuntu](/docs/dev/docs/building-setup-linux)
+- [Setup the Build Environment on Windows](/docs/dev/docs/building-setup-windows)
+- [Setup the Build Environment on MacOSX](/docs/dev/docs/building-setup-mac)
+
+## Building / Compiling
+
+
+**Linux / MacOSX users:**
+
+- Linux and MacOSX users should build with waf as described in [BUILD.md](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md).
+
+<Callout type="info">
+Do not use `sudo` unless specified in the instructions.
+</Callout>
+
+<div className="video"><iframe src="https://www.youtube-nocookie.com/embed/lNSvAPZOM_o" title="YouTube video" loading="lazy" allowFullScreen /></div>
+
+**Windows users:**
+
+- Windows users should follow the WSL setup directions for Windows 10 described in  [building-setup-windows10_new](/docs/dev/docs/building-setup-windows10_new) or [building-setup-windows11](/docs/dev/docs/building-setup-windows11) for Windows 11 systems . This creates a Linux-like environment called WSL/WSL2 from which the user can setup the build environment as explained in [Setup the Build Environment on Linux/Ubuntu](/docs/dev/docs/building-setup-linux) and then use the instructions in [BUILD.md](https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md).
+
+**Board specific instructions:**
+
+- [Building for NAVIO2 on RPi3](/docs/dev/docs/building-for-navio2-on-rpi3)
+- [Building for Bebop2 on Linux](/docs/dev/docs/building-for-bebop-2)
+- [Building for Bebop on Linux](/docs/dev/docs/building-for-bebop-on-linux)
+- [Building for Beaglebone Black](/docs/dev/docs/building-for-beaglebone-black-on-linux)
+
+## Mission Planner
+
+
+- [Building Mission Planner with Visual Studio](/docs/dev/docs/building-mission-planner)
+
+## Links to other pages of interest or advanced topics
+
+
+- [Setup](/docs/dev/Setup)
+- [Setup](/docs/dev/Setup)
+- [Setup](/docs/dev/Setup)
+- [Setup](/docs/dev/Setup)
+- [Setup](/docs/dev/Setup)
+- [Setup](/docs/dev/Setup)
+- [Setup](/docs/dev/Setup)
+- [Building](/docs/dev/Building)
+- [Building](/docs/dev/Building)
+- [Building](/docs/dev/Building)
+- [Building](/docs/dev/Building)
+- [Building](/docs/dev/Building)
+- [Building](/docs/dev/Building)
+- [Building](/docs/dev/Building)
+- [ArduPilot](/docs/dev/ArduPilot)
+- [Custom](/docs/dev/Custom)

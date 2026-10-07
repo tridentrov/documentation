@@ -1,0 +1,205 @@
+---
+title: "Rover Sitlmavproxy Tutorial"
+description: "ArduPilot developer documentation"
+---
+
+============================
+# Rover SITL/MAVProxy Tutorial
+
+
+This tutorial provides a basic walk-through of how to use
+[SITL](/docs/dev/docs/sitl-simulator-software-in-the-loop) and
+[MAVProxy](/docs/dev) for *Rover* testing.
+
+# Overview
+
+
+Rover is an easy platform to get started with. Unlike Copter or Plane
+there are no fast-moving propellers, so there is no need to arm motors.
+As movement is along the ground, there is no need to consider taking off
+or landing, and pausing/loitering/waiting is just "stopping". At the end
+of initialization the Rover is ready to go!
+
+The article is intended primarily for developers who want to test new
+Rover builds and bug fixes using SITL and *MAVProxy*. It shows how to
+use the different modes, run missions, set a geofence, and perform a
+number of other basic testing tasks.
+
+The tutorial is complementary to the topic [Using SITL for ArduPilot Testing](/docs/dev/docs/using-sitl-for-ardupilot-testing).
+
+<Callout type="info">
+-  We use *MAVProxy* here, but you can [attach another ground station to SITL](/docs/dev/docs/using-sitl-for-ardupilot-testing)
+   if you prefer (similar instructions can be used in any GCS).
+-  This tutorial is for Rover - see
+   [Copter](/docs/dev/docs/copter-sitl-mavproxy-tutorial) and
+   [Plane](/docs/dev/docs/plane-sitlmavproxy-tutorial) for similar tutorials on the
+   other vehicles.
+</Callout>
+
+# Preconditions
+
+
+The tutorial assumes you have already set up [SITL on Windows](/docs/dev/docs/sitl-native-on-windows) or
+[Linux](/docs/dev/docs/setting-up-sitl-on-linux) and that you have started SITL
+using the ``--map`` and ``--console`` options:
+
+```bash
+cd ~/ardupilot/Rover
+sim_vehicle.py --map --console
+```
+
+Arrange the *MAVProxy Command Prompt*, *Console* and *Map* conveniently
+so you can observe the status and send commands at the same time.
+
+![mavproxy_sitl_console_and_map](/docs/dev/images/mavproxy_sitl_console_and_map.jpg)
+# Starting
+
+
+Change the rover into Guided mode and then arm it by entering the following on the mavproxy console
+
+```text
+GUIDED
+arm throttle
+```
+
+**Right-click** on the map at your target destination, select **Fly to**, and enter an altitude (which is ignored). Rover should drive to the location, and then pause (still in Guided mode).
+
+![MAVProxyRover_Guided_Menu](/docs/dev/images/MAVProxyRover_Guided_Menu.jpg)
+*MAVProxy: Rover go tolocation*
+If you have a mission loaded, you can also simply change to AUTO mode to
+run it:
+
+```text
+mode auto
+```
+
+<Callout type="info">
+Any commands or parameters that are not relevant to a Rover are
+ignored (e.g. TAKEOFF command and any altitude information).
+</Callout>
+
+# Guiding the vehicle
+
+
+The previous section covered almost everything you need to know about
+moving the vehicle around the map in ``GUIDED`` mode.
+
+You can also enter the target position manually on the command line
+using the two formats below. If only the altitude is specified, the last
+specified LAT/LON will be used.
+
+```text
+guided ALTITUDE
+guided LAT LON ALTITUDE
+```
+
+Just specifying the altitude (as 0) is useful if you need to pause then
+restart a guided path. The commands below set the mode to HOLD and then
+restart the vehicle travelling towards the previous point:
+
+```text
+GUIDED> mode hold
+HOLD> guided 0
+GUIDED> 
+```
+
+When you're finished you can return to the initial position by changing
+to ``RTL`` mode (this also works in ``AUTO`` mode):
+
+```text
+GUIDED> mode rtl
+RLT> 
+```
+
+# Running a mission
+
+
+You can load a mission at any time using the ``wp load`` command. After
+you've taken off the current mission will start as soon as you change to
+``AUTO`` mode.
+
+The example below shows how to load and start one of the test missions,
+skip to the second waypoint, and *loop* the mission:
+
+```text
+wp load ..\Tools\autotest\Generic_Missions\CMAC-circuit.txt
+mode auto
+wp set 2
+wp loop
+```
+
+<Callout type="info">
+Rover will only run [commands it supports](https://ardupilot.org/rover/docs/common-mavlink-mission-command-messages-mav_cmd_commands_supported_by_rover.html)
+(others are ignored).
+</Callout>
+
+The [MAVProxy Waypoints documentation](/docs/mavproxy/mavproxy-waypoints)
+lists the full set of available commands (or you can get them using
+auto-completion by typing "wp" on the command line).
+
+If you want to create a waypoint mission, this is most easily done on
+the map:
+
+#. Right-click on the map and then select **Mission \ Draw**.
+
+![MAVProxyCopter_Mission_Draw](/docs/dev/images/MAVProxyCopter_Mission_Draw.jpg)
+*MAVProxy: Draw Mission Menu (This image is for Copter, but the behaviour is the same).*
+#. Left-click on the map where you want the points to appear.
+
+<Callout type="info">
+Nothing visible will happen when you make the first click.
+After the second click, lines will join your points to show the path
+</Callout>
+
+#. When you're done, you can loop the mission by right-clicking on the
+   map and selecting **Mission \ Loop**.
+
+This approach only allows you to create
+[MAV_CMD_NAV_WAYPOINT](https://ardupilot.org/rover/docs/mav_cmd_nav_waypoint.html)
+commands. You can edit missions and use other commands on Linux using
+the *misseditor* module (``module load misseditor``). This is currently
+broken on Windows. It is also possible to load other types of commands
+from files.
+
+<Callout type="info">
+At any point you can pause the mission by setting the mode to
+``HOLD``, and restart by setting it back to ``AUTO``.
+</Callout>
+
+# Changing mode
+
+
+Rover supports a small number of modes which you can list in *MAVProxy*
+with the ``mode`` command:
+
+```text
+GUIDED> mode
+GUIDED> ('Available modes: ', ['AUTO', 'GUIDED', 'MANUAL', 'LEARNING', 'RTL', 'INITIALISING', 'HOLD', 'STEERING'])
+```
+
+The useful modes for simulation are:
+
+-  ``AUTO`` - Run a mission
+-  ``GUIDED`` - Move where directed by GCS
+-  ``RTL`` - Return to launch
+-  ``HOLD`` - WAIT - pause mission/stop moving.
+
+As shown in the previous section, you can change the mode by specifying
+``mode modename``. Most of the modes can be set by just entering the
+mode name, e.g. ``rtl``, ``auto``, ``hold``.
+
+# Testing the vehicle
+
+
+*MAVProxy* allows you to list all the parameters affecting the vehicle
+and simulation using ``param show *``, and to set any parameter using:
+``param set PARAM_NAME VALUE``. In addition to affecting the vehicle
+itself some parameters simulate the performance/failure of specific
+hardware components and the environment (for example, the wind). These
+can be listed using:
+```text
+param show sim*
+```
+
+The topic `Using SITL for ArduPilot Testing &lt;using-sitl-for-ardupilot-testing&gt;` explains more about how
+you can test using SITL.

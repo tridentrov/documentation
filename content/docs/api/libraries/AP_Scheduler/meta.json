@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "AP_Scheduler",
+    "AP_Scheduler_config",
+    "PerfInfo"
+  ],
+  "defaultOpen": true
+}

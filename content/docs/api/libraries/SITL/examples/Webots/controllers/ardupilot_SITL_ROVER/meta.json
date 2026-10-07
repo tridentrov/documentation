@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "ardupilot_SITL_ROVER",
+    "sensors",
+    "sockets"
+  ],
+  "defaultOpen": true
+}

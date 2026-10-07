@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "AP_Motors",
+    "AP_Motors6DOF",
+    "AP_Motors_Class",
+    "AP_Motors_config",
+    "AP_Motors_Thrust_Linearization",
+    "AP_MotorsCoax",
+    "AP_MotorsHeli",
+    "AP_MotorsHeli_Dual",
+    "AP_MotorsHeli_Quad",
+    "AP_MotorsHeli_RSC",
+    "AP_MotorsHeli_Single",
+    "AP_MotorsHeli_Swash",
+    "AP_MotorsMatrix",
+    "AP_MotorsMatrix_6DoF_Scripting",
+    "AP_MotorsMatrix_Scripting_Dynamic",
+    "AP_MotorsMulticopter",
+    "AP_MotorsSingle",
+    "AP_MotorsTailsitter",
+    "AP_MotorsTri"
+  ],
+  "defaultOpen": true
+}

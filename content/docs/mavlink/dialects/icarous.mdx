@@ -1,0 +1,58 @@
+---
+title: "MAVLink icarous dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# icarous dialect
+
+MAVLink dialect **icarous**.
+
+## Enumerations
+
+### `ICAROUS_TRACK_BAND_TYPES`
+
+- `ICAROUS_TRACK_BAND_TYPE_NONE` = `0` — 
+- `ICAROUS_TRACK_BAND_TYPE_NEAR` = `1` — 
+- `ICAROUS_TRACK_BAND_TYPE_RECOVERY` = `2` — 
+
+### `ICAROUS_FMS_STATE`
+
+- `ICAROUS_FMS_STATE_IDLE` = `0` — 
+- `ICAROUS_FMS_STATE_TAKEOFF` = `1` — 
+- `ICAROUS_FMS_STATE_CLIMB` = `2` — 
+- `ICAROUS_FMS_STATE_CRUISE` = `3` — 
+- `ICAROUS_FMS_STATE_APPROACH` = `4` — 
+- `ICAROUS_FMS_STATE_LAND` = `5` — 
+
+## Messages
+
+### ICAROUS_HEARTBEAT (ID 42000)
+
+ICAROUS heartbeat
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `status` | `uint8_t` | See the FMS_STATE enum. |
+
+### ICAROUS_KINEMATIC_BANDS (ID 42001)
+
+Kinematic multi bands (track) output from Daidalus
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `numBands` | `int8_t` | Number of track bands |
+| `type1` | `uint8_t` | See the TRACK_BAND_TYPES enum. |
+| `min1` | `float` | min angle (degrees) |
+| `max1` | `float` | max angle (degrees) |
+| `type2` | `uint8_t` | See the TRACK_BAND_TYPES enum. |
+| `min2` | `float` | min angle (degrees) |
+| `max2` | `float` | max angle (degrees) |
+| `type3` | `uint8_t` | See the TRACK_BAND_TYPES enum. |
+| `min3` | `float` | min angle (degrees) |
+| `max3` | `float` | max angle (degrees) |
+| `type4` | `uint8_t` | See the TRACK_BAND_TYPES enum. |
+| `min4` | `float` | min angle (degrees) |
+| `max4` | `float` | max angle (degrees) |
+| `type5` | `uint8_t` | See the TRACK_BAND_TYPES enum. |
+| `min5` | `float` | min angle (degrees) |
+| `max5` | `float` | max angle (degrees) |

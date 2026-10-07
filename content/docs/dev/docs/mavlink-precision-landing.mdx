@@ -1,0 +1,105 @@
+---
+title: "Mavlink Precision Landing"
+description: "ArduPilot developer documentation"
+---
+
+=================
+# Precision Landing
+
+
+Copter, QuadPlane and Rover support Precision Landing using the MAVLink [LANDING_TARGET](https://mavlink.io/en/messages/common.html#LANDING_TARGET) message.
+
+References:
+
+- [Copter's user wiki for precision landing](https://ardupilot.org/copter/docs/precision-landing-and-loiter.html)
+- [QuadPlane discussion of precision landing](https://discuss.ardupilot.org/t/quadplane-precision-landing-support-testers-needed/114072)
+- [MAVLink's Landing Target documentation](https://mavlink.io/en/services/landing_target.html)
+- [Testing Precision Landing in SITL](/docs/dev/docs/adding_simulated_devices)
+
+Users should follow the [user precision landing wiki page](https://ardupilot.org/copter/docs/precision-landing-and-loiter.html) including setting [PLND_TYPE](/docs/dev/PLND_TYPE) = 1 (MAVLink)
+
+The external camera system should send the [LANDING_TARGET](https://mavlink.io/en/messages/common.html#LANDING_TARGET) message to the autopilot at no less than 1hz (a higher rate is better).
+
+If the x (e.g. forward), y (e.g. right) and z (e.g. down) distance to the target is known (in body frame) then "x", "y" and "z" fields should be populated, and "position_valid" should be set to "1".
+
+If only the body-frame angle to the target is known then "angle_x" and "angle_y" fields should be populated and "position_valid" should be set to "0".
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Field Name&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;time_usec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint64_t&lt;/td&gt;
+&lt;td&gt;Timestamp since system boot.  This does not need to be synchronised with the autopilot's time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;target_num&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;frame&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;MAV_FRAME_BODY_FRD (12)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;angle_x&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;X-axis angular offset (in radians) of the target from the center of the image&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;angle_y&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Y-axis angular offset (in radians) of the target from the center of the image&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;distance&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Distance (in m) to the target from the vehicle or 0 if unknown&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;size_x&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;size_y&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;x&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;x position of the landing target in meters (e.g. forward in vehicle body-frame)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;y&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;y position of the landing target in meters (e.g. right in vehicle body-frame)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;z&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;z position of the landing target in meters (e.g down in vehicle body-frame)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;q&lt;/td&gt;
+&lt;td&gt;float[4]&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;position_valid&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0 if angle_x, angle_y should be used.  1 if x, y, z fields contain position information&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;

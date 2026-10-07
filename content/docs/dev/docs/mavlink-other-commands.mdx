@@ -1,0 +1,73 @@
+---
+title: "Mavlink Other Commands"
+description: "ArduPilot developer documentation"
+---
+
+==================================
+# MAVLink Interface's Other Commands
+
+
+This article lists other commonly used MAVLink commands that do not directly affect how a vehicle moves and that are not covered by other pages.
+
+# MAV_CMDs
+
+
+These MAV_CMDs should be packaged within a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) message.
+
+- [MAV_CMD_DO_AUTOTUNE_ENABLE](https://ardupilot.org/plane/docs/mav_cmd_do_autotune_enable.html) (Plane only)
+- [MAV_CMD_DO_DIGICAM_CONFIGURE](https://ardupilot.org/copter/docs/mav_cmd_do_digicam_configure.html)
+- [MAV_CMD_DO_DIGICAM_CONTROL](https://ardupilot.org/copter/docs/mav_cmd_do_digicam_control.html)
+- [MAV_CMD_DO_FENCE_ENABLE](https://ardupilot.org/copter/docs/mav_cmd_do_fence_enable.html)
+- [MAV_CMD_DO_GO_AROUND](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_GO_AROUND) (Plane only)
+- [MAV_CMD_DO_LAND_START](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_LAND_START) (Plane only)
+- [MAV_CMD_DO_GRIPPER](https://ardupilot.org/copter/docs/mav_cmd_do_gripper.html)
+- [MAV_CMD_DO_MOTOR_TEST](https://mavlink.io/en/messages/ardupilotmega.html#MAV_CMD_DO_MOTOR_TEST)
+- [MAV_CMD_DO_PARACHUTE](https://ardupilot.org/copter/docs/mav_cmd_do_parachute.html)
+- [MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN](https://mavlink.io/en/messages/common.html#MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN)
+- [MAV_CMD_DO_REPEAT_SERVO](https://ardupilot.org/copter/docs/mav_cmd_do_repeat_servo.html)
+- [MAV_CMD_DO_REPEAT_RELAY](https://ardupilot.org/copter/docs/mav_cmd_do_repeat_relay.html)
+- [MAV_CMD_DO_SEND_BANNER](https://mavlink.io/en/messages/ardupilotmega.html#MAV_CMD_DO_SEND_BANNER)
+- [MAV_CMD_DO_SET_RELAY](https://ardupilot.org/copter/docs/mav_cmd_do_set_relay.html)
+- [MAV_CMD_DO_SET_SERVO](https://ardupilot.org/copter/docs/mav_cmd_do_set_servo.html)
+- [MAV_CMD_DO_MOUNT_CONFIGURE](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_MOUNT_CONFIGURE)
+- [MAV_CMD_DO_MOUNT_CONTROL](https://ardupilot.org/copter/docs/mav_cmd_do_mount_control.html)
+- [MAV_CMD_MISSION_START](https://ardupilot.org/copter/docs/mav_cmd_mission_start.html)
+- [MAV_CMD_PREFLIGHT_CALIBRATION](https://mavlink.io/en/messages/common.html#MAV_CMD_PREFLIGHT_CALIBRATION)
+- [MAV_CMD_PREFLIGHT_SET_SENSOR_OFFSETS](https://mavlink.io/en/messages/common.html#MAV_CMD_PREFLIGHT_SET_SENSOR_OFFSETS)
+- [MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN](https://mavlink.io/en/messages/common.html#MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN)
+- [MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES](https://mavlink.io/en/messages/common.html#MAV_CMD_REQUEST_AUTOPILOT_CAPABILITIES)
+- [MAV_CMD_START_RX_PAIR](https://mavlink.io/en/messages/common.html#MAV_CMD_START_RX_PAIR) - starts receiver pairing
+- [MAV_CMD_DO_START_MAG_CAL](https://mavlink.io/en/messages/ardupilotmega.html#MAV_CMD_DO_START_MAG_CAL)
+- [MAV_CMD_DO_ACCEPT_MAG_CAL](https://mavlink.io/en/messages/ardupilotmega.html#MAV_CMD_DO_ACCEPT_MAG_CAL)
+- [MAV_CMD_DO_CANCEL_MAG_CAL](https://mavlink.io/en/messages/ardupilotmega.html#MAV_CMD_DO_CANCEL_MAG_CAL)
+
+# Other commands
+
+
+Below are other commands that will be handled by Copter
+
+- [ADSB_VEHICLE](https://mavlink.io/en/messages/common.html#ADSB_VEHICLE)
+- [AUTOPILOT_VERSION_REQUEST](https://mavlink.io/en/messages/ardupilotmega.html#AUTOPILOT_VERSION_REQUEST)
+- [COMMAND_ACK](https://mavlink.io/en/messages/common.html#COMMAND_ACK)
+- [FENCE_POINT](https://mavlink.io/en/messages/ardupilotmega.html#FENCE_POINT)
+- [FENCE_FETCH_POINT](https://mavlink.io/en/messages/ardupilotmega.html#FENCE_FETCH_POINT)
+- [GIMBAL_REPORT](https://mavlink.io/en/messages/ardupilotmega.html#GIMBAL_REPORT)
+- [GPS_INJECT_DATA](https://mavlink.io/en/messages/common.html#GPS_INJECT_DATA)
+- [HEARTBEAT](https://mavlink.io/en/messages/common.html#HEARTBEAT)
+- [HIL_STATE](https://mavlink.io/en/messages/common.html#HIL_STATE)
+- [LANDING_TARGET](https://mavlink.io/en/messages/common.html#LANDING_TARGET)
+- [LED_CONTROL](https://mavlink.io/en/messages/ardupilotmega.html#LED_CONTROL)
+- [LOG_ERASE](https://mavlink.io/en/messages/common.html#LOG_ERASE)
+- [LOG_REQUEST_DATA](https://mavlink.io/en/messages/common.html#LOG_REQUEST_DATA)
+- [LOG_REQUEST_END](https://mavlink.io/en/messages/common.html#LOG_REQUEST_END)
+- [LOG_REQUEST_LIST](https://mavlink.io/en/messages/common.html#LOG_REQUEST_LIST)
+- [RADIO](https://mavlink.io/en/messages/ardupilotmega.html#RADIO)
+- [RADIO_STATUS](https://mavlink.io/en/messages/common.html#RADIO_STATUS)
+- [RALLY_FETCH_POINT](https://mavlink.io/en/messages/ardupilotmega.html#RALLY_FETCH_POINT)
+- [RALLY_POINT](https://mavlink.io/en/messages/ardupilotmega.html#RALLY_POINT)
+- [RC_CHANNELS_OVERRIDE](https://mavlink.io/en/messages/common.html#RC_CHANNELS_OVERRIDE)
+- [REQUEST_DATA_STREAM](https://mavlink.io/en/messages/common.html#REQUEST_DATA_STREAM)
+- [REMOTE_LOG_BLOCK_STATUS](https://mavlink.io/en/messages/ardupilotmega.html#REMOTE_LOG_BLOCK_STATUS)
+- [SERIAL_CONTROL](https://mavlink.io/en/messages/common.html#SERIAL_CONTROL)
+- [TERRAIN_DATA](https://mavlink.io/en/messages/common.html#TERRAIN_DATA)
+- [TERRAIN_CHECK](https://mavlink.io/en/messages/common.html#TERRAIN_CHECK)

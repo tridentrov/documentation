@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AC_PrecLand",
+    "AC_PrecLand_Backend",
+    "AC_PrecLand_config",
+    "AC_PrecLand_IRLock",
+    "AC_PrecLand_MAVLink",
+    "AC_PrecLand_SITL",
+    "AC_PrecLand_SITL_Gazebo",
+    "AC_PrecLand_StateMachine",
+    "LogStructure",
+    "PosVelEKF"
+  ],
+  "defaultOpen": true
+}

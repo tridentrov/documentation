@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "---MAVLink reference---",
+    "dialects",
+    "guides"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index",
+  "title": "MAVLink",
+  "description": "MAVLink protocol and dialect reference"
+}

@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "devicetree",
+    "pru",
+    "README"
+  ],
+  "defaultOpen": true
+}

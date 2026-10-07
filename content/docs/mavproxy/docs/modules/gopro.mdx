@@ -1,0 +1,39 @@
+---
+title: "Gopro"
+description: "MAVProxy ground-control documentation"
+---
+
+==================
+# GoPro Manager
+
+
+```bash
+module load gopro
+```
+
+For 3DR Solo vehicles fitted with a GoPro camera, this module allows commanding
+of the camera via the ``GOPRO_COMMAND_SHUTTER`` MAVLink message.
+
+To power the camera on and off:
+
+```bash
+gopro power <onoff>
+```
+
+To set the camera mode between photo and video:
+
+```bash
+gopro mode <videocamera>
+```
+
+To start and stop the shutter:
+
+```bash
+gopro shutter <start|stop>
+```
+
+To get the camera status:
+
+```bash
+gopro status
+```

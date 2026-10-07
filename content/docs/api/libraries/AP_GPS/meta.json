@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "AP_GPS",
+    "AP_GPS_Blended",
+    "AP_GPS_config",
+    "AP_GPS_DroneCAN",
+    "AP_GPS_ERB",
+    "AP_GPS_ExternalAHRS",
+    "AP_GPS_FixType",
+    "AP_GPS_GSOF",
+    "AP_GPS_MAV",
+    "AP_GPS_MSP",
+    "AP_GPS_NMEA",
+    "AP_GPS_NOVA",
+    "AP_GPS_SBF",
+    "AP_GPS_SBP",
+    "AP_GPS_SBP2",
+    "AP_GPS_SIRF",
+    "AP_GPS_SITL",
+    "AP_GPS_UBLOX",
+    "AP_GPS_UBLOX_CFG_Keys",
+    "AP_GPS_UBLOX_CFG_List",
+    "AP_GPS_UBLOX_CFGv2",
+    "GPS_Backend",
+    "GPS_detect_state",
+    "LogStructure",
+    "LogStructure_SBP",
+    "MovingBase",
+    "RTCM3_Parser"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "bug_report",
+    "feature_request"
+  ],
+  "defaultOpen": true
+}

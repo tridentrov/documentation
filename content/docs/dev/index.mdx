@@ -1,0 +1,171 @@
+---
+title: "Index"
+description: "ArduPilot developer documentation"
+---
+
+=========================================
+# Welcome to the ArduPilot Development Site
+
+
+<Callout type="info">
+Keep up with the latest ArduPilot related blogs on [ArduPilot.org!](https://ardupilot.org/)
+</Callout>
+
+[ArduPilot](/docs/dev) is the leading open source autopilot
+system supporting multi-copters, traditional helicopters, fixed wing aircraft, rovers, submarines and antenna trackers.
+
+We pride ourselves on being **versatile** (rich in features with support for a large number of flight controllers, sensors and frame types), **trusted** (reliable and predictable) and **open** (both in terms of software and in our team's organisation and governance).
+
+The source code is developed by a group of volunteer and professional (i.e. paid) developers who, along with our users and [Partners](https://ardupilot.org/about/Partners), make up the [ArduPilot Community](https://ardupilot.org).
+
+<Callout type="info">
+**New developer?** The fastest path in: [download the code](/docs/dev/docs/where-to-get-the-code),
+[build it](/docs/dev/docs/building-the-code), then work through
+[learning the codebase](/docs/dev/docs/learning-the-ardupilot-codebase).
+</Callout>
+
+# Getting Involved
+
+
+New developers are always welcome! The best way to start is to:
+
+- read this wiki to learn the basics of the software and [how the team works](/docs/dev/docs/how-the-team-works)
+- get involved with the other developers by posting on the [Developer Team Forum](https://discuss.ardupilot.org/c/development-team), chat to us on [ArduPilot Discord Chat](https://ardupilot.org/discord) or join the [weekly development call](/docs/dev/docs/ardupilot-discord-server).  You can also find a large number of users and some developers in the [ArduPilot facebook group](https://www.facebook.com/groups/ArduPilot.org).  [All channels](/docs/dev/common-contact-us) are open to all.  Lurk for a while to get a feel for it, then participate!
+- find a specific bug you'd like to fix or a feature you'd like to add (check out the [good first issues](https://github.com/ArduPilot/ardupilot/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22), recent [issues from Randy](https://github.com/ArduPilot/ardupilot/issues/created_by/rmackay9) or the [GSoC ideas list](/docs/dev/docs/gsoc-ideas-list) for ideas).  Please do not ask to be assigned an issue; just work on it.
+- if there is already a related pull request you can review it and join the discussion there, otherwise fix the bug in your own clone and [test](/docs/dev/docs/simulation-2) that it's working
+- submit the change to the main code base [via a pull request](/docs/dev/docs/submitting-patches-back-to-master).
+
+# Why the name?
+
+
+The 'Ardu' part of the ArduPilot name comes from [Arduino](http://www.arduino.cc/). The original [APM1 and APM2](/docs/dev/common-apm25-and-26-overview) boards were based around the
+Arduino development environment and AVR CPUs. We long ago outgrew these boards so we recommend users use one of the many more capable boards found on our [Autopilot Hardware Options page](/docs/dev/common-autopilots) including the Pixhawk series.
+
+A timeline history of ArduPilot can be found [here](/docs/dev/history-of-ardupilot).
+
+# Supported boards
+
+
+The [Autopilot Hardware Options](https://ardupilot.org/copter/docs/common-autopilots.html) page provides an overview for all the supported controller boards, including
+[Pixhawk](https://ardupilot.org/copter/docs/common-pixhawk-overview.html), [The Cube Orange](https://ardupilot.org/copter/docs/common-thecubeorange-overview.html),
+[Holybro Pixhawk 6C Mini](https://ardupilot.org/copter/docs/common-holybro-pixhawk6C.html), [PocketBeagle 2 DIY Cape (Linux)](https://ardupilot.org/copter/docs/common-pocketbeagle2.html), etc.
+
+To get going quickly please consider purchasing one of the [ready-to-fly vehicles](https://ardupilot.org/copter/docs/common-rtf.html).
+
+The ArduPilot source code includes the [AP-HAL](https://github.com/ArduPilot/ardupilot/tree/master/libraries/AP_HAL)
+Hardware Abstraction Layer, making it relatively easy to port the code to a
+wide range of autopilot boards.
+
+# Project List
+
+
+The ArduPilot system is made up of (or relies upon) several
+different projects which are listed below.  Those marked with an asterix
+(*) are peer projects that have their own owners outside the core
+ArduPilot dev team.
+
+-  Plane ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/ardupilot)) - autopilot for
+   planes
+-  Copter ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/ardupilot)) - autopilot for
+   multicopters and traditional helicopters
+-  Rover ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/ardupilot)) - autopilot for
+   ground vehicles
+-  Sub ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/ardupilot)) - autopilot for
+   submersible vehicles
+-  Antenna Tracker ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/ardupilot)) - for automatically aiming an antenna at a vehicle
+-  Mission Planner ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/MissionPlanner)) - the most
+   commonly used ground station written in C# for windows but also runs
+   on Linux and MacOS via mono
+-  APM Planner 2.0 ([wiki](/docs/dev),
+   [code](https://github.com/ArduPilot/apm_planner)) is a ground
+   station specifically for APM written in C++ using the Qt libraries
+-  [MAVProxy](/docs/dev)
+   - command line oriented and scriptable ground station (mostly used by developers) in Python
+-  [QGroundControl*](http://www.qgroundcontrol.org/) is an alternative ground station written in C++ using the Qt libraries
+-  [Pixhawk*](https://pixhawk.org) - Pixhawk open standards hardware project
+-  [MAVLink*](https://mavlink.io) -
+   the protocol for communication between the ground station, flight
+   controller and some peripherals.
+-  [DroneCAN*](https://dronecan.github.io/) -
+   Lightweight protocol designed for reliable communication in aerospace and robotic 
+   applications via CAN bus. ArduPilot is using the [libcanard](https://github.com/DroneCAN/libcanard),
+   which is a portable, cross-platform library written in C++ with minimal dependency on the C++ standard library and calls its version DroneCAN, allowing UAVCAN to evolve separately.
+
+# How the team works
+
+
+See [How The Team Works](/docs/dev/docs/how-the-team-works) for governance, communication channels, release procedures, funding and voting. A few quick links:
+
+-  Our annual developers conference details (dates and location vary each year) are on the [Developers Conference page](/docs/dev/docs/dev-conference).
+-  The source code for ArduPilot is managed using git on https://github.com/ArduPilot/ardupilot
+-  Pre-compiled firmware for supported autopilot boards is available from https://firmware.ardupilot.org
+-  User support is available on the [forums](https://discuss.ardupilot.org/).
+-  The ArduPilot [automatic test system](https://autotest.ardupilot.org/) shows the test status of each commit. It's described [here](https://diydrones.com/profiles/blogs/ardupilot-automatic-testing-system).
+-  Bug tracking and open issues are tracked using the [github issues system](https://github.com/ArduPilot/ardupilot/issues)
+-  Vehicle onboard parameter documentation for [copter](https://ardupilot.org/copter/docs/parameters.html), [plane](https://ardupilot.org/plane/docs/parameters.html) and [rover](https://ardupilot.org/rover/docs/parameters.html) is auto-generated from the source code
+
+# Development languages and tools
+
+
+The main flight code for ArduPilot is written in C++. Support tools are
+written in a variety of languages, most commonly in python.
+
+# License
+
+
+ArduPilot (including Copter, Plane, Rover, Antenna Tracker and MissionPlanner) is
+released as free software under the [GNU General Public License](https://github.com/ArduPilot/ardupilot/blob/master/COPYING.txt)
+version 3 or later.  See [License overview wiki page here.](/docs/dev/docs/license-gplv3)
+
+# Didn't find what you are looking for?
+
+
+If you think of something that should be added to this site, please
+[open an issue for the wiki](https://github.com/ArduPilot/ardupilot_wiki/issues).
+
+
+# Table of Contents
+
+
+- [Downloading](/docs/dev/Downloading)
+- [Building](/docs/dev/Building)
+- [Editors](/docs/dev/Editors)
+- [Learning](/docs/dev/Learning)
+- [Simulation](/docs/dev/Simulation)
+- [Debugging](/docs/dev/Debugging)
+- [License](/docs/dev/License)
+- [Contributing](/docs/dev/Contributing)
+- [How](/docs/dev/How)
+- [Wiki](/docs/dev/Wiki)
+- [GSoC](/docs/dev/GSoC)
+- [Porting](/docs/dev/Porting)
+- [Advanced](/docs/dev/Advanced)
+- [AP Peripheral](/docs/dev/AP_Peripheral)
+- [Companion](/docs/dev/Companion)
+- [Linux](/docs/dev/Linux)
+- [OEM](/docs/dev/OEM)
+- [RTF](/docs/dev/RTF)
+- [USB](/docs/dev/USB)
+- [MAVLink](/docs/dev/MAVLink)
+- [MAVProxy](/docs/dev/MAVProxy)
+- [GCS](/docs/dev/GCS)
+- [CAN](/docs/dev/CAN)
+- [Lua](/docs/dev/Lua)
+- [ROS1](/docs/dev/ROS1)
+- [ROS2](/docs/dev/ROS2)
+- [RemoteID](/docs/dev/RemoteID)
+- [Security](/docs/dev/Security)
+- [Support](/docs/dev/Support)
+- [User](/docs/dev/User)
+- [Wiki](/docs/dev/Wiki)
+- [Appendix](/docs/dev/Appendix)
+- [Developers](/docs/dev/Developers)
+- [Events](/docs/dev/Events)
+- [Training](/docs/dev/Training)
+- [Academic](/docs/dev/Academic)

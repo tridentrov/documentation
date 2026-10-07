@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_ESC_Telem",
+    "AP_ESC_Telem_Backend",
+    "AP_ESC_Telem_config",
+    "AP_ESC_Telem_SITL",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

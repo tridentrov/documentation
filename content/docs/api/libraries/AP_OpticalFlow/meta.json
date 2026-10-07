@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "AP_OpticalFlow",
+    "AP_OpticalFlow_Backend",
+    "AP_OpticalFlow_Calibrator",
+    "AP_OpticalFlow_config",
+    "AP_OpticalFlow_CXOF",
+    "AP_OpticalFlow_HereFlow",
+    "AP_OpticalFlow_MAV",
+    "AP_OpticalFlow_MSP",
+    "AP_OpticalFlow_Onboard",
+    "AP_OpticalFlow_Pixart",
+    "AP_OpticalFlow_Pixart_SROM",
+    "AP_OpticalFlow_PX4Flow",
+    "AP_OpticalFlow_SITL",
+    "AP_OpticalFlow_UPFLOW"
+  ],
+  "defaultOpen": true
+}

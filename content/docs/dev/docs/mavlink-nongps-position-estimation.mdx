@@ -1,0 +1,254 @@
+---
+title: "Mavlink Nongps Position Estimation"
+description: "ArduPilot developer documentation"
+---
+
+===========================
+# Non-GPS Position Estimation
+
+
+This page explains how MAVLink can be used to send in external position and velocity estimates to ArduPilot's EKF allowing it to maintain a position estimate and thus control itself without a GPS
+
+This is also called "External Navigation" although to be more precise it involves estimation rather than navigation or control.
+
+<Callout type="info">
+The user wiki pages for [Non-GPS navigation is here](https://ardupilot.org/copter/docs/common-non-gps-navigation-landing-page.html) and [GPS/Non-GPS transitions is here](https://ardupilot.org/copter/docs/common-non-gps-to-gps.html)
+</Callout>
+
+Any of the following messages should be sent to the autopilot at 4hz or higher:
+
+- [ODOMETRY](https://mavlink.io/en/messages/common.html#ODOMETRY) (the preferred method)
+- [VISION_POSITION_ESTIMATE](https://mavlink.io/en/messages/common.html#VISION_POSITION_ESTIMATE) and optionally [VISION_SPEED_ESTIMATE](https://mavlink.io/en/messages/common.html#VISION_SPEED_ESTIMATE)
+- [VISION_POSITION_DELTA](https://mavlink.io/en/messages/ardupilotmega.html#VISION_POSITION_DELTA)
+- [VICON_POSITION_ESTIMATE](https://mavlink.io/en/messages/common.html#VICON_POSITION_ESTIMATE)
+- [ATT_POS_MOCAP](https://mavlink.io/en/messages/common.html#ATT_POS_MOCAP)
+- [GLOBAL_VISION_POSITION_ESTIMATE](https://mavlink.io/en/messages/common.html#GLOBAL_VISION_POSITION_ESTIMATE) (not recommended)
+- [GPS_INPUT](https://mavlink.io/en/messages/common.html#GPS_INPUT) (not recommended)
+
+ArduPilot's parameters should be setup as if a [ModalAI VOXL](https://ardupilot.org/copter/docs/common-modalai-voxl.html) is used which includes:
+
+- Set [VISO_TYPE](/docs/dev/VISO_TYPE) = 3 (VOXL)
+- Set [VISO_POS_X](/docs/dev/VISO_POS_X), [VISO_POS_Y](/docs/dev/VISO_POS_Y), [VISO_POS_Z](/docs/dev/VISO_POS_Z) to the camera's position on the vehicle
+- Set [EK3_SRC1_POSXY](/docs/dev/EK3_SRC1_POSXY) = 6 (ExternalNav)
+- Set [EK3_SRC1_VELXY](/docs/dev/EK3_SRC1_VELXY) = 6 (ExternalNav) or 0 (None)
+- Set [EK3_SRC1_POSZ](/docs/dev/EK3_SRC1_POSZ) = 6 (ExternalNav) or 1 (Baro)
+- Set [EK3_SRC1_VELZ](/docs/dev/EK3_SRC1_VELZ) = 6 (ExternalNav) or 0 (None)
+- Set [EK3_SRC1_YAW](/docs/dev/EK3_SRC1_YAW) = 6 (ExternalNav) or 1 (Compass)
+
+In addition it may be useful to setup [GPS/Non-GPS transitions](https://ardupilot.org/copter/docs/common-non-gps-to-gps.html) to allow switching between GPS and External Navigation
+
+If no GPS is attached to the autopilot then the [EKF origin must be set](/docs/dev/docs/mavlink-get-set-home-and-origin) before the EKF can start estimating its position.  If the vehicle will always be flown at the same location the [ahrs-set-origin.lua script](https://github.com/ArduPilot/ardupilot/blob/master/libraries/AP_Scripting/applets/ahrs-set-origin.lua) may be used
+
+## ODOMETRY message
+
+
+The preferred method is to send an [ODOMETRY](https://mavlink.io/en/messages/common.html#ODOMETRY) with the fields populated as described below:
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Field Name&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;time_usec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint64_t&lt;/td&gt;
+&lt;td&gt;Timestamp since system boot.  This does not need to be synchronised with the autopilot's time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;frame_id&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;MAV_FRAME_BODY_FRD (12) or MAV_FRAME_LOCAL_FRD (20)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;child_frame_id&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;MAV_FRAME_BODY_FRD (12) or MAV_FRAME_LOCAL_FRD (20)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;x&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;X position in meters&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;y&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Y position in meters&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;z&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Z position in meters (positive is down)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;q&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float[4]&lt;/td&gt;
+&lt;td&gt;Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;vx&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;X axis linear speed in m/s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;vy&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Y axis linear speed in m/s&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;vz&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Z axis linear speed in m/s (positive is down)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;rollspeed&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Roll angular speed in rad/s (backwards is positive)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;pitchspeed&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Pitch angular speed in rad/s (forward is positive)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;yawspeed&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Yaw angular speed in rad/s (clockwise is positive)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;pos_covariance&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float[21]&lt;/td&gt;
+&lt;td&gt;elements 0, 6 and 11 are x, y and z-axis position error. 15, 18, 20 are roll, pitch and yaw angle error. Ignored if NaN&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;velocity_covariance&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float[21]&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;reset_counter&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;External estimator reset counter.  This should be incremented when the estimate resets position, velocity, attitude or angular speed&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;estimator_type&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;quality&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;quality metric as a percentage. -1 = odometry has failed, 0 = unknown/unset quality, 1 = worst quality, 100 = best quality&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+Six "pos_covariance" array elements are used to calculate the position error and angle error
+
+- 0: x-axis position error (m)
+- 6: y-axis position error (m)
+- 11: z-axis position error (m)
+- 15: roll angle error (rad)
+- 18: pitch angle error (rad)
+- 20: yaw angle error (rad)
+
+For both position and angle error, the 3 elements are combined to create a single error which is used during EKF sensor fusion
+
+![nongps-position-estimation-poserr](/docs/dev/images/nongps-position-estimation-poserr.png)
+In addition the position error is constrained to be between [VISO_POS_M_NSE](/docs/dev/VISO_POS_M_NSE) and 100 and the angle error between [VISO_YAW_M_NSE](/docs/dev/VISO_YAW_M_NSE) and 1.5
+
+Messages with "quality" below the [VISO_QUAL_MIN](/docs/dev/VISO_QUAL_MIN) parameter value are ignored
+
+## OPTICAL_FLOW message
+
+
+An offboard optical flow sensor can send its horizontal flow sensor data to the autopilot using the [OPTICAL_FLOW](https://mavlink.io/en/messages/common.html#OPTICAL_FLOW) message
+
+Users should set [FLOW_TYPE](/docs/dev/FLOW_TYPE) = 5 (MAVLink) and then perform the [Optical Flow Setup procedure](https://ardupilot.org/copter/docs/common-optical-flow-sensor-setup.html) before use
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Field Name&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;time_usec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint64_t&lt;/td&gt;
+&lt;td&gt;Timestamp since system boot.  This does not need to be synchronised with the autopilot's time&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;sensor_id&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;flow_x&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int16_t&lt;/td&gt;
+&lt;td&gt;Flow rate around X-axis&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;flow_x&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int16_t&lt;/td&gt;
+&lt;td&gt;Flow rate around Y-axis&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;flow_comp_m_x&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;flow_comp_m_y&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;quality&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Optical flow quality 0:bad, 255:best&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ground_distance&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;flow_rate_x&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;flow_rate_y&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+Please see this [issue 29131](https://github.com/ArduPilot/ardupilot/issues/29131) for improvements we should make to the handling of this message
+
+## GPS/Non-GPS Transitions
+
+
+The user wiki page for [GPS/Non-GPS transitions is here](https://ardupilot.org/copter/docs/common-non-gps-to-gps.html)
+
+The EKF's active source set can be changed in real-time by sending a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) or [COMMAND_INT](https://mavlink.io/en/messages/common.html#COMMAND_INT) message with the "command" field set to [MAV_CMD_SET_EKF_SOURCE_SET (42007)](https://github.com/ArduPilot/mavlink/blob/master/message_definitions/v1.0/ardupilotmega.xml#L144) and "param1" set to a number between 1 and 3
+
+## MAV_CMD_EXTERNAL_POSITION_ESTIMATE
+
+
+Unlike the continuous position/velocity streams described above, [MAV_CMD_EXTERNAL_POSITION_ESTIMATE (43003)](https://mavlink.io/en/messages/common.html#MAV_CMD_EXTERNAL_POSITION_ESTIMATE) provides a single, occasional position correction while the EKF is dead reckoning without GPS.  It is intended for cases such as a remote pilot spotting a known landmark over an FPV video feed and nudging the vehicle's estimated position back onto it.
+
+This is only supported by EKF3 (not EKF2) and, like the rest of non-GPS navigation, requires a [board with more than 1MB of flash](/docs/dev/common-non-gps-navigation-landing-page).
+
+The command must be sent as a [COMMAND_INT](https://mavlink.io/en/messages/common.html#COMMAND_INT) with ``frame`` set to ``MAV_FRAME_GLOBAL``:
+
+- **param1** (transmission_time, seconds): time the message was sent, in the sender's own time domain.  ArduPilot uses this together with the transport delay to align the correction in time.
+- **param2** (processing_time, seconds): time spent processing the sensor data used to generate the position estimate.  Set to 0 if unknown.
+- **param3** (accuracy, metres): estimated one standard deviation accuracy of the position estimate.
+- **x**, **y**: latitude/longitude, scaled by 1e7 as with other ``COMMAND_INT`` position commands.
+- **z**: must be sent as NaN; altitude is not used.
+
+If the EKF is still being fed a position source such as GPS, the command is rejected (``MAV_RESULT_FAILED``) since it is only intended to correct drift while dead reckoning, not to override a live position source.
+
+MAVProxy's map module can send this command: right-click the map and choose **Set Position**, or click a location on the map and run ``map setposition``.

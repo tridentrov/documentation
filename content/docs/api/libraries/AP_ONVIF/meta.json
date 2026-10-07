@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "AP_ONVIF",
+    "onvifhelpers",
+    "soap"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_IRLock",
+    "AP_IRLock_config",
+    "AP_IRLock_I2C",
+    "AP_IRLock_SITL",
+    "AP_IRLock_SITL_Gazebo"
+  ],
+  "defaultOpen": true
+}

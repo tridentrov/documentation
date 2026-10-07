@@ -1,0 +1,1493 @@
+---
+title: "MAVLink ardupilotmega dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# ardupilotmega dialect
+
+MAVLink dialect **ardupilotmega**.
+
+## Enumerations
+
+### `ACCELCAL_VEHICLE_POS`
+
+- `ACCELCAL_VEHICLE_POS_LEVEL` = `1` — 
+- `ACCELCAL_VEHICLE_POS_LEFT` = `2` — 
+- `ACCELCAL_VEHICLE_POS_RIGHT` = `3` — 
+- `ACCELCAL_VEHICLE_POS_NOSEDOWN` = `4` — 
+- `ACCELCAL_VEHICLE_POS_NOSEUP` = `5` — 
+- `ACCELCAL_VEHICLE_POS_BACK` = `6` — 
+- `ACCELCAL_VEHICLE_POS_SUCCESS` = `16777215` — 
+- `ACCELCAL_VEHICLE_POS_FAILED` = `16777216` — 
+
+### `MAV_CMD`
+
+- `MAV_CMD_DO_SET_RESUME_REPEAT_DIST` = `215` — Set the distance to be repeated on mission resume
+- `MAV_CMD_DO_SPRAYER` = `216` — Control attached liquid sprayer
+- `MAV_CMD_DO_SEND_SCRIPT_MESSAGE` = `217` — Pass instructions onto scripting, a script should be checking for a new command
+- `MAV_CMD_DO_AUX_FUNCTION` = `218` — Execute auxiliary function
+- `MAV_CMD_NAV_ALTITUDE_WAIT` = `83` — Mission command to wait for an altitude or downwards vertical speed. This is meant for high altitude balloon launches, allowing the aircraft to be idle until either an altitude is reached or a negative vertical speed is reached (indicating early balloon burst). The wiggle time is how often to wiggle the control surfaces to prevent them seizing up.
+- `MAV_CMD_POWER_OFF_INITIATED` = `42000` — A system wide power-off event has been initiated.
+- `MAV_CMD_SOLO_BTN_FLY_CLICK` = `42001` — FLY button has been clicked.
+- `MAV_CMD_SOLO_BTN_FLY_HOLD` = `42002` — FLY button has been held for 1.5 seconds.
+- `MAV_CMD_SOLO_BTN_PAUSE_CLICK` = `42003` — PAUSE button has been clicked.
+- `MAV_CMD_FIXED_MAG_CAL` = `42004` — Magnetometer calibration based on fixed position in earth field given by inclination, declination and intensity.
+- `MAV_CMD_FIXED_MAG_CAL_FIELD` = `42005` — Magnetometer calibration based on fixed expected field values.
+- `MAV_CMD_SET_EKF_SOURCE_SET` = `42007` — Set EKF sensor source set.
+- `MAV_CMD_DO_START_MAG_CAL` = `42424` — Initiate a magnetometer calibration.
+- `MAV_CMD_DO_ACCEPT_MAG_CAL` = `42425` — Accept a magnetometer calibration.
+- `MAV_CMD_DO_CANCEL_MAG_CAL` = `42426` — Cancel a running magnetometer calibration.
+- `MAV_CMD_ACCELCAL_VEHICLE_POS` = `42429` — Used when doing accelerometer calibration. When sent to the GCS tells it what position to put the vehicle in. When sent to the vehicle says what position the vehicle is in.
+- `MAV_CMD_DO_SEND_BANNER` = `42428` — Reply with the version banner.
+- `MAV_CMD_SET_FACTORY_TEST_MODE` = `42427` — Command autopilot to get into factory test/diagnostic mode.
+- `MAV_CMD_GIMBAL_RESET` = `42501` — Causes the gimbal to reset and boot as if it was just powered on.
+- `MAV_CMD_GIMBAL_AXIS_CALIBRATION_STATUS` = `42502` — Reports progress and success or failure of gimbal axis calibration procedure.
+- `MAV_CMD_GIMBAL_REQUEST_AXIS_CALIBRATION` = `42503` — Starts commutation calibration on the gimbal.
+- `MAV_CMD_GIMBAL_FULL_RESET` = `42505` — Erases gimbal application and parameters.
+- `MAV_CMD_FLASH_BOOTLOADER` = `42650` — Update the bootloader
+- `MAV_CMD_BATTERY_RESET` = `42651` — Reset battery capacity for batteries that accumulate consumed battery via integration.
+- `MAV_CMD_DEBUG_TRAP` = `42700` — Issue a trap signal to the autopilot process, presumably to enter the debugger.
+- `MAV_CMD_SCRIPTING` = `42701` — Control onboard scripting.
+- `MAV_CMD_NAV_SCRIPT_TIME` = `42702` — Scripting command as NAV command with wait for completion.
+- `MAV_CMD_NAV_ATTITUDE_TIME` = `42703` — Maintain an attitude for a specified time.
+- `MAV_CMD_SET_HAGL` = `43005` — Provide a value for height above ground level. This can be used for things like fixed wing and VTOL landing.
+
+### `SCRIPTING_CMD`
+
+- `SCRIPTING_CMD_REPL_START` = `0` — Start a REPL session.
+- `SCRIPTING_CMD_REPL_STOP` = `1` — End a REPL session.
+- `SCRIPTING_CMD_STOP` = `2` — Stop execution of scripts.
+- `SCRIPTING_CMD_STOP_AND_RESTART` = `3` — Stop execution of scripts and restart.
+
+### `SECURE_COMMAND_OP`
+
+- `SECURE_COMMAND_GET_SESSION_KEY` = `0` — Get an 8 byte session key which is used for remote secure updates which operate on flight controller data such as bootloader public keys. Return data will be 8 bytes on success. The session key remains valid until either the flight controller reboots or another SECURE_COMMAND_GET_SESSION_KEY is run.
+- `SECURE_COMMAND_GET_REMOTEID_SESSION_KEY` = `1` — Get an 8 byte session key which is used for remote secure updates which operate on RemoteID module data. Return data will be 8 bytes on success. The session key remains valid until either the remote ID module reboots or another SECURE_COMMAND_GET_REMOTEID_SESSION_KEY is run.
+- `SECURE_COMMAND_REMOVE_PUBLIC_KEYS` = `2` — Remove range of public keys from the bootloader. Command data consists of two bytes, first byte if index of first public key to remove. Second byte is the number of keys to remove. If all keys are removed then secure boot is disabled and insecure firmware can be loaded.
+- `SECURE_COMMAND_GET_PUBLIC_KEYS` = `3` — Get current public keys from the bootloader. Command data consists of two bytes, first byte is index of first public key to fetch, 2nd byte is number of keys to fetch. Total data needs to fit in data portion of reply (max 6 keys for 32 byte keys). Reply data has the index of the first key in the first byte, followed by the keys. Returned keys may be less than the number of keys requested if there are less keys installed than requested.
+- `SECURE_COMMAND_SET_PUBLIC_KEYS` = `4` — Set current public keys in the bootloader. Data consists of a one byte public key index followed by the public keys. With 32 byte keys this allows for up to 6 keys to be set in one request. Keys outside of the range that is being set will remain unchanged.
+- `SECURE_COMMAND_GET_REMOTEID_CONFIG` = `5` — Get config data for remote ID module. This command should be sent to the component ID of the flight controller which will forward it to the RemoteID module either over mavlink or DroneCAN. Data format is specific to the RemoteID implementation, see RemoteID firmware documentation for details.
+- `SECURE_COMMAND_SET_REMOTEID_CONFIG` = `6` — Set config data for remote ID module. This command should be sent to the component ID of the flight controller which will forward it to the RemoteID module either over mavlink or DroneCAN. Data format is specific to the RemoteID implementation, see RemoteID firmware documentation for details.
+- `SECURE_COMMAND_FLASH_BOOTLOADER` = `7` — Flash bootloader from local storage. Data is the filename to use for the bootloader. This is intended to be used with MAVFtp to upload a new bootloader to a microSD before flashing.
+
+### `LIMITS_STATE`
+
+- `LIMITS_INIT` = `0` — Pre-initialization.
+- `LIMITS_DISABLED` = `1` — Disabled.
+- `LIMITS_ENABLED` = `2` — Checking limits.
+- `LIMITS_TRIGGERED` = `3` — A limit has been breached.
+- `LIMITS_RECOVERING` = `4` — Taking action e.g. Return/RTL.
+- `LIMITS_RECOVERED` = `5` — We're no longer in breach of a limit.
+
+### `LIMIT_MODULE`
+
+- `LIMIT_GPSLOCK` = `1` — Pre-initialization.
+- `LIMIT_GEOFENCE` = `2` — Disabled.
+- `LIMIT_ALTITUDE` = `4` — Checking limits.
+
+### `RALLY_FLAGS`
+
+Flags in RALLY_POINT message.
+
+- `FAVORABLE_WIND` = `1` — Flag set when requiring favorable winds for landing.
+- `LAND_IMMEDIATELY` = `2` — Flag set when plane is to immediately descend to break altitude and land without GCS intervention. Flag not set when plane is to loiter at Rally point until commanded to land.
+- `ALT_FRAME_VALID` = `4` — True if the following altitude frame value is valid.
+- `ALT_FRAME` = `24` — 2 bit value representing altitude frame. 0: absolute, 1: relative home, 2: relative origin, 3: relative terrain
+
+### `CAMERA_STATUS_TYPES`
+
+- `CAMERA_STATUS_TYPE_HEARTBEAT` = `0` — Camera heartbeat, announce camera component ID at 1Hz.
+- `CAMERA_STATUS_TYPE_TRIGGER` = `1` — Camera image triggered.
+- `CAMERA_STATUS_TYPE_DISCONNECT` = `2` — Camera connection lost.
+- `CAMERA_STATUS_TYPE_ERROR` = `3` — Camera unknown error.
+- `CAMERA_STATUS_TYPE_LOWBATT` = `4` — Camera battery low. Parameter p1 shows reported voltage.
+- `CAMERA_STATUS_TYPE_LOWSTORE` = `5` — Camera storage low. Parameter p1 shows reported shots remaining.
+- `CAMERA_STATUS_TYPE_LOWSTOREV` = `6` — Camera storage low. Parameter p1 shows reported video minutes remaining.
+
+### `CAMERA_FEEDBACK_FLAGS`
+
+- `CAMERA_FEEDBACK_PHOTO` = `0` — Shooting photos, not video.
+- `CAMERA_FEEDBACK_VIDEO` = `1` — Shooting video, not stills.
+- `CAMERA_FEEDBACK_BADEXPOSURE` = `2` — Unable to achieve requested exposure (e.g. shutter speed too low).
+- `CAMERA_FEEDBACK_CLOSEDLOOP` = `3` — Closed loop feedback from camera, we know for sure it has successfully taken a picture.
+- `CAMERA_FEEDBACK_OPENLOOP` = `4` — Open loop camera, an image trigger has been requested but we can't know for sure it has successfully taken a picture.
+
+### `MAV_MODE_GIMBAL`
+
+- `MAV_MODE_GIMBAL_UNINITIALIZED` = `0` — Gimbal is powered on but has not started initializing yet.
+- `MAV_MODE_GIMBAL_CALIBRATING_PITCH` = `1` — Gimbal is currently running calibration on the pitch axis.
+- `MAV_MODE_GIMBAL_CALIBRATING_ROLL` = `2` — Gimbal is currently running calibration on the roll axis.
+- `MAV_MODE_GIMBAL_CALIBRATING_YAW` = `3` — Gimbal is currently running calibration on the yaw axis.
+- `MAV_MODE_GIMBAL_INITIALIZED` = `4` — Gimbal has finished calibrating and initializing, but is relaxed pending reception of first rate command from copter.
+- `MAV_MODE_GIMBAL_ACTIVE` = `5` — Gimbal is actively stabilizing.
+- `MAV_MODE_GIMBAL_RATE_CMD_TIMEOUT` = `6` — Gimbal is relaxed because it missed more than 10 expected rate command messages in a row. Gimbal will move back to active mode when it receives a new rate command.
+
+### `GIMBAL_AXIS`
+
+- `GIMBAL_AXIS_YAW` = `0` — Gimbal yaw axis.
+- `GIMBAL_AXIS_PITCH` = `1` — Gimbal pitch axis.
+- `GIMBAL_AXIS_ROLL` = `2` — Gimbal roll axis.
+
+### `GIMBAL_AXIS_CALIBRATION_STATUS`
+
+- `GIMBAL_AXIS_CALIBRATION_STATUS_IN_PROGRESS` = `0` — Axis calibration is in progress.
+- `GIMBAL_AXIS_CALIBRATION_STATUS_SUCCEEDED` = `1` — Axis calibration succeeded.
+- `GIMBAL_AXIS_CALIBRATION_STATUS_FAILED` = `2` — Axis calibration failed.
+
+### `GIMBAL_AXIS_CALIBRATION_REQUIRED`
+
+- `GIMBAL_AXIS_CALIBRATION_REQUIRED_UNKNOWN` = `0` — Whether or not this axis requires calibration is unknown at this time.
+- `GIMBAL_AXIS_CALIBRATION_REQUIRED_TRUE` = `1` — This axis requires calibration.
+- `GIMBAL_AXIS_CALIBRATION_REQUIRED_FALSE` = `2` — This axis does not require calibration.
+
+### `GOPRO_HEARTBEAT_STATUS`
+
+- `GOPRO_HEARTBEAT_STATUS_DISCONNECTED` = `0` — No GoPro connected.
+- `GOPRO_HEARTBEAT_STATUS_INCOMPATIBLE` = `1` — The detected GoPro is not HeroBus compatible.
+- `GOPRO_HEARTBEAT_STATUS_CONNECTED` = `2` — A HeroBus compatible GoPro is connected.
+- `GOPRO_HEARTBEAT_STATUS_ERROR` = `3` — An unrecoverable error was encountered with the connected GoPro, it may require a power cycle.
+
+### `GOPRO_HEARTBEAT_FLAGS`
+
+- `GOPRO_FLAG_RECORDING` = `1` — GoPro is currently recording.
+
+### `GOPRO_REQUEST_STATUS`
+
+- `GOPRO_REQUEST_SUCCESS` = `0` — The write message with ID indicated succeeded.
+- `GOPRO_REQUEST_FAILED` = `1` — The write message with ID indicated failed.
+
+### `GOPRO_COMMAND`
+
+- `GOPRO_COMMAND_POWER` = `0` — (Get/Set).
+- `GOPRO_COMMAND_CAPTURE_MODE` = `1` — (Get/Set).
+- `GOPRO_COMMAND_SHUTTER` = `2` — (___/Set).
+- `GOPRO_COMMAND_BATTERY` = `3` — (Get/___).
+- `GOPRO_COMMAND_MODEL` = `4` — (Get/___).
+- `GOPRO_COMMAND_VIDEO_SETTINGS` = `5` — (Get/Set).
+- `GOPRO_COMMAND_LOW_LIGHT` = `6` — (Get/Set).
+- `GOPRO_COMMAND_PHOTO_RESOLUTION` = `7` — (Get/Set).
+- `GOPRO_COMMAND_PHOTO_BURST_RATE` = `8` — (Get/Set).
+- `GOPRO_COMMAND_PROTUNE` = `9` — (Get/Set).
+- `GOPRO_COMMAND_PROTUNE_WHITE_BALANCE` = `10` — (Get/Set) Hero 3+ Only.
+- `GOPRO_COMMAND_PROTUNE_COLOUR` = `11` — (Get/Set) Hero 3+ Only.
+- `GOPRO_COMMAND_PROTUNE_GAIN` = `12` — (Get/Set) Hero 3+ Only.
+- `GOPRO_COMMAND_PROTUNE_SHARPNESS` = `13` — (Get/Set) Hero 3+ Only.
+- `GOPRO_COMMAND_PROTUNE_EXPOSURE` = `14` — (Get/Set) Hero 3+ Only.
+- `GOPRO_COMMAND_TIME` = `15` — (Get/Set).
+- `GOPRO_COMMAND_CHARGING` = `16` — (Get/Set).
+
+### `GOPRO_CAPTURE_MODE`
+
+- `GOPRO_CAPTURE_MODE_VIDEO` = `0` — Video mode.
+- `GOPRO_CAPTURE_MODE_PHOTO` = `1` — Photo mode.
+- `GOPRO_CAPTURE_MODE_BURST` = `2` — Burst mode, Hero 3+ only.
+- `GOPRO_CAPTURE_MODE_TIME_LAPSE` = `3` — Time lapse mode, Hero 3+ only.
+- `GOPRO_CAPTURE_MODE_MULTI_SHOT` = `4` — Multi shot mode, Hero 4 only.
+- `GOPRO_CAPTURE_MODE_PLAYBACK` = `5` — Playback mode, Hero 4 only, silver only except when LCD or HDMI is connected to black.
+- `GOPRO_CAPTURE_MODE_SETUP` = `6` — Playback mode, Hero 4 only.
+- `GOPRO_CAPTURE_MODE_UNKNOWN` = `255` — Mode not yet known.
+
+### `GOPRO_RESOLUTION`
+
+- `GOPRO_RESOLUTION_480p` = `0` — 848 x 480 (480p).
+- `GOPRO_RESOLUTION_720p` = `1` — 1280 x 720 (720p).
+- `GOPRO_RESOLUTION_960p` = `2` — 1280 x 960 (960p).
+- `GOPRO_RESOLUTION_1080p` = `3` — 1920 x 1080 (1080p).
+- `GOPRO_RESOLUTION_1440p` = `4` — 1920 x 1440 (1440p).
+- `GOPRO_RESOLUTION_2_7k_17_9` = `5` — 2704 x 1440 (2.7k-17:9).
+- `GOPRO_RESOLUTION_2_7k_16_9` = `6` — 2704 x 1524 (2.7k-16:9).
+- `GOPRO_RESOLUTION_2_7k_4_3` = `7` — 2704 x 2028 (2.7k-4:3).
+- `GOPRO_RESOLUTION_4k_16_9` = `8` — 3840 x 2160 (4k-16:9).
+- `GOPRO_RESOLUTION_4k_17_9` = `9` — 4096 x 2160 (4k-17:9).
+- `GOPRO_RESOLUTION_720p_SUPERVIEW` = `10` — 1280 x 720 (720p-SuperView).
+- `GOPRO_RESOLUTION_1080p_SUPERVIEW` = `11` — 1920 x 1080 (1080p-SuperView).
+- `GOPRO_RESOLUTION_2_7k_SUPERVIEW` = `12` — 2704 x 1520 (2.7k-SuperView).
+- `GOPRO_RESOLUTION_4k_SUPERVIEW` = `13` — 3840 x 2160 (4k-SuperView).
+
+### `GOPRO_FRAME_RATE`
+
+- `GOPRO_FRAME_RATE_12` = `0` — 12 FPS.
+- `GOPRO_FRAME_RATE_15` = `1` — 15 FPS.
+- `GOPRO_FRAME_RATE_24` = `2` — 24 FPS.
+- `GOPRO_FRAME_RATE_25` = `3` — 25 FPS.
+- `GOPRO_FRAME_RATE_30` = `4` — 30 FPS.
+- `GOPRO_FRAME_RATE_48` = `5` — 48 FPS.
+- `GOPRO_FRAME_RATE_50` = `6` — 50 FPS.
+- `GOPRO_FRAME_RATE_60` = `7` — 60 FPS.
+- `GOPRO_FRAME_RATE_80` = `8` — 80 FPS.
+- `GOPRO_FRAME_RATE_90` = `9` — 90 FPS.
+- `GOPRO_FRAME_RATE_100` = `10` — 100 FPS.
+- `GOPRO_FRAME_RATE_120` = `11` — 120 FPS.
+- `GOPRO_FRAME_RATE_240` = `12` — 240 FPS.
+- `GOPRO_FRAME_RATE_12_5` = `13` — 12.5 FPS.
+
+### `GOPRO_FIELD_OF_VIEW`
+
+- `GOPRO_FIELD_OF_VIEW_WIDE` = `0` — 0x00: Wide.
+- `GOPRO_FIELD_OF_VIEW_MEDIUM` = `1` — 0x01: Medium.
+- `GOPRO_FIELD_OF_VIEW_NARROW` = `2` — 0x02: Narrow.
+
+### `GOPRO_VIDEO_SETTINGS_FLAGS`
+
+- `GOPRO_VIDEO_SETTINGS_TV_MODE` = `1` — 0=NTSC, 1=PAL.
+
+### `GOPRO_PHOTO_RESOLUTION`
+
+- `GOPRO_PHOTO_RESOLUTION_5MP_MEDIUM` = `0` — 5MP Medium.
+- `GOPRO_PHOTO_RESOLUTION_7MP_MEDIUM` = `1` — 7MP Medium.
+- `GOPRO_PHOTO_RESOLUTION_7MP_WIDE` = `2` — 7MP Wide.
+- `GOPRO_PHOTO_RESOLUTION_10MP_WIDE` = `3` — 10MP Wide.
+- `GOPRO_PHOTO_RESOLUTION_12MP_WIDE` = `4` — 12MP Wide.
+
+### `GOPRO_PROTUNE_WHITE_BALANCE`
+
+- `GOPRO_PROTUNE_WHITE_BALANCE_AUTO` = `0` — Auto.
+- `GOPRO_PROTUNE_WHITE_BALANCE_3000K` = `1` — 3000K.
+- `GOPRO_PROTUNE_WHITE_BALANCE_5500K` = `2` — 5500K.
+- `GOPRO_PROTUNE_WHITE_BALANCE_6500K` = `3` — 6500K.
+- `GOPRO_PROTUNE_WHITE_BALANCE_RAW` = `4` — Camera Raw.
+
+### `GOPRO_PROTUNE_COLOUR`
+
+- `GOPRO_PROTUNE_COLOUR_STANDARD` = `0` — Auto.
+- `GOPRO_PROTUNE_COLOUR_NEUTRAL` = `1` — Neutral.
+
+### `GOPRO_PROTUNE_GAIN`
+
+- `GOPRO_PROTUNE_GAIN_400` = `0` — ISO 400.
+- `GOPRO_PROTUNE_GAIN_800` = `1` — ISO 800 (Only Hero 4).
+- `GOPRO_PROTUNE_GAIN_1600` = `2` — ISO 1600.
+- `GOPRO_PROTUNE_GAIN_3200` = `3` — ISO 3200 (Only Hero 4).
+- `GOPRO_PROTUNE_GAIN_6400` = `4` — ISO 6400.
+
+### `GOPRO_PROTUNE_SHARPNESS`
+
+- `GOPRO_PROTUNE_SHARPNESS_LOW` = `0` — Low Sharpness.
+- `GOPRO_PROTUNE_SHARPNESS_MEDIUM` = `1` — Medium Sharpness.
+- `GOPRO_PROTUNE_SHARPNESS_HIGH` = `2` — High Sharpness.
+
+### `GOPRO_PROTUNE_EXPOSURE`
+
+- `GOPRO_PROTUNE_EXPOSURE_NEG_5_0` = `0` — -5.0 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_NEG_4_5` = `1` — -4.5 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_NEG_4_0` = `2` — -4.0 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_NEG_3_5` = `3` — -3.5 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_NEG_3_0` = `4` — -3.0 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_NEG_2_5` = `5` — -2.5 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_NEG_2_0` = `6` — -2.0 EV.
+- `GOPRO_PROTUNE_EXPOSURE_NEG_1_5` = `7` — -1.5 EV.
+- `GOPRO_PROTUNE_EXPOSURE_NEG_1_0` = `8` — -1.0 EV.
+- `GOPRO_PROTUNE_EXPOSURE_NEG_0_5` = `9` — -0.5 EV.
+- `GOPRO_PROTUNE_EXPOSURE_ZERO` = `10` — 0.0 EV.
+- `GOPRO_PROTUNE_EXPOSURE_POS_0_5` = `11` — +0.5 EV.
+- `GOPRO_PROTUNE_EXPOSURE_POS_1_0` = `12` — +1.0 EV.
+- `GOPRO_PROTUNE_EXPOSURE_POS_1_5` = `13` — +1.5 EV.
+- `GOPRO_PROTUNE_EXPOSURE_POS_2_0` = `14` — +2.0 EV.
+- `GOPRO_PROTUNE_EXPOSURE_POS_2_5` = `15` — +2.5 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_POS_3_0` = `16` — +3.0 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_POS_3_5` = `17` — +3.5 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_POS_4_0` = `18` — +4.0 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_POS_4_5` = `19` — +4.5 EV (Hero 3+ Only).
+- `GOPRO_PROTUNE_EXPOSURE_POS_5_0` = `20` — +5.0 EV (Hero 3+ Only).
+
+### `GOPRO_CHARGING`
+
+- `GOPRO_CHARGING_DISABLED` = `0` — Charging disabled.
+- `GOPRO_CHARGING_ENABLED` = `1` — Charging enabled.
+
+### `GOPRO_MODEL`
+
+- `GOPRO_MODEL_UNKNOWN` = `0` — Unknown gopro model.
+- `GOPRO_MODEL_HERO_3_PLUS_SILVER` = `1` — Hero 3+ Silver (HeroBus not supported by GoPro).
+- `GOPRO_MODEL_HERO_3_PLUS_BLACK` = `2` — Hero 3+ Black.
+- `GOPRO_MODEL_HERO_4_SILVER` = `3` — Hero 4 Silver.
+- `GOPRO_MODEL_HERO_4_BLACK` = `4` — Hero 4 Black.
+
+### `GOPRO_BURST_RATE`
+
+- `GOPRO_BURST_RATE_3_IN_1_SECOND` = `0` — 3 Shots / 1 Second.
+- `GOPRO_BURST_RATE_5_IN_1_SECOND` = `1` — 5 Shots / 1 Second.
+- `GOPRO_BURST_RATE_10_IN_1_SECOND` = `2` — 10 Shots / 1 Second.
+- `GOPRO_BURST_RATE_10_IN_2_SECOND` = `3` — 10 Shots / 2 Second.
+- `GOPRO_BURST_RATE_10_IN_3_SECOND` = `4` — 10 Shots / 3 Second (Hero 4 Only).
+- `GOPRO_BURST_RATE_30_IN_1_SECOND` = `5` — 30 Shots / 1 Second.
+- `GOPRO_BURST_RATE_30_IN_2_SECOND` = `6` — 30 Shots / 2 Second.
+- `GOPRO_BURST_RATE_30_IN_3_SECOND` = `7` — 30 Shots / 3 Second.
+- `GOPRO_BURST_RATE_30_IN_6_SECOND` = `8` — 30 Shots / 6 Second.
+
+### `MAV_CMD_DO_AUX_FUNCTION_SWITCH_LEVEL`
+
+- `MAV_CMD_DO_AUX_FUNCTION_SWITCH_LEVEL_LOW` = `0` — Switch Low.
+- `MAV_CMD_DO_AUX_FUNCTION_SWITCH_LEVEL_MIDDLE` = `1` — Switch Middle.
+- `MAV_CMD_DO_AUX_FUNCTION_SWITCH_LEVEL_HIGH` = `2` — Switch High.
+
+### `LED_CONTROL_PATTERN`
+
+- `LED_CONTROL_PATTERN_OFF` = `0` — LED patterns off (return control to regular vehicle control).
+- `LED_CONTROL_PATTERN_FIRMWAREUPDATE` = `1` — LEDs show pattern during firmware update.
+- `LED_CONTROL_PATTERN_CUSTOM` = `255` — Custom Pattern using custom bytes fields.
+
+### `EKF_STATUS_FLAGS`
+
+Flags in EKF_STATUS message.
+
+- `EKF_ATTITUDE` = `1` — Set if EKF's attitude estimate is good.
+- `EKF_VELOCITY_HORIZ` = `2` — Set if EKF's horizontal velocity estimate is good.
+- `EKF_VELOCITY_VERT` = `4` — Set if EKF's vertical velocity estimate is good.
+- `EKF_POS_HORIZ_REL` = `8` — Set if EKF's horizontal position (relative) estimate is good.
+- `EKF_POS_HORIZ_ABS` = `16` — Set if EKF's horizontal position (absolute) estimate is good.
+- `EKF_POS_VERT_ABS` = `32` — Set if EKF's vertical position (absolute) estimate is good.
+- `EKF_POS_VERT_AGL` = `64` — Set if EKF's vertical position (above ground) estimate is good.
+- `EKF_CONST_POS_MODE` = `128` — EKF is in constant position mode and does not know it's absolute or relative position.
+- `EKF_PRED_POS_HORIZ_REL` = `256` — Set if EKF's predicted horizontal position (relative) estimate is good.
+- `EKF_PRED_POS_HORIZ_ABS` = `512` — Set if EKF's predicted horizontal position (absolute) estimate is good.
+- `EKF_GPS_GLITCHING` = `32768` — Set if EKF believes the GPS input data is faulty.
+- `EKF_UNINITIALIZED` = `1024` — Set if EKF has never been healthy.
+
+### `PID_TUNING_AXIS`
+
+- `PID_TUNING_ROLL` = `1` — 
+- `PID_TUNING_PITCH` = `2` — 
+- `PID_TUNING_YAW` = `3` — 
+- `PID_TUNING_ACCZ` = `4` — 
+- `PID_TUNING_STEER` = `5` — 
+- `PID_TUNING_LANDING` = `6` — 
+- `PID_TUNING_WHEEL_LEFT` = `7` — Left wheel rate.
+- `PID_TUNING_WHEEL_RIGHT` = `8` — Right wheel rate.
+- `PID_TUNING_SAIL_HEEL` = `9` — Sailboat heel to mainsail.
+- `PID_TUNING_VEL_NORTH` = `10` — Velocity north.
+- `PID_TUNING_VEL_EAST` = `11` — Velocity east.
+- `PID_TUNING_VEL_DOWN` = `12` — Velocity down.
+- `PID_TUNING_POS_NORTH` = `13` — Position north.
+- `PID_TUNING_POS_EAST` = `14` — Position east.
+- `PID_TUNING_POS_DOWN` = `15` — Position down.
+- `PID_TUNING_YAW_ANGLE` = `16` — Yaw angle.
+
+### `MAV_REMOTE_LOG_DATA_BLOCK_COMMANDS`
+
+Special ACK block numbers control activation of dataflash log streaming.
+
+- `MAV_REMOTE_LOG_DATA_BLOCK_STOP` = `2147483645` — UAV to stop sending DataFlash blocks.
+- `MAV_REMOTE_LOG_DATA_BLOCK_START` = `2147483646` — UAV to start sending DataFlash blocks.
+
+### `MAV_REMOTE_LOG_DATA_BLOCK_STATUSES`
+
+Possible remote log data block statuses.
+
+- `MAV_REMOTE_LOG_DATA_BLOCK_NACK` = `0` — This block has NOT been received.
+- `MAV_REMOTE_LOG_DATA_BLOCK_ACK` = `1` — This block has been received.
+
+### `DEVICE_OP_BUSTYPE`
+
+Bus types for device operations.
+
+- `DEVICE_OP_BUSTYPE_I2C` = `0` — I2C Device operation.
+- `DEVICE_OP_BUSTYPE_SPI` = `1` — SPI Device operation.
+
+### `DEEPSTALL_STAGE`
+
+Deepstall flight stage.
+
+- `DEEPSTALL_STAGE_FLY_TO_LANDING` = `0` — Flying to the landing point.
+- `DEEPSTALL_STAGE_ESTIMATE_WIND` = `1` — Building an estimate of the wind.
+- `DEEPSTALL_STAGE_WAIT_FOR_BREAKOUT` = `2` — Waiting to breakout of the loiter to fly the approach.
+- `DEEPSTALL_STAGE_FLY_TO_ARC` = `3` — Flying to the first arc point to turn around to the landing point.
+- `DEEPSTALL_STAGE_ARC` = `4` — Turning around back to the deepstall landing point.
+- `DEEPSTALL_STAGE_APPROACH` = `5` — Approaching the landing point.
+- `DEEPSTALL_STAGE_LAND` = `6` — Stalling and steering towards the land point.
+
+### `PLANE_MODE`
+
+A mapping of plane flight modes for custom_mode field of heartbeat.
+
+- `PLANE_MODE_MANUAL` = `0` — MANUAL
+- `PLANE_MODE_CIRCLE` = `1` — CIRCLE
+- `PLANE_MODE_STABILIZE` = `2` — STABILIZE
+- `PLANE_MODE_TRAINING` = `3` — TRAINING
+- `PLANE_MODE_ACRO` = `4` — ACRO
+- `PLANE_MODE_FLY_BY_WIRE_A` = `5` — FBWA
+- `PLANE_MODE_FLY_BY_WIRE_B` = `6` — FBWB
+- `PLANE_MODE_CRUISE` = `7` — CRUISE
+- `PLANE_MODE_AUTOTUNE` = `8` — AUTOTUNE
+- `PLANE_MODE_AUTO` = `10` — AUTO
+- `PLANE_MODE_RTL` = `11` — RTL
+- `PLANE_MODE_LOITER` = `12` — LOITER
+- `PLANE_MODE_TAKEOFF` = `13` — TAKEOFF
+- `PLANE_MODE_AVOID_ADSB` = `14` — AVOID ADSB
+- `PLANE_MODE_GUIDED` = `15` — GUIDED
+- `PLANE_MODE_INITIALIZING` = `16` — INITIALISING
+- `PLANE_MODE_QSTABILIZE` = `17` — QSTABILIZE
+- `PLANE_MODE_QHOVER` = `18` — QHOVER
+- `PLANE_MODE_QLOITER` = `19` — QLOITER
+- `PLANE_MODE_QLAND` = `20` — QLAND
+- `PLANE_MODE_QRTL` = `21` — QRTL
+- `PLANE_MODE_QAUTOTUNE` = `22` — QAUTOTUNE
+- `PLANE_MODE_QACRO` = `23` — QACRO
+- `PLANE_MODE_THERMAL` = `24` — THERMAL
+- `PLANE_MODE_LOITER_ALT_QLAND` = `25` — LOITER2QLAND
+- `PLANE_MODE_AUTOLAND` = `26` — AUTOLAND
+
+### `COPTER_MODE`
+
+A mapping of copter flight modes for custom_mode field of heartbeat.
+
+- `COPTER_MODE_STABILIZE` = `0` — STABILIZE
+- `COPTER_MODE_ACRO` = `1` — ACRO
+- `COPTER_MODE_ALT_HOLD` = `2` — ALT HOLD
+- `COPTER_MODE_AUTO` = `3` — AUTO
+- `COPTER_MODE_GUIDED` = `4` — GUIDED
+- `COPTER_MODE_LOITER` = `5` — LOITER
+- `COPTER_MODE_RTL` = `6` — RTL
+- `COPTER_MODE_CIRCLE` = `7` — CIRCLE
+- `COPTER_MODE_LAND` = `9` — LAND
+- `COPTER_MODE_DRIFT` = `11` — DRIFT
+- `COPTER_MODE_SPORT` = `13` — SPORT
+- `COPTER_MODE_FLIP` = `14` — FLIP
+- `COPTER_MODE_AUTOTUNE` = `15` — AUTOTUNE
+- `COPTER_MODE_POSHOLD` = `16` — POSHOLD
+- `COPTER_MODE_BRAKE` = `17` — BRAKE
+- `COPTER_MODE_THROW` = `18` — THROW
+- `COPTER_MODE_AVOID_ADSB` = `19` — AVOID ADSB
+- `COPTER_MODE_GUIDED_NOGPS` = `20` — GUIDED NOGPS
+- `COPTER_MODE_SMART_RTL` = `21` — SMARTRTL
+- `COPTER_MODE_FLOWHOLD` = `22` — FLOWHOLD
+- `COPTER_MODE_FOLLOW` = `23` — FOLLOW
+- `COPTER_MODE_ZIGZAG` = `24` — ZIGZAG
+- `COPTER_MODE_SYSTEMID` = `25` — SYSTEMID
+- `COPTER_MODE_AUTOROTATE` = `26` — AUTOROTATE
+- `COPTER_MODE_AUTO_RTL` = `27` — AUTO RTL
+- `COPTER_MODE_TURTLE` = `28` — TURTLE
+
+### `SUB_MODE`
+
+A mapping of sub flight modes for custom_mode field of heartbeat.
+
+- `SUB_MODE_STABILIZE` = `0` — STABILIZE
+- `SUB_MODE_ACRO` = `1` — ACRO
+- `SUB_MODE_ALT_HOLD` = `2` — ALT HOLD
+- `SUB_MODE_AUTO` = `3` — AUTO
+- `SUB_MODE_GUIDED` = `4` — GUIDED
+- `SUB_MODE_CIRCLE` = `7` — CIRCLE
+- `SUB_MODE_SURFACE` = `9` — SURFACE
+- `SUB_MODE_POSHOLD` = `16` — POSHOLD
+- `SUB_MODE_MANUAL` = `19` — MANUAL
+- `SUB_MODE_MOTORDETECT` = `20` — MOTORDETECT
+- `SUB_MODE_SURFTRAK` = `21` — SURFTRAK
+
+### `ROVER_MODE`
+
+A mapping of rover flight modes for custom_mode field of heartbeat.
+
+- `ROVER_MODE_MANUAL` = `0` — MANUAL
+- `ROVER_MODE_ACRO` = `1` — ACRO
+- `ROVER_MODE_STEERING` = `3` — STEERING
+- `ROVER_MODE_HOLD` = `4` — HOLD
+- `ROVER_MODE_LOITER` = `5` — LOITER
+- `ROVER_MODE_FOLLOW` = `6` — FOLLOW
+- `ROVER_MODE_SIMPLE` = `7` — SIMPLE
+- `ROVER_MODE_DOCK` = `8` — DOCK
+- `ROVER_MODE_CIRCLE` = `9` — CIRCLE
+- `ROVER_MODE_AUTO` = `10` — AUTO
+- `ROVER_MODE_RTL` = `11` — RTL
+- `ROVER_MODE_SMART_RTL` = `12` — SMART RTL
+- `ROVER_MODE_GUIDED` = `15` — GUIDED
+- `ROVER_MODE_INITIALIZING` = `16` — INITIALISING
+
+### `TRACKER_MODE`
+
+A mapping of antenna tracker flight modes for custom_mode field of heartbeat.
+
+- `TRACKER_MODE_MANUAL` = `0` — MANUAL
+- `TRACKER_MODE_STOP` = `1` — STOP
+- `TRACKER_MODE_SCAN` = `2` — SCAN
+- `TRACKER_MODE_SERVO_TEST` = `3` — SERVO TEST
+- `TRACKER_MODE_GUIDED` = `4` — GUIDED
+- `TRACKER_MODE_AUTO` = `10` — AUTO
+- `TRACKER_MODE_INITIALIZING` = `16` — INITIALISING
+
+### `OSD_PARAM_CONFIG_TYPE`
+
+The type of parameter for the OSD parameter editor.
+
+- `OSD_PARAM_NONE` = `0` — 
+- `OSD_PARAM_SERIAL_PROTOCOL` = `1` — 
+- `OSD_PARAM_SERVO_FUNCTION` = `2` — 
+- `OSD_PARAM_AUX_FUNCTION` = `3` — 
+- `OSD_PARAM_FLIGHT_MODE` = `4` — 
+- `OSD_PARAM_FAILSAFE_ACTION` = `5` — 
+- `OSD_PARAM_FAILSAFE_ACTION_1` = `6` — 
+- `OSD_PARAM_FAILSAFE_ACTION_2` = `7` — 
+- `OSD_PARAM_NUM_TYPES` = `8` — 
+
+### `OSD_PARAM_CONFIG_ERROR`
+
+The error type for the OSD parameter editor.
+
+- `OSD_PARAM_SUCCESS` = `0` — 
+- `OSD_PARAM_INVALID_SCREEN` = `1` — 
+- `OSD_PARAM_INVALID_PARAMETER_INDEX` = `2` — 
+- `OSD_PARAM_INVALID_PARAMETER` = `3` — 
+
+## Messages
+
+### SENSOR_OFFSETS (ID 150)
+
+Offsets and calibrations values for hardware sensors. This makes it easier to debug the calibration process.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `mag_ofs_x` | `int16_t` | Magnetometer X offset. |
+| `mag_ofs_y` | `int16_t` | Magnetometer Y offset. |
+| `mag_ofs_z` | `int16_t` | Magnetometer Z offset. |
+| `mag_declination` | `float` | Magnetic declination. |
+| `raw_press` | `int32_t` | Raw pressure from barometer. |
+| `raw_temp` | `int32_t` | Raw temperature from barometer. |
+| `gyro_cal_x` | `float` | Gyro X calibration. |
+| `gyro_cal_y` | `float` | Gyro Y calibration. |
+| `gyro_cal_z` | `float` | Gyro Z calibration. |
+| `accel_cal_x` | `float` | Accel X calibration. |
+| `accel_cal_y` | `float` | Accel Y calibration. |
+| `accel_cal_z` | `float` | Accel Z calibration. |
+
+### SET_MAG_OFFSETS (ID 151)
+
+Set the magnetometer offsets
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `mag_ofs_x` | `int16_t` | Magnetometer X offset. |
+| `mag_ofs_y` | `int16_t` | Magnetometer Y offset. |
+| `mag_ofs_z` | `int16_t` | Magnetometer Z offset. |
+
+### MEMINFO (ID 152)
+
+State of autopilot RAM.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `brkval` | `uint16_t` | Heap top. |
+| `freemem` | `uint16_t` | Free memory. |
+| `freemem32` | `uint32_t` | Free memory (32 bit). |
+
+### AP_ADC (ID 153)
+
+Raw ADC output.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `adc1` | `uint16_t` | ADC output 1. |
+| `adc2` | `uint16_t` | ADC output 2. |
+| `adc3` | `uint16_t` | ADC output 3. |
+| `adc4` | `uint16_t` | ADC output 4. |
+| `adc5` | `uint16_t` | ADC output 5. |
+| `adc6` | `uint16_t` | ADC output 6. |
+
+### DIGICAM_CONFIGURE (ID 154)
+
+Configure on-board Camera Control System.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `mode` | `uint8_t` | Mode enumeration from 1 to N //P, TV, AV, M, etc. (0 means ignore). |
+| `shutter_speed` | `uint16_t` | Divisor number //e.g. 1000 means 1/1000 (0 means ignore). |
+| `aperture` | `uint8_t` | F stop number x 10 //e.g. 28 means 2.8 (0 means ignore). |
+| `iso` | `uint8_t` | ISO enumeration from 1 to N //e.g. 80, 100, 200, Etc (0 means ignore). |
+| `exposure_type` | `uint8_t` | Exposure type enumeration from 1 to N (0 means ignore). |
+| `command_id` | `uint8_t` | Command Identity (incremental loop: 0 to 255). //A command sent multiple times will be executed or pooled just once. |
+| `engine_cut_off` | `uint8_t` | Main engine cut-off time before camera trigger (0 means no cut-off). |
+| `extra_param` | `uint8_t` | Extra parameters enumeration (0 means ignore). |
+| `extra_value` | `float` | Correspondent value to given extra_param. |
+
+### DIGICAM_CONTROL (ID 155)
+
+Control on-board Camera Control System to take shots.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `session` | `uint8_t` | 0: stop, 1: start or keep it up //Session control e.g. show/hide lens. |
+| `zoom_pos` | `uint8_t` | 1 to N //Zoom's absolute position (0 means ignore). |
+| `zoom_step` | `int8_t` | -100 to 100 //Zooming step value to offset zoom from the current position. |
+| `focus_lock` | `uint8_t` | 0: unlock focus or keep unlocked, 1: lock focus or keep locked, 3: re-lock focus. |
+| `shot` | `uint8_t` | 0: ignore, 1: shot or start filming. |
+| `command_id` | `uint8_t` | Command Identity (incremental loop: 0 to 255)//A command sent multiple times will be executed or pooled just once. |
+| `extra_param` | `uint8_t` | Extra parameters enumeration (0 means ignore). |
+| `extra_value` | `float` | Correspondent value to given extra_param. |
+
+### MOUNT_CONFIGURE (ID 156)
+
+Message to configure a camera mount, directional antenna, etc.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `mount_mode` | `uint8_t` | Mount operating mode. |
+| `stab_roll` | `uint8_t` | (1 = yes, 0 = no). |
+| `stab_pitch` | `uint8_t` | (1 = yes, 0 = no). |
+| `stab_yaw` | `uint8_t` | (1 = yes, 0 = no). |
+
+### MOUNT_CONTROL (ID 157)
+
+Message to control a camera mount, directional antenna, etc.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `input_a` | `int32_t` | Pitch (centi-degrees) or lat (degE7), depending on mount mode. |
+| `input_b` | `int32_t` | Roll (centi-degrees) or lon (degE7) depending on mount mode. |
+| `input_c` | `int32_t` | Yaw (centi-degrees) or alt (cm) depending on mount mode. |
+| `save_position` | `uint8_t` | If "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING). |
+
+### MOUNT_STATUS (ID 158)
+
+Message with some status from autopilot to GCS about camera or antenna mount.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `pointing_a` | `int32_t` | Pitch. |
+| `pointing_b` | `int32_t` | Roll. |
+| `pointing_c` | `int32_t` | Yaw. |
+| `mount_mode` | `uint8_t` | Mount operating mode. |
+
+### FENCE_POINT (ID 160)
+
+A fence point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `idx` | `uint8_t` | Point index (first point is 1, 0 is for return point). |
+| `count` | `uint8_t` | Total number of points (for sanity checking). |
+| `lat` | `float` | Latitude of point. |
+| `lng` | `float` | Longitude of point. |
+
+### FENCE_FETCH_POINT (ID 161)
+
+Request a current fence point from MAV.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `idx` | `uint8_t` | Point index (first point is 1, 0 is for return point). |
+
+### AHRS (ID 163)
+
+Status of DCM attitude estimator.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `omegaIx` | `float` | X gyro drift estimate. |
+| `omegaIy` | `float` | Y gyro drift estimate. |
+| `omegaIz` | `float` | Z gyro drift estimate. |
+| `accel_weight` | `float` | Average accel_weight. |
+| `renorm_val` | `float` | Average renormalisation value. |
+| `error_rp` | `float` | Average error_roll_pitch value. |
+| `error_yaw` | `float` | Average error_yaw value. |
+
+### SIMSTATE (ID 164)
+
+Status of simulation environment, if used.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `roll` | `float` | Roll angle. |
+| `pitch` | `float` | Pitch angle. |
+| `yaw` | `float` | Yaw angle. |
+| `xacc` | `float` | X acceleration. |
+| `yacc` | `float` | Y acceleration. |
+| `zacc` | `float` | Z acceleration. |
+| `xgyro` | `float` | Angular speed around X axis. |
+| `ygyro` | `float` | Angular speed around Y axis. |
+| `zgyro` | `float` | Angular speed around Z axis. |
+| `lat` | `int32_t` | Latitude. |
+| `lng` | `int32_t` | Longitude. |
+
+### HWSTATUS (ID 165)
+
+Status of key hardware.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `Vcc` | `uint16_t` | Board voltage. |
+| `I2Cerr` | `uint8_t` | I2C error count. |
+
+### RADIO (ID 166)
+
+Status generated by radio.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `rssi` | `uint8_t` | Local signal strength. |
+| `remrssi` | `uint8_t` | Remote signal strength. |
+| `txbuf` | `uint8_t` | Remaining free transmitter buffer space. |
+| `noise` | `uint8_t` | Background noise level. |
+| `remnoise` | `uint8_t` | Remote background noise level. |
+| `rxerrors` | `uint16_t` | Receive errors. |
+| `fixed` | `uint16_t` | Count of error corrected packets. |
+
+### LIMITS_STATUS (ID 167)
+
+Status of AP_Limits. Sent in extended status stream when AP_Limits is enabled.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `limits_state` | `uint8_t` | State of AP_Limits. |
+| `last_trigger` | `uint32_t` | Time (since boot) of last breach. |
+| `last_action` | `uint32_t` | Time (since boot) of last recovery action. |
+| `last_recovery` | `uint32_t` | Time (since boot) of last successful recovery. |
+| `last_clear` | `uint32_t` | Time (since boot) of last all-clear. |
+| `breach_count` | `uint16_t` | Number of fence breaches. |
+| `mods_enabled` | `uint8_t` | AP_Limit_Module bitfield of enabled modules. |
+| `mods_required` | `uint8_t` | AP_Limit_Module bitfield of required modules. |
+| `mods_triggered` | `uint8_t` | AP_Limit_Module bitfield of triggered modules. |
+
+### WIND (ID 168)
+
+Wind estimation.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `direction` | `float` | Wind direction (that wind is coming from). |
+| `speed` | `float` | Wind speed in ground plane. |
+| `speed_z` | `float` | Vertical wind speed. |
+
+### DATA16 (ID 169)
+
+Data packet, size 16.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `type` | `uint8_t` | Data type. |
+| `len` | `uint8_t` | Data length. |
+| `data` | `uint8_t[16]` | Raw data. |
+
+### DATA32 (ID 170)
+
+Data packet, size 32.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `type` | `uint8_t` | Data type. |
+| `len` | `uint8_t` | Data length. |
+| `data` | `uint8_t[32]` | Raw data. |
+
+### DATA64 (ID 171)
+
+Data packet, size 64.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `type` | `uint8_t` | Data type. |
+| `len` | `uint8_t` | Data length. |
+| `data` | `uint8_t[64]` | Raw data. |
+
+### DATA96 (ID 172)
+
+Data packet, size 96.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `type` | `uint8_t` | Data type. |
+| `len` | `uint8_t` | Data length. |
+| `data` | `uint8_t[96]` | Raw data. |
+
+### RANGEFINDER (ID 173)
+
+Rangefinder reporting.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `distance` | `float` | Distance. |
+| `voltage` | `float` | Raw voltage if available, zero otherwise. |
+
+### AIRSPEED_AUTOCAL (ID 174)
+
+Airspeed auto-calibration.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `vx` | `float` | GPS velocity north. |
+| `vy` | `float` | GPS velocity east. |
+| `vz` | `float` | GPS velocity down. |
+| `diff_pressure` | `float` | Differential pressure. |
+| `EAS2TAS` | `float` | Estimated to true airspeed ratio. |
+| `ratio` | `float` | Airspeed ratio. |
+| `state_x` | `float` | EKF state x. |
+| `state_y` | `float` | EKF state y. |
+| `state_z` | `float` | EKF state z. |
+| `Pax` | `float` | EKF Pax. |
+| `Pby` | `float` | EKF Pby. |
+| `Pcz` | `float` | EKF Pcz. |
+
+### RALLY_POINT (ID 175)
+
+A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `idx` | `uint8_t` | Point index (first point is 0). |
+| `count` | `uint8_t` | Total number of points (for sanity checking). |
+| `lat` | `int32_t` | Latitude of point. |
+| `lng` | `int32_t` | Longitude of point. |
+| `alt` | `int16_t` | Transit / loiter altitude relative to home. |
+| `break_alt` | `int16_t` | Break altitude relative to home. |
+| `land_dir` | `uint16_t` | Heading to aim for when landing. |
+| `flags` | `uint8_t` | Configuration flags. |
+
+### RALLY_FETCH_POINT (ID 176)
+
+Request a current rally point from MAV. MAV should respond with a RALLY_POINT message. MAV should not respond if the request is invalid.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `idx` | `uint8_t` | Point index (first point is 0). |
+
+### COMPASSMOT_STATUS (ID 177)
+
+Status of compassmot calibration.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `throttle` | `uint16_t` | Throttle. |
+| `current` | `float` | Current. |
+| `interference` | `uint16_t` | Interference. |
+| `CompensationX` | `float` | Motor Compensation X. |
+| `CompensationY` | `float` | Motor Compensation Y. |
+| `CompensationZ` | `float` | Motor Compensation Z. |
+
+### AHRS2 (ID 178)
+
+Status of secondary AHRS filter if available.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `roll` | `float` | Roll angle. |
+| `pitch` | `float` | Pitch angle. |
+| `yaw` | `float` | Yaw angle. |
+| `altitude` | `float` | Altitude (MSL). |
+| `lat` | `int32_t` | Latitude. |
+| `lng` | `int32_t` | Longitude. |
+
+### CAMERA_STATUS (ID 179)
+
+Camera Event.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_usec` | `uint64_t` | Image timestamp (since UNIX epoch, according to camera clock). |
+| `target_system` | `uint8_t` | System ID. |
+| `cam_idx` | `uint8_t` | Camera ID. |
+| `img_idx` | `uint16_t` | Image index. |
+| `event_id` | `uint8_t` | Event type. |
+| `p1` | `float` | Parameter 1 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum). |
+| `p2` | `float` | Parameter 2 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum). |
+| `p3` | `float` | Parameter 3 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum). |
+| `p4` | `float` | Parameter 4 (meaning depends on event_id, see CAMERA_STATUS_TYPES enum). |
+
+### CAMERA_FEEDBACK (ID 180)
+
+Camera Capture Feedback.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_usec` | `uint64_t` | Image timestamp (since UNIX epoch), as passed in by CAMERA_STATUS message (or autopilot if no CCB). |
+| `target_system` | `uint8_t` | System ID. |
+| `cam_idx` | `uint8_t` | Camera ID. |
+| `img_idx` | `uint16_t` | Image index. |
+| `lat` | `int32_t` | Latitude. |
+| `lng` | `int32_t` | Longitude. |
+| `alt_msl` | `float` | Altitude (MSL). |
+| `alt_rel` | `float` | Altitude (Relative to HOME location). |
+| `roll` | `float` | Camera Roll angle (earth frame, +-180). |
+| `pitch` | `float` | Camera Pitch angle (earth frame, +-180). |
+| `yaw` | `float` | Camera Yaw (earth frame, 0-360, true). |
+| `foc_len` | `float` | Focal Length. |
+| `flags` | `uint8_t` | Feedback flags. |
+| `completed_captures` | `uint16_t` | Completed image captures. |
+
+### BATTERY2 (ID 181)
+
+2nd Battery status
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `voltage` | `uint16_t` | Voltage. |
+| `current_battery` | `int16_t` | Battery current, -1: autopilot does not measure the current. |
+
+### AHRS3 (ID 182)
+
+Status of third AHRS filter if available. This is for ANU research group (Ali and Sean).
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `roll` | `float` | Roll angle. |
+| `pitch` | `float` | Pitch angle. |
+| `yaw` | `float` | Yaw angle. |
+| `altitude` | `float` | Altitude (MSL). |
+| `lat` | `int32_t` | Latitude. |
+| `lng` | `int32_t` | Longitude. |
+| `v1` | `float` | Test variable1. |
+| `v2` | `float` | Test variable2. |
+| `v3` | `float` | Test variable3. |
+| `v4` | `float` | Test variable4. |
+
+### AUTOPILOT_VERSION_REQUEST (ID 183)
+
+Request the autopilot version from the system/component.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+
+### REMOTE_LOG_DATA_BLOCK (ID 184)
+
+Send a block of log data to remote location.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `seqno` | `uint32_t` | Log data block sequence number. |
+| `data` | `uint8_t[200]` | Log data block. |
+
+### REMOTE_LOG_BLOCK_STATUS (ID 185)
+
+Send Status of each log block that autopilot board might have sent.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `seqno` | `uint32_t` | Log data block sequence number. |
+| `status` | `uint8_t` | Log data block status. |
+
+### LED_CONTROL (ID 186)
+
+Control vehicle LEDs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `instance` | `uint8_t` | Instance (LED instance to control or 255 for all LEDs). |
+| `pattern` | `uint8_t` | Pattern (see LED_PATTERN_ENUM). |
+| `custom_len` | `uint8_t` | Custom Byte Length. |
+| `custom_bytes` | `uint8_t[24]` | Custom Bytes. |
+
+### MAG_CAL_PROGRESS (ID 191)
+
+Reports progress of compass calibration.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `compass_id` | `uint8_t` | Compass being calibrated. |
+| `cal_mask` | `uint8_t` | Bitmask of compasses being calibrated. |
+| `cal_status` | `uint8_t` | Calibration Status. |
+| `attempt` | `uint8_t` | Attempt number. |
+| `completion_pct` | `uint8_t` | Completion percentage. |
+| `completion_mask` | `uint8_t[10]` | Bitmask of sphere sections (see http://en.wikipedia.org/wiki/Geodesic_grid). |
+| `direction_x` | `float` | Body frame direction vector for display. |
+| `direction_y` | `float` | Body frame direction vector for display. |
+| `direction_z` | `float` | Body frame direction vector for display. |
+
+### EKF_STATUS_REPORT (ID 193)
+
+EKF Status message including flags and variances.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `flags` | `uint16_t` | Flags. |
+| `velocity_variance` | `float` | Velocity variance. |
+| `pos_horiz_variance` | `float` | Horizontal Position variance. |
+| `pos_vert_variance` | `float` | Vertical Position variance. |
+| `compass_variance` | `float` | Compass variance. |
+| `terrain_alt_variance` | `float` | Terrain Altitude variance. |
+| `airspeed_variance` | `float` | Airspeed variance. |
+
+### PID_TUNING (ID 194)
+
+PID tuning information.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `axis` | `uint8_t` | Axis. |
+| `desired` | `float` | Desired rate. |
+| `achieved` | `float` | Achieved rate. |
+| `FF` | `float` | FF component. |
+| `P` | `float` | P component. |
+| `I` | `float` | I component. |
+| `D` | `float` | D component. |
+| `SRate` | `float` | Slew rate. |
+| `PDmod` | `float` | P/D oscillation modifier. |
+
+### DEEPSTALL (ID 195)
+
+Deepstall path planning.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `landing_lat` | `int32_t` | Landing latitude. |
+| `landing_lon` | `int32_t` | Landing longitude. |
+| `path_lat` | `int32_t` | Final heading start point, latitude. |
+| `path_lon` | `int32_t` | Final heading start point, longitude. |
+| `arc_entry_lat` | `int32_t` | Arc entry point, latitude. |
+| `arc_entry_lon` | `int32_t` | Arc entry point, longitude. |
+| `altitude` | `float` | Altitude. |
+| `expected_travel_distance` | `float` | Distance the aircraft expects to travel during the deepstall. |
+| `cross_track_error` | `float` | Deepstall cross track error (only valid when in DEEPSTALL_STAGE_LAND). |
+| `stage` | `uint8_t` | Deepstall stage. |
+
+### GIMBAL_REPORT (ID 200)
+
+3 axis gimbal measurements.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `delta_time` | `float` | Time since last update. |
+| `delta_angle_x` | `float` | Delta angle X. |
+| `delta_angle_y` | `float` | Delta angle Y. |
+| `delta_angle_z` | `float` | Delta angle X. |
+| `delta_velocity_x` | `float` | Delta velocity X. |
+| `delta_velocity_y` | `float` | Delta velocity Y. |
+| `delta_velocity_z` | `float` | Delta velocity Z. |
+| `joint_roll` | `float` | Joint ROLL. |
+| `joint_el` | `float` | Joint EL. |
+| `joint_az` | `float` | Joint AZ. |
+
+### GIMBAL_CONTROL (ID 201)
+
+Control message for rate gimbal.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `demanded_rate_x` | `float` | Demanded angular rate X. |
+| `demanded_rate_y` | `float` | Demanded angular rate Y. |
+| `demanded_rate_z` | `float` | Demanded angular rate Z. |
+
+### GIMBAL_TORQUE_CMD_REPORT (ID 214)
+
+100 Hz gimbal torque command telemetry.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `rl_torque_cmd` | `int16_t` | Roll Torque Command. |
+| `el_torque_cmd` | `int16_t` | Elevation Torque Command. |
+| `az_torque_cmd` | `int16_t` | Azimuth Torque Command. |
+
+### GOPRO_HEARTBEAT (ID 215)
+
+Heartbeat from a HeroBus attached GoPro.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `status` | `uint8_t` | Status. |
+| `capture_mode` | `uint8_t` | Current capture mode. |
+| `flags` | `uint8_t` | Additional status bits. |
+
+### GOPRO_GET_REQUEST (ID 216)
+
+Request a GOPRO_COMMAND response from the GoPro.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `cmd_id` | `uint8_t` | Command ID. |
+
+### GOPRO_GET_RESPONSE (ID 217)
+
+Response from a GOPRO_COMMAND get request.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `cmd_id` | `uint8_t` | Command ID. |
+| `status` | `uint8_t` | Status. |
+| `value` | `uint8_t[4]` | Value. |
+
+### GOPRO_SET_REQUEST (ID 218)
+
+Request to set a GOPRO_COMMAND with a desired.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `cmd_id` | `uint8_t` | Command ID. |
+| `value` | `uint8_t[4]` | Value. |
+
+### GOPRO_SET_RESPONSE (ID 219)
+
+Response from a GOPRO_COMMAND set request.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `cmd_id` | `uint8_t` | Command ID. |
+| `status` | `uint8_t` | Status. |
+
+### RPM (ID 226)
+
+RPM sensor output.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `rpm1` | `float` | RPM Sensor1. |
+| `rpm2` | `float` | RPM Sensor2. |
+
+### DEVICE_OP_READ (ID 11000)
+
+Read registers for a device.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `request_id` | `uint32_t` | Request ID - copied to reply. |
+| `bustype` | `uint8_t` | The bus type. |
+| `bus` | `uint8_t` | Bus number. |
+| `address` | `uint8_t` | Bus address. |
+| `busname` | `char[40]` | Name of device on bus (for SPI). |
+| `regstart` | `uint8_t` | First register to read. |
+| `count` | `uint8_t` | Count of registers to read. |
+| `bank` | `uint8_t` | Bank number. |
+
+### DEVICE_OP_READ_REPLY (ID 11001)
+
+Read registers reply.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `request_id` | `uint32_t` | Request ID - copied from request. |
+| `result` | `uint8_t` | 0 for success, anything else is failure code. |
+| `regstart` | `uint8_t` | Starting register. |
+| `count` | `uint8_t` | Count of bytes read. |
+| `data` | `uint8_t[128]` | Reply data. |
+| `bank` | `uint8_t` | Bank number. |
+
+### DEVICE_OP_WRITE (ID 11002)
+
+Write registers for a device.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `request_id` | `uint32_t` | Request ID - copied to reply. |
+| `bustype` | `uint8_t` | The bus type. |
+| `bus` | `uint8_t` | Bus number. |
+| `address` | `uint8_t` | Bus address. |
+| `busname` | `char[40]` | Name of device on bus (for SPI). |
+| `regstart` | `uint8_t` | First register to write. |
+| `count` | `uint8_t` | Count of registers to write. |
+| `data` | `uint8_t[128]` | Write data. |
+| `bank` | `uint8_t` | Bank number. |
+
+### DEVICE_OP_WRITE_REPLY (ID 11003)
+
+Write registers reply.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `request_id` | `uint32_t` | Request ID - copied from request. |
+| `result` | `uint8_t` | 0 for success, anything else is failure code. |
+
+### SECURE_COMMAND (ID 11004)
+
+Send a secure command. Data should be signed with a private key corresponding with a public key known to the recipient. Signature should be over the concatenation of the sequence number (little-endian format), the operation (little-endian format) the data and the session key. For SECURE_COMMAND_GET_SESSION_KEY the session key should be zero length. The data array consists of the data followed by the signature. The sum of the data_length and the sig_length cannot be more than 220. The format of the data is command specific.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `sequence` | `uint32_t` | Sequence ID for tagging reply. |
+| `operation` | `uint32_t` | Operation being requested. |
+| `data_length` | `uint8_t` | Data length. |
+| `sig_length` | `uint8_t` | Signature length. |
+| `data` | `uint8_t[220]` | Signed data. |
+
+### SECURE_COMMAND_REPLY (ID 11005)
+
+Reply from secure command.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `sequence` | `uint32_t` | Sequence ID from request. |
+| `operation` | `uint32_t` | Operation that was requested. |
+| `result` | `uint8_t` | Result of command. |
+| `data_length` | `uint8_t` | Data length. |
+| `data` | `uint8_t[220]` | Reply data. |
+
+### ADAP_TUNING (ID 11010)
+
+Adaptive Controller tuning information.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `axis` | `uint8_t` | Axis. |
+| `desired` | `float` | Desired rate. |
+| `achieved` | `float` | Achieved rate. |
+| `error` | `float` | Error between model and vehicle. |
+| `theta` | `float` | Theta estimated state predictor. |
+| `omega` | `float` | Omega estimated state predictor. |
+| `sigma` | `float` | Sigma estimated state predictor. |
+| `theta_dot` | `float` | Theta derivative. |
+| `omega_dot` | `float` | Omega derivative. |
+| `sigma_dot` | `float` | Sigma derivative. |
+| `f` | `float` | Projection operator value. |
+| `f_dot` | `float` | Projection operator derivative. |
+| `u` | `float` | u adaptive controlled output command. |
+
+### VISION_POSITION_DELTA (ID 11011)
+
+Camera vision based attitude and position deltas.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_usec` | `uint64_t` | Timestamp (synced to UNIX time or since system boot). |
+| `time_delta_usec` | `uint64_t` | Time since the last reported camera frame. |
+| `angle_delta` | `float[3]` | Defines a rotation vector [roll, pitch, yaw] to the current MAV_FRAME_BODY_FRD from the previous MAV_FRAME_BODY_FRD. |
+| `position_delta` | `float[3]` | Change in position to the current MAV_FRAME_BODY_FRD from the previous FRAME_BODY_FRD rotated to the current MAV_FRAME_BODY_FRD. |
+| `confidence` | `float` | Normalised confidence value from 0 to 100. |
+
+### AOA_SSA (ID 11020)
+
+Angle of Attack and Side Slip Angle.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_usec` | `uint64_t` | Timestamp (since boot or Unix epoch). |
+| `AOA` | `float` | Angle of Attack. |
+| `SSA` | `float` | Side Slip Angle. |
+
+### ESC_TELEMETRY_1_TO_4 (ID 11030)
+
+ESC Telemetry Data for ESCs 1 to 4, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### ESC_TELEMETRY_5_TO_8 (ID 11031)
+
+ESC Telemetry Data for ESCs 5 to 8, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### ESC_TELEMETRY_9_TO_12 (ID 11032)
+
+ESC Telemetry Data for ESCs 9 to 12, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### OSD_PARAM_CONFIG (ID 11033)
+
+Configure an OSD parameter slot.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `request_id` | `uint32_t` | Request ID - copied to reply. |
+| `osd_screen` | `uint8_t` | OSD parameter screen index. |
+| `osd_index` | `uint8_t` | OSD parameter display index. |
+| `param_id` | `char[16]` | Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string |
+| `config_type` | `uint8_t` | Config type. |
+| `min_value` | `float` | OSD parameter minimum value. |
+| `max_value` | `float` | OSD parameter maximum value. |
+| `increment` | `float` | OSD parameter increment. |
+
+### OSD_PARAM_CONFIG_REPLY (ID 11034)
+
+Configure OSD parameter reply.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `request_id` | `uint32_t` | Request ID - copied from request. |
+| `result` | `uint8_t` | Config error type. |
+
+### OSD_PARAM_SHOW_CONFIG (ID 11035)
+
+Read a configured an OSD parameter slot.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `request_id` | `uint32_t` | Request ID - copied to reply. |
+| `osd_screen` | `uint8_t` | OSD parameter screen index. |
+| `osd_index` | `uint8_t` | OSD parameter display index. |
+
+### OSD_PARAM_SHOW_CONFIG_REPLY (ID 11036)
+
+Read configured OSD parameter reply.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `request_id` | `uint32_t` | Request ID - copied from request. |
+| `result` | `uint8_t` | Config error type. |
+| `param_id` | `char[16]` | Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string |
+| `config_type` | `uint8_t` | Config type. |
+| `min_value` | `float` | OSD parameter minimum value. |
+| `max_value` | `float` | OSD parameter maximum value. |
+| `increment` | `float` | OSD parameter increment. |
+
+### OBSTACLE_DISTANCE_3D (ID 11037)
+
+Obstacle located as a 3D vector.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `sensor_type` | `uint8_t` | Class id of the distance sensor type. |
+| `frame` | `uint8_t` | Coordinate frame of reference. |
+| `obstacle_id` | `uint16_t` | Unique ID given to each obstacle so that its movement can be tracked. Use UINT16_MAX if object ID is unknown or cannot be determined. |
+| `x` | `float` | X position of the obstacle. |
+| `y` | `float` | Y position of the obstacle. |
+| `z` | `float` | Z position of the obstacle. |
+| `min_distance` | `float` | Minimum distance the sensor can measure. |
+| `max_distance` | `float` | Maximum distance the sensor can measure. |
+
+### WATER_DEPTH (ID 11038)
+
+Water depth
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot) |
+| `id` | `uint8_t` | Onboard ID of the sensor |
+| `healthy` | `uint8_t` | Sensor data healthy (0=unhealthy, 1=healthy) |
+| `lat` | `int32_t` | Latitude |
+| `lng` | `int32_t` | Longitude |
+| `alt` | `float` | Altitude (MSL) of vehicle |
+| `roll` | `float` | Roll angle |
+| `pitch` | `float` | Pitch angle |
+| `yaw` | `float` | Yaw angle |
+| `distance` | `float` | Distance (uncorrected) |
+| `temperature` | `float` | Water temperature |
+
+### MCU_STATUS (ID 11039)
+
+The MCU status, giving MCU temperature and voltage. The min and max voltages are to allow for detecting power supply instability.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `id` | `uint8_t` | MCU instance |
+| `MCU_temperature` | `int16_t` | MCU Internal temperature |
+| `MCU_voltage` | `uint16_t` | MCU voltage |
+| `MCU_voltage_min` | `uint16_t` | MCU voltage minimum |
+| `MCU_voltage_max` | `uint16_t` | MCU voltage maximum |
+
+### ESC_TELEMETRY_13_TO_16 (ID 11040)
+
+ESC Telemetry Data for ESCs 13 to 16, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### ESC_TELEMETRY_17_TO_20 (ID 11041)
+
+ESC Telemetry Data for ESCs 17 to 20, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### ESC_TELEMETRY_21_TO_24 (ID 11042)
+
+ESC Telemetry Data for ESCs 21 to 24, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### ESC_TELEMETRY_25_TO_28 (ID 11043)
+
+ESC Telemetry Data for ESCs 25 to 28, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### ESC_TELEMETRY_29_TO_32 (ID 11044)
+
+ESC Telemetry Data for ESCs 29 to 32, matching data sent by BLHeli ESCs.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `temperature` | `uint8_t[4]` | Temperature. |
+| `voltage` | `uint16_t[4]` | Voltage. |
+| `current` | `uint16_t[4]` | Current. |
+| `totalcurrent` | `uint16_t[4]` | Total current. |
+| `rpm` | `uint16_t[4]` | RPM (eRPM). |
+| `count` | `uint16_t[4]` | count of telemetry packets received (wraps at 65535). |
+
+### NAMED_VALUE_STRING (ID 11060)
+
+Send a key-value pair as string. The use of this message is discouraged for normal packets, but a quite efficient way for testing new messages and getting experimental debug output.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since system boot). |
+| `name` | `char[10]` | Name of the debug variable |
+| `value` | `char[64]` | Value of the debug variable |

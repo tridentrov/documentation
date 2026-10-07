@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "defaults_bootloader",
+    "defaults_iofirmware",
+    "defaults_normal",
+    "defaults_periph"
+  ],
+  "defaultOpen": true
+}

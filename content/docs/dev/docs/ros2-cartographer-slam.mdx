@@ -1,0 +1,88 @@
+---
+title: "Ros2 Cartographer Slam"
+description: "ArduPilot developer documentation"
+---
+
+====================================
+# Cartographer SLAM with ROS 2 in SITL
+
+
+This page shows how to setup ROS 2 with ArduPilot SITL and run Google Cartographer as a SLAM source. 
+
+# Installation
+
+
+This page assumes that you've successfully followed the ROS 2 basic setups from this wiki: [ROS 2](/docs/dev/docs/ros2), [ROS 2 with SITL](/docs/dev/docs/ros2-sitl) and [ROS 2 with gazebo](/docs/dev/docs/ros2-gazebo).
+
+Once that's done, simply run:
+
+```bash
+cd ~/ardu_ws/src
+git clone git@github.com:ArduPilot/ardupilot_ros.git
+```
+
+```bash
+cd ~/ardu_ws
+rosdep install --from-paths src --ignore-src -r --skip-keys gazebo-ros-pkgs
+```
+
+Now source your workspace and build `ardupilot_ros`:
+
+```bash
+cd ~/ardu_ws
+source ./install/setup.bash
+colcon build --packages-up-to ardupilot_ros ardupilot_gz_bringup
+```
+
+# Usage
+
+
+This package is used in combination with `ardupilot_gz`, first we will launch a simulation containing a copter equipped with a 360 degree 2D lidar in a maze world.
+To launch rviz and gazebo, run:
+
+```bash
+source ~/ardu_ws/install/setup.sh
+ros2 launch ardupilot_gz_bringup iris_maze.launch.py lidar_dim:=2
+```
+
+Now, we can launch Google Cartographer to generate SLAM, check if a map is being generated correctly in RVIZ.
+In another terminal, run:
+
+```bash
+source ~/ardu_ws/install/setup.sh
+ros2 launch ardupilot_cartographer cartographer.launch.py
+```
+
+# Configure ArduPilot
+
+
+If you'd like to get the information from Cartographer to go into ArduPilot's extended kalman filter, you will need to change some parameters, you can do that through any GCS, including mavproxy:
+
+-  [AHRS_EKF_TYPE](https://ardupilot.org/copter/docs/AHRS_EKF_TYPE.html) = 3 to use EKF3
+-  [EK2_ENABLE](https://ardupilot.org/copter/docs/EK2_ENABLE.html) = 0 to disable EKF2
+-  [EK3_ENABLE](https://ardupilot.org/copter/docs/EK3_ENABLE.html) = 1 to enable EKF3
+-  [EK3_SRC1_POSXY](https://ardupilot.org/copter/docs/EK3_SRC1_POSXY.html) = 6 to set position horizontal source to ExternalNAV
+-  [EK3_SRC1_POSZ](https://ardupilot.org/copter/docs/EK3_SRC1_POSZ.html) = 1 to set position vertical source to Baro
+-  [EK3_SRC1_VELXY](https://ardupilot.org/copter/docs/EK3_SRC1_VELXY.html) = 6 to set velocity horizontal source to ExternalNAV
+-  [EK3_SRC1_VELZ](https://ardupilot.org/copter/docs/EK3_SRC1_VELZ.html) = 6 to set vertical velocity source to ExternalNAV
+-  [EK3_SRC1_YAW](https://ardupilot.org/copter/docs/EK3_SRC1_YAW.html) = 6 to set yaw source to ExternalNAV
+-  [VISO_TYPE](https://ardupilot.org/copter/docs/VISO_TYPE.html) = 1 to enable visual odometry
+-  [ARMING_SKIPCHK](https://ardupilot.org/copter/docs/ARMING_SKIPCHK.html) = 8 (optional, to disable GPS checks
+
+After changing the values above, reboot the flight controller.
+
+<Callout type="warn">
+The parameters above are recommended for SITL. If you plan on using this on a real copter, it is a good idea to setup a second source of EKF. This way the robot doesn't crash if the external odometry you are providing stops publishing or gets lost.
+
+Please refer to this link for more information on [Common EKF Sources](https://ardupilot.org/copter/docs/common-ekf-sources.html) as well as this guide on [GPS / Non-GPS Transitions](https://ardupilot.org/copter/docs/common-non-gps-to-gps.html).
+</Callout>
+
+# Demo
+
+
+Here's a quick video showcasing the results expected from this tutorial:
+
+<div className="video"><iframe src="https://www.youtube-nocookie.com/embed/bpjGyAECKHA" title="YouTube video" loading="lazy" allowFullScreen /></div>
+    :width: 100%
+
+For more information regarding the `ardupilot_ros` package refer to [ardupilot_ros's github page](https://github.com/ArduPilot/ardupilot_ros).

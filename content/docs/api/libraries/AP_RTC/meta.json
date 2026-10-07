@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "AP_RTC",
+    "AP_RTC_config",
+    "JitterCorrection"
+  ],
+  "defaultOpen": true
+}

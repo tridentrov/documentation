@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AP_WindVane",
+    "AP_WindVane_Airspeed",
+    "AP_WindVane_Analog",
+    "AP_WindVane_Backend",
+    "AP_WindVane_config",
+    "AP_WindVane_Home",
+    "AP_WindVane_ModernDevice",
+    "AP_WindVane_NMEA",
+    "AP_WindVane_RPM",
+    "AP_WindVane_SITL"
+  ],
+  "defaultOpen": true
+}

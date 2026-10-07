@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AP_Logger",
+    "AP_Logger_Backend",
+    "AP_Logger_Block",
+    "AP_Logger_config",
+    "AP_Logger_File",
+    "AP_Logger_Flash_JEDEC",
+    "AP_Logger_MAVLink",
+    "AP_Logger_W25NXX",
+    "LoggerMessageWriter",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

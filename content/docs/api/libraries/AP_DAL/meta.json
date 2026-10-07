@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "AP_DAL",
+    "AP_DAL_Airspeed",
+    "AP_DAL_Baro",
+    "AP_DAL_Beacon",
+    "AP_DAL_Compass",
+    "AP_DAL_GPS",
+    "AP_DAL_InertialSensor",
+    "AP_DAL_RangeFinder",
+    "AP_DAL_VisualOdom",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

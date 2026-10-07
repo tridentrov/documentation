@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "AP_Frsky_Backend",
+    "AP_Frsky_config",
+    "AP_Frsky_D",
+    "AP_Frsky_MAVlite",
+    "AP_Frsky_MAVlite_MAVliteToSPort",
+    "AP_Frsky_MAVlite_Message",
+    "AP_Frsky_MAVlite_SPortToMAVlite",
+    "AP_Frsky_MAVliteMsgHandler",
+    "AP_Frsky_Parameters",
+    "AP_Frsky_SPort",
+    "AP_Frsky_SPort_Passthrough",
+    "AP_Frsky_SPortParser",
+    "AP_Frsky_Telem"
+  ],
+  "defaultOpen": true
+}

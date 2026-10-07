@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "esp32imu_module_v11",
+    "esp32nick",
+    "esp32s3devkit"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "AP_RCProtocol",
+    "AP_RCProtocol_Backend",
+    "AP_RCProtocol_config",
+    "AP_RCProtocol_CRSF",
+    "AP_RCProtocol_DroneCAN",
+    "AP_RCProtocol_DSM",
+    "AP_RCProtocol_Emlid_RCIO",
+    "AP_RCProtocol_FDM",
+    "AP_RCProtocol_FPort",
+    "AP_RCProtocol_FPort2",
+    "AP_RCProtocol_GHST",
+    "AP_RCProtocol_IBUS",
+    "AP_RCProtocol_IOMCU",
+    "AP_RCProtocol_Joystick_SFML",
+    "AP_RCProtocol_MAVLinkRadio",
+    "AP_RCProtocol_PPMSum",
+    "AP_RCProtocol_Radio",
+    "AP_RCProtocol_SBUS",
+    "AP_RCProtocol_SRXL",
+    "AP_RCProtocol_SRXL2",
+    "AP_RCProtocol_ST24",
+    "AP_RCProtocol_SUMD",
+    "AP_RCProtocol_UDP",
+    "SoftSerial",
+    "spm_srxl",
+    "spm_srxl_config"
+  ],
+  "defaultOpen": true
+}

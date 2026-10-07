@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "AP_VisualOdom",
+    "AP_VisualOdom_Backend",
+    "AP_VisualOdom_config",
+    "AP_VisualOdom_IntelT265",
+    "AP_VisualOdom_MAV",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

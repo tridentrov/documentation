@@ -1,0 +1,31 @@
+---
+title: "Rc Setup"
+description: "ArduSub vehicle documentation"
+---
+
+=============
+# Radio Control
+
+
+Due to the RF attenuation of even a short distance of water above a submersible, radio control must be accomplished by floating tethered buoy to the vehicle which contains the RF components and antenna. This applies also to RF based telemetry, whether independent of, or integrated into, the radio control system.
+
+To enable radio control, the [RC_PROTOCOLS](/docs/sub/RC_PROTOCOLS) parameter must be set to a non-zero value, "1" is usually used. If rc control of the flight mode is desired, in addition to axis/directional control, the [FLTMODE_CH](/docs/sub/FLTMODE_CH) should be set to the RC channel that will control flight modes, if this is desired.
+
+Any ArduPilot compatible [radio control system](/docs/sub/common-rc-systems) can be employed.
+
+# Configuration
+
+
+* The mapping of which incoming RC channel controls which axis/directional control is fixed when GCS only control is used, however, these can be remapped using [common-rcmap](/docs/sub/common-rcmap).
+
+* If a flight mode switch is used, it can be setup as following [common-rc-transmitter-flight-mode-configuration](/docs/sub/common-rc-transmitter-flight-mode-configuration).
+
+* In place of the Sub ``BTNx`` functions activated from the GCS, [common-auxiliary-functions](/docs/sub/common-auxiliary-functions) can be setup, controlled via RC transmitter switches.
+
+# Mandatory Calibration
+
+Once the rc receiver is attached to the autopilot and configured as described in [common-rc-systems](/docs/sub/common-rc-systems) it must be calibrated:
+
+- [common-radio-control-calibration](/docs/sub/common-radio-control-calibration)
+
+- [Common Rc Transmitter Flight Mode Configuration](/docs/sub/common-rc-transmitter-flight-mode-configuration)

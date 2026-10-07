@@ -1,0 +1,73 @@
+---
+title: "Building For Navio On Rpi2"
+description: "ArduPilot developer documentation"
+---
+
+=====================================
+# Archived: Building for NAVIO+ on RPi2
+
+
+<Callout type="warn">
+**ARCHIVED ARTICLE**
+
+ArduPilot no longer supports NAVIO+ on Rpi2.
+</Callout>
+
+# Overview
+
+
+These instructions clarify how to build ArduPilot for the NAVIO+ board
+on the NAVIO+'s RPi2 board itself using Waf build system.  These instructions assume the RPi2
+has already been setup according to the manufacturer's (i.e. Emlid's)
+instructions
+[here](http://docs.emlid.com/Navio-APM/configuring-raspberry-pi/).
+
+Alternatively you can follow Emlid's instructions on how to build from
+source found
+[here](http://docs.emlid.com/Navio-APM/building-from-sources/).
+
+## Setup
+
+
+Use an ssh terminal program such as [Putty](http://www.putty.org/) to
+log into the NAVIO+ board's RPI2.
+
+Clone the source:
+
+```text
+git clone --recurse-submodules https://github.com/diydrones/ardupilot.git
+cd ardupilot
+```
+
+<Callout type="info">
+Waf should always be called from the ardupilot's root directory.
+</Callout>
+
+To keep access to Waf convenient, use the following alias from the root ardupilot directory:
+
+```text
+alias waf="$PWD/modules/waf/waf-light"
+```
+
+Choose the board to be used:
+
+```text
+waf configure --board=navio
+```
+
+## Build
+
+
+Now you can build arducopter. For quadcopter use the following command:
+
+```text
+waf --targets bin/arducopter-quad
+```
+
+To build for other frame types replace quad with one of the following options:
+
+```text
+coax heli hexa octa octa-quad single tri y6
+```
+
+In the end of compilation binary file with the name arducopter-quad will be placed in ``ardupilot/build/navio/bin/ directory``.

@@ -1,0 +1,68 @@
+---
+title: "MAVLink cubepilot dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# cubepilot dialect
+
+MAVLink dialect **cubepilot**.
+
+## Messages
+
+### CUBEPILOT_RAW_RC (ID 50001)
+
+Raw RC Data
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `rc_raw` | `uint8_t[32]` |  |
+
+### HERELINK_VIDEO_STREAM_INFORMATION (ID 50002)
+
+Information about video stream
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `camera_id` | `uint8_t` | Video Stream ID (1 for first, 2 for second, etc.) |
+| `status` | `uint8_t` | Number of streams available. |
+| `framerate` | `float` | Frame rate. |
+| `resolution_h` | `uint16_t` | Horizontal resolution. |
+| `resolution_v` | `uint16_t` | Vertical resolution. |
+| `bitrate` | `uint32_t` | Bit rate. |
+| `rotation` | `uint16_t` | Video image rotation clockwise. |
+| `uri` | `char[230]` | Video stream URI (TCP or RTSP URI ground station should connect to) or port number (UDP port ground station should listen to). |
+
+### HERELINK_TELEM (ID 50003)
+
+Herelink Telemetry
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `rssi` | `uint8_t` |  |
+| `snr` | `int16_t` |  |
+| `rf_freq` | `uint32_t` |  |
+| `link_bw` | `uint32_t` |  |
+| `link_rate` | `uint32_t` |  |
+| `cpu_temp` | `int16_t` |  |
+| `board_temp` | `int16_t` |  |
+
+### CUBEPILOT_FIRMWARE_UPDATE_START (ID 50004)
+
+Start firmware update with encapsulated data.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `size` | `uint32_t` | FW Size. |
+| `crc` | `uint32_t` | FW CRC. |
+
+### CUBEPILOT_FIRMWARE_UPDATE_RESP (ID 50005)
+
+offset response to encapsulated data.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID. |
+| `target_component` | `uint8_t` | Component ID. |
+| `offset` | `uint32_t` | FW Offset. |

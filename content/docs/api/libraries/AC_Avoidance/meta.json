@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "AC_Avoid",
+    "AC_Avoidance_config",
+    "AP_OABendyRuler",
+    "AP_OADatabase",
+    "AP_OADijkstra",
+    "AP_OAPathPlanner",
+    "AP_OAVisGraph",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}

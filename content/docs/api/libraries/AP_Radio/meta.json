@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "AP_Radio",
+    "AP_Radio_backend",
+    "AP_Radio_bk2425",
+    "AP_Radio_cc2500",
+    "AP_Radio_config",
+    "AP_Radio_cypress",
+    "driver_bk2425",
+    "driver_cc2500",
+    "telem_structure"
+  ],
+  "defaultOpen": true
+}

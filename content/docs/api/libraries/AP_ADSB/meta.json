@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "AP_ADSB",
+    "AP_ADSB_Backend",
+    "AP_ADSB_config",
+    "AP_ADSB_MAVLink",
+    "AP_ADSB_Sagetech",
+    "AP_ADSB_Sagetech_MXS",
+    "AP_ADSB_uAvionix_UCP",
+    "GDL90_protocol",
+    "sagetech-sdk"
+  ],
+  "defaultOpen": true
+}

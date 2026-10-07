@@ -1,0 +1,98 @@
+---
+title: "Mavlink Winch"
+description: "ArduPilot developer documentation"
+---
+
+===============
+# Control a Winch
+
+
+This page explains how MAVLink can be used by a ground station or companion computer to control a winch.  The [user wiki pages for the winch is here](https://ardupilot.org/copter/docs/common-daiwa-winch.html).
+
+## Control the winch with MAV_CMD_DO_WINCH
+
+
+The servo's position can be set by sending a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) with the command, param1 and param2 fields set as specified for the [MAV_CMD_DO_WINCH](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_WINCH) command.
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_component&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Component ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;command&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;MAV_CMD_DO_WINCH=42600&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;confirmation&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param1&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Winch instance number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Action (0:Relax, 1:Length Control, 2:Rate Control)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param3&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Length of line to release (negative to wind in)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param4&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Release rate (negative to wind in)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param5&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param6&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param7&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+**Example**
+
+The example commands below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter:
+
+- setup a winch as described on the [Adding Simulated Devices page](/docs/dev/docs/adding_simulated_devices)
+- module load message
+- module load graph
+- graph SERVO_OUTPUT_RAW.servo9_raw
+
++------------------------------------------------------+------------------------------------------------+
+ Example MAVProxy/SITL Command                         Description                                    
++======================================================+================================================+
+ ``message COMMAND_LONG 0 0 42600 0 0 0 0 0 0 0 0``    Relax winch so line can be pulled out manually 
++------------------------------------------------------+------------------------------------------------+
+ ``message COMMAND_LONG 0 0 42600 0 0 1 5 0 0 0 0``    Let out 5m of line                             
++------------------------------------------------------+------------------------------------------------+
+ ``message COMMAND_LONG 0 0 42600 0 0 2 0 0.5 0 0 0``  Let out line at 0.5 m/s                        
++------------------------------------------------------+------------------------------------------------+

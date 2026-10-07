@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "CONTRIBUTING",
+    "doc",
+    "examples",
+    "README"
+  ],
+  "defaultOpen": true
+}

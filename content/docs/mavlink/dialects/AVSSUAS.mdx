@@ -1,0 +1,106 @@
+---
+title: "MAVLink AVSSUAS dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# AVSSUAS dialect
+
+MAVLink dialect **AVSSUAS**.
+
+## Enumerations
+
+### `MAV_CMD`
+
+- `MAV_CMD_PRS_SET_ARM` = `60050` — AVSS defined command. Set PRS arm statuses.
+- `MAV_CMD_PRS_GET_ARM` = `60051` — AVSS defined command. Gets PRS arm statuses
+- `MAV_CMD_PRS_GET_BATTERY` = `60052` — AVSS defined command. Get the PRS battery voltage in millivolts
+- `MAV_CMD_PRS_GET_ERR` = `60053` — AVSS defined command. Get the PRS error statuses.
+- `MAV_CMD_PRS_SET_ARM_ALTI` = `60070` — AVSS defined command. Set the ATS arming altitude in meters.
+- `MAV_CMD_PRS_GET_ARM_ALTI` = `60071` — AVSS defined command. Get the ATS arming altitude in meters.
+- `MAV_CMD_PRS_SHUTDOWN` = `60072` — AVSS defined command. Shuts down the PRS system.
+
+### `MAV_AVSS_COMMAND_FAILURE_REASON`
+
+- `PRS_NOT_STEADY` = `1` — AVSS defined command failure reason. PRS not steady.
+- `PRS_DTM_NOT_ARMED` = `2` — AVSS defined command failure reason. PRS DTM not armed.
+- `PRS_OTM_NOT_ARMED` = `3` — AVSS defined command failure reason. PRS OTM not armed.
+
+### `AVSS_M300_OPERATION_MODE`
+
+- `MODE_M300_MANUAL_CTRL` = `0` — In manual control mode
+- `MODE_M300_ATTITUDE` = `1` — In attitude mode
+- `MODE_M300_P_GPS` = `6` — In GPS mode
+- `MODE_M300_HOTPOINT_MODE` = `9` — In hotpoint mode
+- `MODE_M300_ASSISTED_TAKEOFF` = `10` — In assisted takeoff mode
+- `MODE_M300_AUTO_TAKEOFF` = `11` — In auto takeoff mode
+- `MODE_M300_AUTO_LANDING` = `12` — In auto landing mode
+- `MODE_M300_NAVI_GO_HOME` = `15` — In go home mode
+- `MODE_M300_NAVI_SDK_CTRL` = `17` — In sdk control mode
+- `MODE_M300_S_SPORT` = `31` — In sport mode
+- `MODE_M300_FORCE_AUTO_LANDING` = `33` — In force auto landing mode
+- `MODE_M300_T_TRIPOD` = `38` — In tripod mode
+- `MODE_M300_SEARCH_MODE` = `40` — In search mode
+- `MODE_M300_ENGINE_START` = `41` — In engine mode
+
+### `AVSS_HORSEFLY_OPERATION_MODE`
+
+- `MODE_HORSEFLY_MANUAL_CTRL` = `0` — In manual control mode
+- `MODE_HORSEFLY_AUTO_TAKEOFF` = `1` — In auto takeoff mode
+- `MODE_HORSEFLY_AUTO_LANDING` = `2` — In auto landing mode
+- `MODE_HORSEFLY_NAVI_GO_HOME` = `3` — In go home mode
+- `MODE_HORSEFLY_DROP` = `4` — In drop mode
+
+## Messages
+
+### AVSS_PRS_SYS_STATUS (ID 60050)
+
+AVSS PRS system status.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since PRS boot). |
+| `error_status` | `uint32_t` | PRS error statuses |
+| `battery_status` | `uint32_t` | Estimated battery run-time without a remote connection and PRS battery voltage |
+| `arm_status` | `uint8_t` | PRS arm statuses |
+| `charge_status` | `uint8_t` | PRS battery charge statuses |
+
+### AVSS_DRONE_POSITION (ID 60051)
+
+Drone position.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since FC boot). |
+| `lat` | `int32_t` | Latitude, expressed |
+| `lon` | `int32_t` | Longitude, expressed |
+| `alt` | `int32_t` | Altitude (MSL). Note that virtually all GPS modules provide both WGS84 and MSL. |
+| `ground_alt` | `float` | Altitude above ground, This altitude is measured by a ultrasound, Laser rangefinder or millimeter-wave radar |
+| `barometer_alt` | `float` | This altitude is measured by a barometer |
+
+### AVSS_DRONE_IMU (ID 60052)
+
+Drone IMU data. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since FC boot). |
+| `q1` | `float` | Quaternion component 1, w (1 in null-rotation) |
+| `q2` | `float` | Quaternion component 2, x (0 in null-rotation) |
+| `q3` | `float` | Quaternion component 3, y (0 in null-rotation) |
+| `q4` | `float` | Quaternion component 4, z (0 in null-rotation) |
+| `xacc` | `float` | X acceleration |
+| `yacc` | `float` | Y acceleration |
+| `zacc` | `float` | Z acceleration |
+| `xgyro` | `float` | Angular speed around X axis |
+| `ygyro` | `float` | Angular speed around Y axis |
+| `zgyro` | `float` | Angular speed around Z axis |
+
+### AVSS_DRONE_OPERATION_MODE (ID 60053)
+
+Drone operation mode.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `time_boot_ms` | `uint32_t` | Timestamp (time since FC boot). |
+| `M300_operation_mode` | `uint8_t` | DJI M300 operation mode |
+| `horsefly_operation_mode` | `uint8_t` | horsefly operation mode |

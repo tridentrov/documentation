@@ -1,45 +1,20 @@
-# docs-site
+# Unified ArduPilot Documentation
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+This is a Fumadocs site that brings the ArduSub, ArduPilot developer, MAVProxy,
+MAVLink, project, and generated API references together under `/docs`.
 
-Run development server:
+The source snapshots in `sources/` are immutable inputs. Regenerate the MDX,
+assets, API pages, and navigation metadata with:
 
 ```bash
-npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+npm run import
+npm run verify:docs
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+`npm run import` refuses to replace an existing snapshot. To intentionally take
+a new snapshot from the three sibling checkouts, use
+`npm run import -- --refresh-sources` and review `sources/checksums.json`.
 
-## Explore
-
-In the project, you can see:
-
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
-
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
-
-### Fumadocs MDX
-
-Collections are defined with the [Macro API](https://fumadocs.dev/docs/mdx/macro) in `lib/source.ts`.
-
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
-
-## Learn More
-
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.dev) - learn about Fumadocs
+Run the site locally with `npm run dev`; production validation is `npm run build`.
+The generated Fumadocs `.source/` directory remains tool-owned and is ignored by
+git.

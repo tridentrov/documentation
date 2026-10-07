@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "AP_AutoTune",
+    "AP_FW_Controller",
+    "AP_PitchController",
+    "AP_RollController",
+    "AP_SteerController",
+    "AP_YawController",
+    "APM_Control",
+    "AR_AttitudeControl",
+    "AR_PosControl"
+  ],
+  "defaultOpen": true
+}

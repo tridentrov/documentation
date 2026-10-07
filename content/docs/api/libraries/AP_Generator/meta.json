@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "AP_Generator",
+    "AP_Generator_Backend",
+    "AP_Generator_config",
+    "AP_Generator_Cortex",
+    "AP_Generator_IE_2400",
+    "AP_Generator_IE_650_800",
+    "AP_Generator_IE_FuelCell",
+    "AP_Generator_Loweheiser",
+    "AP_Generator_RichenPower"
+  ],
+  "defaultOpen": true
+}

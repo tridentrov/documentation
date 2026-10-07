@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "AP_TemperatureSensor",
+    "AP_TemperatureSensor_Analog",
+    "AP_TemperatureSensor_Backend",
+    "AP_TemperatureSensor_config",
+    "AP_TemperatureSensor_DroneCAN",
+    "AP_TemperatureSensor_MAX31865",
+    "AP_TemperatureSensor_MCP9600",
+    "AP_TemperatureSensor_MLX90614",
+    "AP_TemperatureSensor_Params",
+    "AP_TemperatureSensor_SHT3x",
+    "AP_TemperatureSensor_TMP119",
+    "AP_TemperatureSensor_TSYS01",
+    "AP_TemperatureSensor_TSYS03"
+  ],
+  "defaultOpen": true
+}

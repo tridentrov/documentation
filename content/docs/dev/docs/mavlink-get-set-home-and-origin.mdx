@@ -1,0 +1,251 @@
+---
+title: "Mavlink Get Set Home And Origin"
+description: "ArduPilot developer documentation"
+---
+
+==============================
+# Setting Home and/or EKF origin
+
+
+This page explains how MAVLink can be used by a ground station or companion computer to get or set the home or EKF origin.
+
+## Home vs EKF Origin
+
+
+The vehicles "Home" position is the location (specified as a latitude, longitude and altitude above sea level) that the vehicle will return to in [RTL](https://ardupilot.org/copter/docs/rtl-mode.html) mode.  For most vehicles this location is set to the vehicle's current location each time the vehicle is armed but it may also be moved at any time.  Moving home can be useful in situations where the user wishes RTL mode to return the vehicle to a different location than it took off from.
+
+The "EKF origin" is the location that the EKF (aka AHRS) uses for internal calculations.  This location is normally set to the vehicle's location soon after the GPS provides a good quality location.  Once set the EKF origin cannot be moved.  Users are not normally aware of the EKF origin's location unless they are using Non-GPS navigation on a vehicle with no GPS attached (without a GPS, the user must specify the EKF origin using the ground station).
+
+Whenever the Home or EKF origin is updated the vehicle will send a [HOME_POSITION](https://mavlink.io/en/messages/common.html#HOME_POSITION) or [GPS_GLOBAL_ORIGIN](https://mavlink.io/en/messages/common.html#GPS_GLOBAL_ORIGIN) message (respectively) on all active mavlink channels.
+
+The home will also be sent in response to a [MAV_CMD_GET_HOME_POSITION](https://mavlink.io/en/messages/common.html#MAV_CMD_GET_HOME_POSITION) sent within a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) or [COMMAND_INT](https://mavlink.io/en/messages/common.html#COMMAND_INT) message.
+
+
+## MAV_CMD_DO_SET_HOME within COMMAND_INT
+
+
+Set the home location by sending a [COMMAND_INT](https://mavlink.io/en/messages/common.html#COMMAND_INT) with the command and parameter fields set as specified for the [MAV_CMD_DO_SET_HOME](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_SET_HOME) command.
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_component&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Component ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;frame&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;MAV_FRAME_GLOBAL=0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;command&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;MAV_CMD_DO_SET_HOME=179&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;current&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0 (not used)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;autocontinue&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0 (not used)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param1&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;1=use current location, 0=use specified location&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param3&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param4&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param5&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int32_t&lt;/td&gt;
+&lt;td&gt;Latitude in degrees * 10^7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param6&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int32_t&lt;/td&gt;
+&lt;td&gt;Longitude in degrees * 10^7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param7&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Altitude in meters&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+**Examples**
+
+The example commands below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter, "module load message"
+
++-------------------------------------------------------------------------+--------------------------------------------+
+ Example MAVProxy/SITL Command                                            Description                                
++=========================================================================+============================================+
+ ``message COMMAND_INT 0 0 0 179 0 0 1 0 0 0 0 0 0``                      set home to the vehicle's current location 
++-------------------------------------------------------------------------+--------------------------------------------+
+ ``message COMMAND_INT 0 0 0 179 0 0 0 0 0 0 -353630000 1491650000 575``  set home to the specified location         
++-------------------------------------------------------------------------+--------------------------------------------+
+
+## MAV_CMD_DO_SET_HOME within COMMAND_LONG
+
+
+Set the home location by sending a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) with the command and parameter fields set as specified for the [MAV_CMD_DO_SET_HOME](https://mavlink.io/en/messages/common.html#MAV_CMD_DO_SET_HOME) command.  Note that this method sets the home position with less accuracy than the COMMAND_INT method from above.
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_component&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Component ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;command&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;MAV_CMD_DO_SET_HOME=179&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;confirmation&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param1&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;1=use current location, 0=use specified location&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param3&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param4&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param5&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Latitude in degrees&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param6&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Longitude in degrees&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param7&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;Altitude in meters&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+**Examples**
+
+The example commands below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter, "module load message"
+
++-----------------------------------------------------------------------+--------------------------------------------+
+ Example MAVProxy/SITL Command                                          Description                                
++=======================================================================+============================================+
+ ``message COMMAND_LONG 0 0 179 0 1 0 0 0 0 0 0``                       set home to the vehicle's current location 
++-----------------------------------------------------------------------+--------------------------------------------+
+ ``message COMMAND_LONG 0 0 179 0 0 0 0 0 -35.363 149.165 575``         set home to the specified location         
++-----------------------------------------------------------------------+--------------------------------------------+
+
+
+## SET_GPS_GLOBAL_ORIGIN
+
+
+Sets the location used by the EKF/AHRS for internal calculations.  This location is normally automatically set soon after the GPS first returns a good location.  The operator may be required to set this manually if Non-GPS navigation is used.  Once set the EKF origin cannot be moved.
+
+The message definition can be found [here](https://mavlink.io/en/messages/common.html#SET_GPS_GLOBAL_ORIGIN)
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;latitude&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int32_t&lt;/td&gt;
+&lt;td&gt;Latitude * 1e7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;longitude&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int32_t&lt;/td&gt;
+&lt;td&gt;Longitude * 1e7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;altitude&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;int32_t&lt;/td&gt;
+&lt;td&gt;Altitude above sea level in millimeters (i.e. meters * 1000)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;time_usec&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint64_t&lt;/td&gt;
+&lt;td&gt;Timestamp (UNIX Epoch time or time since system boot) in microseconds (us)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+**Example**
+
+The example command below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter the following
+
+- module load message
+- param set EK3_SRC1_POSXY 0
+- param set EK3_SRC1_VELXY 0
+- param set EK3_SRC1_VELZ 0
+
++--------------------------------------------------------------------+---------------------------------------------------------------------+
+ Example MAVProxy/SITL Command                                       Description                                                         
++====================================================================+=====================================================================+
+ ``message SET_GPS_GLOBAL_ORIGIN 0 -353621474 1491651746 600000 0``  set EKF origin to lat,lon of -35.36,149.16 and 600m above sea level 
++--------------------------------------------------------------------+---------------------------------------------------------------------+

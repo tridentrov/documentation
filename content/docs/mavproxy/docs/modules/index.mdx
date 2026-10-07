@@ -1,0 +1,127 @@
+---
+title: "Index"
+description: "MAVProxy ground-control documentation"
+---
+
+=======
+# Modules
+
+
+MAVProxy can be extended with modules. These run in parallel threads to
+the main MAVProxy program in order to maintain overall stability.
+
+Modules can include such things as GUI elements and diagnostic and
+monitoring applications.
+
+# Module Management
+
+
+Modules need to be loaded before they can be used. The following command
+can be used:
+
+```bash
+module load modulename
+```
+
+Other management commands for unloading, reloading and listing currently
+loaded modules include:
+
+```bash
+module unload modulename
+module reload modulename
+module list
+```
+
+# Default Modules
+
+
+MAVProxy starts with several modules by default. They are:
+
+```bash
+adsb: ADS-B data support
+arm: arm/disarm handling
+auxopt: auxopt command handling
+battery: battery commands
+calibration: calibration handling
+chat: chat
+cmdlong: cmdlong handling
+fence: geo-fence management
+ftp: ftp handling
+graph: graph control
+layout: window layout handling
+link: link control
+log: log transfer
+misc: misc commands
+mode: mode handling
+output: MAVLink output control
+param: parameter handling
+rally: rally point control
+rc: rc command handling
+relay: relay handling
+signing: signing control
+terrain: terrain handling
+tuneopt: tuneopt command handling
+wp: waypoint handling
+```
+
+# List of Modules
+
+
+- [Adsb](/docs/mavproxy/adsb)
+- [Ais](/docs/mavproxy/ais)
+- [Antenna](/docs/mavproxy/antenna)
+- [Auxopt](/docs/mavproxy/auxopt)
+- [Battery](/docs/mavproxy/battery)
+- [Cameraview](/docs/mavproxy/cameraview)
+- [Chat](/docs/mavproxy/chat)
+- [Checklist](/docs/mavproxy/checklist)
+- [Cmdlong](/docs/mavproxy/cmdlong)
+- [Console](/docs/mavproxy/console)
+- [Dataflash Logger](/docs/mavproxy/dataflash_logger)
+- [Devop](/docs/mavproxy/devop)
+- [DGPS](/docs/mavproxy/DGPS)
+- [Firmware](/docs/mavproxy/firmware)
+- [Fakegps](/docs/mavproxy/fakegps)
+- [Followtest](/docs/mavproxy/followtest)
+- [Ftp](/docs/mavproxy/ftp)
+- [Gasheli](/docs/mavproxy/gasheli)
+- [Generator](/docs/mavproxy/generator)
+- [Genobstacles](/docs/mavproxy/genobstacles)
+- [Gimbal](/docs/mavproxy/gimbal)
+- [GPSInput](/docs/mavproxy/GPSInput)
+- [Gopro](/docs/mavproxy/gopro)
+- [Graph](/docs/mavproxy/graph)
+- [Horizon](/docs/mavproxy/horizon)
+- [Joystick](/docs/mavproxy/joystick)
+- [Kmlread](/docs/mavproxy/kmlread)
+- [Link](/docs/mavproxy/link)
+- [Log](/docs/mavproxy/log)
+- [Magical](/docs/mavproxy/magical)
+- [Map](/docs/mavproxy/map)
+- [Messagerate](/docs/mavproxy/messagerate)
+- [Misseditor](/docs/mavproxy/misseditor)
+- [Movinghome](/docs/mavproxy/movinghome)
+- [Mqtt](/docs/mavproxy/mqtt)
+- [Nmeagps](/docs/mavproxy/nmeagps)
+- [Ntrip](/docs/mavproxy/ntrip)
+- [Opendroneid](/docs/mavproxy/opendroneid)
+- [Optitrack](/docs/mavproxy/optitrack)
+- [Park](/docs/mavproxy/park)
+- [Ppp](/docs/mavproxy/ppp)
+- [Proximity](/docs/mavproxy/proximity)
+- [Rcsetup](/docs/mavproxy/rcsetup)
+- [Relay](/docs/mavproxy/relay)
+- [Restserver](/docs/mavproxy/restserver)
+- [Sail](/docs/mavproxy/sail)
+- [Sensors](/docs/mavproxy/sensors)
+- [Serial](/docs/mavproxy/serial)
+- [Signing](/docs/mavproxy/signing)
+- [Speech](/docs/mavproxy/speech)
+- [Swarm](/docs/mavproxy/swarm)
+- [Systemtime](/docs/mavproxy/systemtime)
+- [Terrain](/docs/mavproxy/terrain)
+- [Tracker](/docs/mavproxy/tracker)
+- [Tuneopt](/docs/mavproxy/tuneopt)
+- [Ublox](/docs/mavproxy/ublox)
+- [Useralerts](/docs/mavproxy/useralerts)
+- [Vicon](/docs/mavproxy/vicon)

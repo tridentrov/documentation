@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "all",
+    "ardupilotmega",
+    "ASLUAV",
+    "AVSSUAS",
+    "common",
+    "csAirLink",
+    "cubepilot",
+    "development",
+    "icarous",
+    "loweheiser",
+    "marsh",
+    "minimal",
+    "paparazzi",
+    "python_array_test",
+    "standard",
+    "stemstudios",
+    "storm32",
+    "test",
+    "uAvionix"
+  ],
+  "defaultOpen": true
+}

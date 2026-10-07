@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "AnalogIn",
+    "AP_HAL_ESP32",
+    "DeviceBus",
+    "GPIO",
+    "HAL_ESP32_Class",
+    "HAL_ESP32_Namespace",
+    "i2c_sw",
+    "I2CDevice",
+    "Profile",
+    "RCInput",
+    "RCOutput",
+    "RmtSigReader",
+    "Scheduler",
+    "SdCard",
+    "Semaphores",
+    "SoftSigReaderInt",
+    "SoftSigReaderRMT",
+    "SPIDevice",
+    "Storage",
+    "UARTDriver",
+    "Util",
+    "WiFiDriver",
+    "WiFiUdpDriver"
+  ],
+  "defaultOpen": true
+}

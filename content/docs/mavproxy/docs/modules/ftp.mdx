@@ -1,0 +1,31 @@
+---
+title: "Ftp"
+description: "MAVProxy ground-control documentation"
+---
+
+===
+# FTP
+
+
+```bash
+module load ftp
+```
+
+<Callout type="info">
+this module is loaded by default
+</Callout>
+
+This allows the rapid transfer of files to/from the SD card
+
+Usage: ftp &lt;listgetputrmrmdirrenamemkdir|crc&gt;
+
+- list: list directory contents
+- get: download a file
+- put: write a file
+- rm: remove a file
+- rmdir: remove an empty directory
+- rename: rename a file
+- mkdir: create a directory
+- crc: check a files CRC validity
+
+[mavproxy-ftp](https://ardupilot.org/mavproxy/docs/images/mavproxy-ftp.png)

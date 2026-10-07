@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "config_profiles",
+    "copter_pingpong",
+    "README",
+    "trisonicia-mini"
+  ],
+  "defaultOpen": true
+}

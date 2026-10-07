@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "AP_Gripper",
+    "AP_Gripper_Backend",
+    "AP_Gripper_config",
+    "AP_Gripper_EPM",
+    "AP_Gripper_Servo"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,95 @@
+---
+title: "Mavlink Arming And Disarming"
+description: "ArduPilot developer documentation"
+---
+
+====================
+# Arming and Disarming
+
+
+This page explains how MAVLink can be used by a ground station or companion computer to arm or disarm a vehicle.  The user wiki page for [arming and disarming is here](https://ardupilot.org/copter/docs/arming_the_motors.html).
+
+## MAV_CMD_COMPONENT_ARM_DISARM within COMMAND_LONG
+
+
+Attempt to arm or disarm the vehicle by sending a [COMMAND_LONG](https://mavlink.io/en/messages/common.html#COMMAND_LONG) with the command, param1 and param2 fields set as specified for the [MAV_CMD_COMPONENT_ARM_DISARM](https://mavlink.io/en/messages/common.html#MAV_CMD_COMPONENT_ARM_DISARM) command.
+
+&lt;table border="1" class="docutils"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Command Field&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_system&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;System ID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;target_component&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;Component ID of flight controller or just 0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;command&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;MAV_CMD_COMPONENT_ARM_DISARM=400&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;confirmation&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param1&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;0:disarm, 1:arm&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;param2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;0: arm-disarm unless prevented by safety checks, 21196: force arming or disarming&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param3&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param4&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param5&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param6&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="color: #c0c0c0"&gt;
+&lt;td&gt;&lt;strong&gt;param7&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;float&lt;/td&gt;
+&lt;td&gt;not used&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+**Example**
+
+The example commands below can be copy-pasted into MAVProxy (aka SITL) to test this command.  Before running these commands enter, "module load message"
+
++------------------------------------------------------+-----------------------------------------------------+
+ Example MAVProxy/SITL Command                         Description                                         
++======================================================+=====================================================+
+ ``message COMMAND_LONG 0 0 400 0 1 0 0 0 0 0 0``      arm the vehicle (may fail because of arming checks) 
++------------------------------------------------------+-----------------------------------------------------+
+ ``message COMMAND_LONG 0 0 400 0 1 21196 0 0 0 0 0``  force arm the vehicle (try to bypass arming checks) 
++------------------------------------------------------+-----------------------------------------------------+
+ ``message COMMAND_LONG 0 0 400 0 0 0 0 0 0 0 0``      disarm the vehicle (may fail if not landed)         
++------------------------------------------------------+-----------------------------------------------------+
+ ``message COMMAND_LONG 0 0 400 0 0 21196 0 0 0 0 0``  force disarm the vehicle even if flying             |
++------------------------------------------------------+-----------------------------------------------------+

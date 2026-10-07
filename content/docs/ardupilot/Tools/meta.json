@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "AP_Bootloader",
+    "AP_Periph",
+    "autotest",
+    "bootloaders",
+    "CHDK-Scripts",
+    "completion",
+    "debug",
+    "FilterTestTool",
+    "Frame_params",
+    "Linux_HAL_Essentials",
+    "mavproxy_modules",
+    "renode",
+    "ros2",
+    "scripts",
+    "simulink",
+    "terrain-tools",
+    "UDP_Proxy",
+    "vagrant",
+    "Vicon"
+  ],
+  "defaultOpen": true
+}

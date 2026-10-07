@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "apmrover2",
+    "arducopter",
+    "arduplane",
+    "ardusub",
+    "default",
+    "libraries"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "AP_Networking",
+    "AP_Networking_address",
+    "AP_Networking_Backend",
+    "AP_Networking_CAN",
+    "AP_Networking_ChibiOS",
+    "AP_Networking_Config",
+    "AP_Networking_PPP",
+    "AP_Networking_SITL",
+    "AP_Networking_SITL_TUN",
+    "config",
+    "lwip_hal"
+  ],
+  "defaultOpen": true
+}

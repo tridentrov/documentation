@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "applets",
+    "drivers",
+    "examples",
+    "modules",
+    "README"
+  ],
+  "defaultOpen": true
+}

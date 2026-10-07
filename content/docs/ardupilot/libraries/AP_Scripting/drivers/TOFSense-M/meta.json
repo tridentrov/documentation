@@ -1,0 +1,7 @@
+{
+  "pages": [
+    "TOFSense-M_CAN",
+    "TOFSense-M_Serial"
+  ],
+  "defaultOpen": true
+}

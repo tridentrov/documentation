@@ -24,3 +24,10 @@ yarn-error.log*
 .env*.local
 .vercel
 next-env.d.ts
+
+# local tooling and agent instructions
+__pycache__/
+AGENTS.md
+CLAUDE.md
+agent.md
+claude.md

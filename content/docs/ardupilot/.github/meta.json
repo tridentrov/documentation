@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "CONTRIBUTING",
+    "ISSUE_TEMPLATE",
+    "PULL_REQUEST_TEMPLATE",
+    "SECURITY",
+    "SUPPORT"
+  ],
+  "defaultOpen": true
+}

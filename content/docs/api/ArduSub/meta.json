@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "actuators",
+    "AP_Arming_Sub",
+    "config",
+    "defines",
+    "GCS_MAVLink_Sub",
+    "GCS_Sub",
+    "mode",
+    "Parameters",
+    "RC_Channel_Sub",
+    "script_button",
+    "Sub",
+    "UserVariables",
+    "version"
+  ],
+  "defaultOpen": true
+}

@@ -1,0 +1,90 @@
+.. _mavlink-commands:
+
+=================
+MAVLink Interface
+=================
+
+ArduPilot supports the `MAVLink protocol <https://mavlink.io/en/>`__ for communication with Ground Stations and :ref:`Companion Computers <companion-computers>`.  These pages explain the details of this interface and commonly used commands:
+
+.. toctree::
+    :maxdepth: 1
+
+    MAVLink Basics <mavlink-basics>
+    Arm and Disarm <mavlink-arming-and-disarming>
+    Camera Commands <mavlink-camera>
+    Copter Commands (Guided Mode) <copter-commands-in-guided-mode>
+    Get and Set FlightMode <mavlink-get-set-flightmode>
+    Get and Set Home and/or EKF origin <mavlink-get-set-home-and-origin>
+    Get and Set Parameters <mavlink-get-set-params>
+    Gimbal / Camera Mount <mavlink-gimbal-mount>
+    Log Download <mavlink-log-download>
+    MAVFTP <mavlink-mavftp>
+    MAVLink Routing <mavlink-routing-in-ardupilot>
+    Mission Upload/Download <mavlink-mission-upload-download>
+    Move a Servo <mavlink-move-servo>
+    Non-GPS Position Estimation <mavlink-nongps-position-estimation>
+    Plane Commands (Guided Mode) <plane-commands-in-guided-mode>
+    Precision Landing <mavlink-precision-landing>
+    RC Input (aka Pilot Input) <mavlink-rcinput>
+    Request Data From The AutoPilot <mavlink-requesting-data>
+    Rover Commands (Guided Mode) <mavlink-rover-commands>
+    Sensor Calibration <mavlink-calibration>
+    Winch Commands <mavlink-winch>
+    Other Commands <mavlink-other-commands>
+
+Complete lists of Messages
+==========================
+
+MAVLink not only has command messages but also incoming messages. A complete list of all MAVLink messages in ArduPilot by vehicle type, as of November 2024, are shown below:
+
+.. tabs::
+
+   .. group-tab:: Plane
+
+      :ref:`ArduPlane_MAVLink_messages`
+
+   .. group-tab:: Copter
+
+      :ref:`ArduCopter_MAVLink_messages`
+
+   .. group-tab:: Rover
+
+      :ref:`Rover_MAVLink_messages`
+
+   .. group-tab:: Sub
+
+      :ref:`ArduSub_MAVLink_messages`
+
+External References
+===================
+-  `MAVLink Common Message Set (HTML) <https://mavlink.io/en/messages/common.html>`__ and `XML <https://github.com/mavlink/mavlink/blob/master/message_definitions/v1.0/common.xml>`__ (Protocol Definition)
+-  `MAVLink ArduPilot Message Set (HTML) <https://mavlink.io/en/messages/ardupilotmega.html>`__ and `XML <https://github.com/ArduPilot/mavlink/blob/master/message_definitions/v1.0/ardupilotmega.xml>`__
+-  `MAVLink Tutorial for Absolute Dummies (Part–1) <https://discuss.ardupilot.org/uploads/short-url/vS0JJd3BQfN9uF4DkY7bAeb6Svd.pdf>`__ by Shyam Balasubramanian
+
+Autonomous Mission Commands
+===========================
+
+Mission commands are stored on the flight controller in eeprom and executed one-by-one when the vehicle is switched into Auto mode.  Although not directly related to the real-time MAVLink interface linked above, the available commands are a subset of the `MAVLink MAV_CMD list <https://mavlink.io/en/messages/common.html#mavlink-commands-mavcmd>`__
+
+.. toctree::
+    :maxdepth: 1
+
+    Mission Command List <common-mavlink-mission-command-messages-mav_cmd>
+    Mission Command Package Format <ardupilot-mavlink-command-package-format>
+
+See also: :ref:`Copter Mission Command List <copter:mission-command-list>`
+
+Vehicle Parameter References
+============================
+
+- :ref:`Copter Parameters <copter:parameters>`
+- :ref:`Plane Parameters <plane:parameters>`
+- :ref:`Rover Parameters <rover:parameters>`
+- :ref:`Sub Parameters <sub:parameters>`
+
+Software Integration Tools
+==========================
+
+-   `MAVSDK <https://github.com/ArduPilot/ardupilot-mavsdk>`__
+-   `Pymavlink python script <https://github.com/ArduPilot/pymavlink>`__
+

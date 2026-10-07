@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "build_binaries_history_html",
+    "Networking",
+    "signing",
+    "sitl-on-hardware"
+  ],
+  "defaultOpen": true
+}

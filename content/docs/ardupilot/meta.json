@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "---Repository documentation---",
+    ".github",
+    "---Vehicle projects---",
+    "AntennaTracker",
+    "ArduCopter",
+    "ArduPlane",
+    "ArduSub",
+    "---Project overview---",
+    "BUILD",
+    "CODE_OF_CONDUCT",
+    "docs",
+    "---Libraries and tools---",
+    "libraries",
+    "README",
+    "Rover",
+    "tests",
+    "Tools"
+  ],
+  "defaultOpen": true,
+  "pagesIndex": "index",
+  "title": "ArduPilot project",
+  "description": "ArduPilot project documentation and release notes"
+}

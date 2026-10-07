@@ -1,0 +1,58 @@
+---
+title: "MAVLink paparazzi dialect"
+description: "Generated reference for the MAVLink XML dialect."
+---
+
+# paparazzi dialect
+
+MAVLink dialect **paparazzi**.
+
+## Messages
+
+### SCRIPT_ITEM (ID 180)
+
+Message encoding a mission script item. This message is emitted upon a request for the next script item.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID |
+| `target_component` | `uint8_t` | Component ID |
+| `seq` | `uint16_t` | Sequence |
+| `name` | `char[50]` | The name of the mission script, NULL terminated. |
+
+### SCRIPT_REQUEST (ID 181)
+
+Request script item with the sequence number seq. The response of the system to this message should be a SCRIPT_ITEM message.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID |
+| `target_component` | `uint8_t` | Component ID |
+| `seq` | `uint16_t` | Sequence |
+
+### SCRIPT_REQUEST_LIST (ID 182)
+
+Request the overall list of mission items from the system/component.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID |
+| `target_component` | `uint8_t` | Component ID |
+
+### SCRIPT_COUNT (ID 183)
+
+This message is emitted as response to SCRIPT_REQUEST_LIST by the MAV to get the number of mission scripts.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `target_system` | `uint8_t` | System ID |
+| `target_component` | `uint8_t` | Component ID |
+| `count` | `uint16_t` | Number of script items in the sequence |
+
+### SCRIPT_CURRENT (ID 184)
+
+This message informs about the currently active SCRIPT.
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `seq` | `uint16_t` | Active Sequence |

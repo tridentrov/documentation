@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "AP_Nav_Common",
+    "AP_NavEKF_core_common",
+    "AP_NavEKF_Source",
+    "EKF_Buffer",
+    "EKFGSF_yaw",
+    "LogStructure"
+  ],
+  "defaultOpen": true
+}
